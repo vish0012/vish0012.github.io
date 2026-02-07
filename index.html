@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vishal Chauhan — HMI · Autonomous Vehicles · Robotics</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#06060b;--surface:#0c0c14;--card:#111119;--card2:#16161f;
+--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);
+--text:#e4e4e7;--muted:#71717a;--dim:#52525b;
+--accent:#818cf8;--accent2:#c084fc;--accent3:#38bdf8;--green:#34d399;
+--glow:rgba(129,140,248,0.12);--glow2:rgba(192,132,252,0.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+
+/* Animated BG */
+.bg-glow{position:fixed;top:-50%;left:-50%;width:200%;height:200%;
+background:radial-gradient(circle at 25% 35%,rgba(129,140,248,0.06) 0%,transparent 50%),
+radial-gradient(circle at 75% 65%,rgba(192,132,252,0.04) 0%,transparent 50%),
+radial-gradient(circle at 50% 20%,rgba(56,189,248,0.03) 0%,transparent 40%);
+animation:bgFloat 25s ease-in-out infinite alternate;z-index:0;pointer-events:none}
+@keyframes bgFloat{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-3%,-2%) scale(1.02)}}
+
+/* Particles */
+.particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;background:var(--accent);border-radius:50%;opacity:0;animation:float linear infinite}
+@keyframes float{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:0.6}90%{opacity:0.3}100%{opacity:0;transform:translateY(-10vh) scale(1)}}
+
+/* Nav */
+nav{position:fixed;top:0;width:100%;z-index:100;transition:all 0.4s}
+nav.scrolled{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(6,6,11,0.8);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2rem}
+.logo{font-weight:900;font-size:1.2rem;letter-spacing:-0.5px}
+.logo span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:0.3rem;list-style:none;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.3rem}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;font-weight:500;padding:0.5rem 1rem;border-radius:9px;transition:all 0.3s;display:block}
+.nav-links a:hover,.nav-links a.active{color:var(--text);background:var(--card2)}
+.hamburger{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
+.mobile-menu{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(6,6,11,0.95);backdrop-filter:blur(20px);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--text);text-decoration:none;font-size:1.3rem;font-weight:600}
+.mobile-close{position:absolute;top:1.5rem;right:2rem;background:none;border:none;color:var(--text);font-size:2rem;cursor:pointer}
+
+section{position:relative;z-index:1}
+.container{max-width:1200px;margin:auto;padding:0 2rem}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:5rem;position:relative}
+.hero-content{max-width:750px}
+.hero-top{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+.status{display:flex;align-items:center;gap:0.5rem;padding:0.4rem 1rem;border-radius:50px;background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);font-size:0.78rem;color:var(--green);font-weight:600}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.5)}}
+.location{color:var(--muted);font-size:0.85rem;display:flex;align-items:center;gap:0.4rem}
+.hero h1{font-size:clamp(2.8rem,6.5vw,4.8rem);font-weight:900;line-height:1.08;margin-bottom:1.5rem;letter-spacing:-2px}
+.gradient{background:linear-gradient(135deg,var(--accent),var(--accent2),var(--accent3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradShift 5s ease infinite}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero-sub{font-size:1.15rem;color:var(--muted);max-width:580px;margin-bottom:1rem}
+.hero-highlight{display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;border-radius:10px;background:rgba(129,140,248,0.08);border:1px solid rgba(129,140,248,0.15);color:var(--accent);font-size:0.88rem;font-weight:600;margin-bottom:2rem}
+.btn-group{display:flex;gap:0.8rem;flex-wrap:wrap}
+.btn{padding:0.85rem 2rem;border-radius:14px;font-weight:600;font-size:0.9rem;text-decoration:none;transition:all 0.3s;cursor:pointer;border:none;font-family:inherit;display:inline-flex;align-items:center;gap:0.5rem}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 25px rgba(129,140,248,0.25)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(129,140,248,0.35)}
+.btn-outline{background:var(--card);color:var(--text);border:1px solid var(--border2)}
+.btn-outline:hover{border-color:var(--accent);background:var(--glow)}
+.btn-ghost{background:transparent;color:var(--muted);padding:0.85rem 1rem}
+.btn-ghost:hover{color:var(--text)}
+
+/* Floating cards on hero */
+.hero-cards{position:absolute;right:2rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1rem;max-width:280px}
+.hero-float{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.2rem;backdrop-filter:blur(10px);animation:floatCard 6s ease-in-out infinite}
+.hero-float:nth-child(2){animation-delay:-2s}.hero-float:nth-child(3){animation-delay:-4s}
+@keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero-float .label{font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem}
+.hero-float .value{font-size:1.1rem;font-weight:700}
+.hero-float .sub{font-size:0.8rem;color:var(--muted);margin-top:0.25rem}
+
+/* Section */
+.section{padding:7rem 0}
+.section-tag{display:inline-flex;align-items:center;gap:0.5rem;padding:0.4rem 1rem;border-radius:50px;background:var(--glow);border:1px solid rgba(129,140,248,0.15);color:var(--accent);font-size:0.78rem;font-weight:600;letter-spacing:0.5px;margin-bottom:1rem}
+.section-title{font-size:2.5rem;font-weight:800;letter-spacing:-1px;margin-bottom:0.5rem}
+.section-desc{color:var(--muted);font-size:1.05rem;max-width:550px}
+.section-header{margin-bottom:3.5rem}
+.section-header.center{text-align:center}
+.section-header.center .section-desc{margin:0.5rem auto 0}
+
+/* Experience Timeline */
+.timeline{position:relative;padding-left:2.5rem}
+.timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent2),transparent);border-radius:2px}
+.tl-item{position:relative;margin-bottom:2.5rem}
+.tl-dot{position:absolute;left:-2.5rem;top:8px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--accent);z-index:2;transition:all 0.3s}
+.tl-item:hover .tl-dot{background:var(--accent);box-shadow:0 0 15px var(--glow)}
+.tl-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:all 0.3s}
+.tl-card:hover{border-color:rgba(129,140,248,0.2);transform:translateX(4px)}
+.tl-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem}
+.tl-role{font-weight:700;font-size:1.05rem}
+.tl-company{color:var(--accent);font-weight:600;font-size:0.9rem}
+.tl-date{color:var(--muted);font-size:0.8rem;font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.tl-loc{color:var(--dim);font-size:0.8rem}
+.tl-desc{color:var(--muted);font-size:0.88rem;margin-top:0.5rem}
+.tl-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.75rem}
+.tag{padding:0.25rem 0.7rem;border-radius:50px;font-size:0.72rem;font-weight:500;background:rgba(129,140,248,0.08);color:var(--accent);border:1px solid rgba(129,140,248,0.12)}
+.tag.green{background:rgba(52,211,153,0.08);color:var(--green);border-color:rgba(52,211,153,0.12)}
+.tag.purple{background:rgba(192,132,252,0.08);color:var(--accent2);border-color:rgba(192,132,252,0.12)}
+.tag.blue{background:rgba(56,189,248,0.08);color:var(--accent3);border-color:rgba(56,189,248,0.12)}
+
+/* Publications */
+.pub-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.2rem;transition:all 0.3s}
+.pub-card:hover{border-color:rgba(129,140,248,0.2);transform:translateY(-2px)}
+.pub-venue{display:inline-block;padding:0.2rem 0.7rem;border-radius:6px;font-size:0.72rem;font-weight:700;margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.5px}
+.pub-venue.chi{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.2)}
+.pub-venue.vrst{background:rgba(129,140,248,0.12);color:var(--accent);border:1px solid rgba(129,140,248,0.2)}
+.pub-venue.ijhcs{background:rgba(52,211,153,0.12);color:var(--green);border:1px solid rgba(52,211,153,0.2)}
+.pub-title{font-weight:600;font-size:0.95rem;margin-bottom:0.4rem;line-height:1.5}
+.pub-authors{font-size:0.82rem;color:var(--muted)}
+.pub-authors strong{color:var(--accent);font-weight:600}
+
+/* Education */
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.2rem}
+.edu-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:all 0.3s;position:relative;overflow:hidden}
+.edu-card:hover{border-color:rgba(129,140,248,0.2);transform:translateY(-3px)}
+.edu-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:16px 16px 0 0}
+.edu-school{font-weight:700;font-size:1rem;margin-bottom:0.2rem}
+.edu-degree{color:var(--accent);font-size:0.88rem;font-weight:500}
+.edu-date{color:var(--muted);font-size:0.8rem;font-family:'JetBrains Mono',monospace;margin:0.3rem 0}
+.edu-badge{display:inline-block;padding:0.2rem 0.6rem;border-radius:6px;font-size:0.7rem;font-weight:600;background:rgba(192,132,252,0.1);color:var(--accent2);border:1px solid rgba(192,132,252,0.15);margin-top:0.4rem}
+
+/* Skills */
+.skills-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem}
+.skill-group{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:all 0.3s}
+.skill-group:hover{border-color:rgba(129,140,248,0.15)}
+.skill-group-title{display:flex;align-items:center;gap:0.6rem;font-weight:700;font-size:0.95rem;margin-bottom:1rem}
+.skill-group-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.skill-items{display:flex;flex-wrap:wrap;gap:0.5rem}
+.skill-item{padding:0.35rem 0.8rem;border-radius:8px;font-size:0.8rem;font-weight:500;background:var(--surface);border:1px solid var(--border);color:var(--text);transition:all 0.3s}
+.skill-item:hover{border-color:var(--accent);color:var(--accent);background:var(--glow)}
+
+/* Awards */
+.awards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.award-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem;transition:all 0.3s;display:flex;gap:1rem;align-items:flex-start}
+.award-card:hover{border-color:rgba(129,140,248,0.15);transform:translateY(-2px)}
+.award-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:var(--glow)}
+.award-info h4{font-size:0.88rem;font-weight:600;margin-bottom:0.15rem}
+.award-info p{font-size:0.78rem;color:var(--muted)}
+
+/* Contact */
+.contact-section{text-align:center}
+.contact-box{max-width:650px;margin:auto;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:3rem;position:relative;overflow:hidden}
+.contact-box::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at center,rgba(129,140,248,0.04) 0%,transparent 60%);pointer-events:none}
+.contact-box h3{font-size:2rem;font-weight:800;margin-bottom:0.5rem;letter-spacing:-0.5px}
+.contact-box p{color:var(--muted);margin-bottom:2rem;font-size:1rem}
+.contact-links{display:flex;justify-content:center;gap:0.8rem;flex-wrap:wrap;margin-bottom:2rem}
+.contact-link{display:flex;align-items:center;gap:0.5rem;padding:0.7rem 1.2rem;border-radius:12px;background:var(--surface);border:1px solid var(--border);color:var(--text);text-decoration:none;font-size:0.85rem;font-weight:500;transition:all 0.3s}
+.contact-link:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.contact-link svg{width:16px;height:16px}
+
+/* Footer */
+footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);color:var(--dim);font-size:0.82rem}
+
+/* Tabs */
+.tab-bar{display:flex;gap:0.3rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.3rem;margin-bottom:2rem;overflow-x:auto;width:fit-content}
+.tab-btn{padding:0.5rem 1.2rem;border-radius:9px;border:none;background:transparent;color:var(--muted);font-size:0.82rem;font-weight:500;cursor:pointer;font-family:inherit;transition:all 0.3s;white-space:nowrap}
+.tab-btn.active{background:var(--card2);color:var(--text)}
+.tab-btn:hover{color:var(--text)}
+.tab-content{display:none}.tab-content.active{display:block}
+
+/* Scroll animations */
+.reveal{opacity:0;transform:translateY(25px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* Mobile */
+@media(max-width:900px){
+.hero-cards{display:none}
+.nav-links{display:none}
+.hamburger{display:block}
+.hero h1{font-size:2.5rem}
+.section{padding:5rem 0}
+.edu-grid{grid-template-columns:1fr}
+.awards-grid{grid-template-columns:1fr}
+.contact-links{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+<div class="particles" id="particles"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">×</button>
+  <a href="#experience" onclick="document.getElementById('mobileMenu').classList.remove('open')">Experience</a>
+  <a href="#publications" onclick="document.getElementById('mobileMenu').classList.remove('open')">Publications</a>
+  <a href="#education" onclick="document.getElementById('mobileMenu').classList.remove('open')">Education</a>
+  <a href="#skills" onclick="document.getElementById('mobileMenu').classList.remove('open')">Skills</a>
+  <a href="#awards" onclick="document.getElementById('mobileMenu').classList.remove('open')">Awards</a>
+  <a href="#contact" onclick="document.getElementById('mobileMenu').classList.remove('open')">Contact</a>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="logo">vishal<span>.dev</span></div>
+    <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#awards">Awards</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-top">
+        <div class="status"><div class="status-dot"></div>Open to opportunities</div>
+        <div class="location">📍 Tokyo, Japan</div>
+      </div>
+      <h1>Vishal<br><span class="gradient">Chauhan</span></h1>
+      <p class="hero-sub">Researcher & engineer at the intersection of <strong style="color:var(--text)">human–machine interaction</strong>, <strong style="color:var(--text)">autonomous vehicles</strong>, and <strong style="color:var(--text)">robotics</strong>. PhD candidate at The University of Tokyo.</p>
+      <div class="hero-highlight">🏆 ACM CHI 2026 Full Paper Accepted — Flagship HCI Conference</div>
+      <div class="btn-group">
+        <a href="https://scholar.google.com" target="_blank" class="btn btn-primary">📄 Google Scholar</a>
+        <a href="https://github.com/vish0012" target="_blank" class="btn btn-outline">⚡ GitHub</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch →</a>
+      </div>
+    </div>
+    <div class="hero-cards">
+      <div class="hero-float">
+        <div class="label">Current Role</div>
+        <div class="value">AD Engineer @ Tier IV</div>
+        <div class="sub">Autoware · Pilot.Auto · CI/CD</div>
+      </div>
+      <div class="hero-float">
+        <div class="label">Research</div>
+        <div class="value">PhD @ UTokyo</div>
+        <div class="sub">HMI · Pedestrian–AV Interaction</div>
+      </div>
+      <div class="hero-float">
+        <div class="label">Latest Publication</div>
+        <div class="value">ACM CHI 2026</div>
+        <div class="sub">Smart Pole Interaction Unit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">💼 Experience</div>
+      <div class="section-title">Where I've Worked</div>
+      <div class="section-desc">Building the future of mobility across industry and academia.</div>
+    </div>
+    <div class="timeline reveal">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div><div class="tl-role">Autonomous Driving Engineer</div><div class="tl-company">Tier IV</div></div>
+            <div style="text-align:right"><div class="tl-date">Dec 2024 → Present</div><div class="tl-loc">Tokyo, Japan</div></div>
+          </div>
+          <div class="tl-desc">Contributing to Autoware Universe, Pilot.Auto S1, and upstream CI reliability. Running planning simulations, scenario tests with physical robots, and improving GitHub Actions workflows for regression stability.</div>
+          <div class="tl-tags"><span class="tag">Autoware</span><span class="tag blue">ROS 2</span><span class="tag green">CI/CD</span><span class="tag purple">Scenario Testing</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div><div class="tl-role">Advanced AI Development (Assistant)</div><div class="tl-company">Visionary Lab</div></div>
+            <div style="text-align:right"><div class="tl-date">Dec 2024 → Mar 2025</div><div class="tl-loc">Tokyo, Japan</div></div>
+          </div>
+          <div class="tl-desc">Built end-to-end audio recording + transcription PoC in Flutter/Dart with OpenAI Whisper API. Developed SoundVisualizer widget and QA workflows for AR headset prototyping.</div>
+          <div class="tl-tags"><span class="tag">Flutter</span><span class="tag purple">Whisper API</span><span class="tag blue">AR/VR</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div><div class="tl-role">Visiting Researcher</div><div class="tl-company">NTNU Norway</div></div>
+            <div style="text-align:right"><div class="tl-date">Aug → Sep 2024</div><div class="tl-loc">Gjøvik, Norway</div></div>
+          </div>
+          <div class="tl-desc">Built VR scenarios comparing human vs. LLM decision models for pedestrian–AV interaction. Led to IJHCS 2025 publication.</div>
+          <div class="tl-tags"><span class="tag blue">VR</span><span class="tag purple">LLM</span><span class="tag green">Publication</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div><div class="tl-role">Product Strategy & Technical Advisor</div><div class="tl-company">Zeroney.ai</div></div>
+            <div style="text-align:right"><div class="tl-date">Jun 2023 → Sep 2024</div><div class="tl-loc">Tokyo, Japan</div></div>
+          </div>
+          <div class="tl-desc">Advised product roadmap, defined website structure & content strategy, translated stakeholder needs into technical specs, and delivered student workshops.</div>
+          <div class="tl-tags"><span class="tag">Product Strategy</span><span class="tag purple">EdTech</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div><div class="tl-role">Research Intern</div><div class="tl-company">RIKEN</div></div>
+            <div style="text-align:right"><div class="tl-date">Jan → Jun 2023</div><div class="tl-loc">Tokyo, Japan</div></div>
+          </div>
+          <div class="tl-desc">Explored tensor-based learning methods (AlphaTensor) for advanced data processing and pedestrian-AV interaction enhancement.</div>
+          <div class="tl-tags"><span class="tag">Tensor Learning</span><span class="tag blue">AlphaTensor</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div><div class="tl-role">Intern, Spacecraft Operations</div><div class="tl-company">ispace</div></div>
+            <div style="text-align:right"><div class="tl-date">Jul → Sep 2022</div><div class="tl-loc">Tokyo, Japan</div></div>
+          </div>
+          <div class="tl-desc">Analyzed satellite operations data with Grafana dashboards and wrote automation scripts for capture scheduling and reporting.</div>
+          <div class="tl-tags"><span class="tag green">Grafana</span><span class="tag">Automation</span><span class="tag blue">Space Tech</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="section" id="publications">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">📝 Publications</div>
+      <div class="section-title">Research Output</div>
+      <div class="section-desc">Published at top-tier HCI and interaction venues.</div>
+    </div>
+    <div class="reveal">
+      <div class="pub-card">
+        <div class="pub-venue chi">CHI 2026 · Full Paper</div>
+        <div class="pub-title">Don't Worry, Just Follow Me: Prototyping and In-the-Wild Evaluation of Smart Pole Interaction Unit with Mobility</div>
+        <div class="pub-authors"><strong>Vishal Chauhan</strong>, Anubhav, Mark Colley, Chia-Ming Chang, Xinyue Gui, Ding Xia, Ehsan Javanmardi, Takeo Igarashi, Kantaro Fujiwara, Manabu Tsukada</div>
+      </div>
+      <div class="pub-card">
+        <div class="pub-venue vrst">VRST 2025</div>
+        <div class="pub-title">A Silent Negotiator? Cross-cultural VR Evaluation of Smart Pole Interaction Units in Dynamic Shared Spaces</div>
+        <div class="pub-authors"><strong>Vishal Chauhan</strong>, Anubhav, Robin Sidhu, Yu Asabe, Kanta Tanaka, Chia-Ming Chang, Xiang Su, Ehsan Javanmardi, Takeo Igarashi, Alex Orsholits, Kantaro Fujiwara, Manabu Tsukada</div>
+      </div>
+      <div class="pub-card">
+        <div class="pub-venue ijhcs">IJHCS 2025 · Journal</div>
+        <div class="pub-title">Towards the Future of Pedestrian–AV Interaction: Human Perception vs. LLM Insights on Smart Pole Interaction Unit in Shared Spaces</div>
+        <div class="pub-authors"><strong>Vishal Chauhan</strong>, Chia-Ming Chang, Xiang Su, Jin Nakazato, Ehsan Javanmardi, Alex Orsholits, Takeo Igarashi, Kantaro Fujiwara, Manabu Tsukada</div>
+      </div>
+      <a href="https://scholar.google.com" target="_blank" class="btn btn-outline" style="margin-top:1rem">View all on Google Scholar →</a>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section" id="education">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">🎓 Education</div>
+      <div class="section-title">Academic Background</div>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <div class="edu-school">The University of Tokyo</div>
+        <div class="edu-degree">PhD, Creative Informatics</div>
+        <div class="edu-date">Oct 2023 → Oct 2026</div>
+        <div class="edu-badge">Fellowship for Creation of Intelligent World</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-school">The University of Tokyo</div>
+        <div class="edu-degree">M.S., Intelligent Information Processing</div>
+        <div class="edu-date">Oct 2021 → Oct 2023 · GPA 3.0/3.0</div>
+        <div class="edu-badge">Todai Fellowship</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-school">Vel Tech + NTU Singapore</div>
+        <div class="edu-degree">B.Tech, Information Technology</div>
+        <div class="edu-date">2016 → 2020 · GPA 8.37/10</div>
+        <div class="edu-badge">PM Scholarship · NTU Fellowship</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">⚡ Skills</div>
+      <div class="section-title">Tech Stack & Tools</div>
+    </div>
+    <div class="skills-container reveal">
+      <div class="skill-group">
+        <div class="skill-group-title"><div class="skill-group-icon" style="background:rgba(129,140,248,0.1)">💻</div>Programming</div>
+        <div class="skill-items">
+          <div class="skill-item">Python</div><div class="skill-item">C++</div><div class="skill-item">C#</div><div class="skill-item">Dart/Flutter</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title"><div class="skill-group-icon" style="background:rgba(52,211,153,0.1)">🤖</div>Robotics & Simulation</div>
+        <div class="skill-items">
+          <div class="skill-item">ROS 2</div><div class="skill-item">Autoware</div><div class="skill-item">CARLA</div><div class="skill-item">AWSIM</div><div class="skill-item">Unity</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title"><div class="skill-group-icon" style="background:rgba(192,132,252,0.1)">🔧</div>Tools & DevOps</div>
+        <div class="skill-items">
+          <div class="skill-item">Git</div><div class="skill-item">Linux</div><div class="skill-item">Docker</div><div class="skill-item">GitHub Actions</div><div class="skill-item">CI/CD</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title"><div class="skill-group-icon" style="background:rgba(56,189,248,0.1)">📊</div>Data & Analysis</div>
+        <div class="skill-items">
+          <div class="skill-item">Pandas</div><div class="skill-item">NumPy</div><div class="skill-item">Matplotlib</div><div class="skill-item">LLM</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title"><div class="skill-group-icon" style="background:rgba(239,68,68,0.1)">🔬</div>Research</div>
+        <div class="skill-items">
+          <div class="skill-item">Experimental Design</div><div class="skill-item">eHMI Prototyping</div><div class="skill-item">IRB/Ethics</div><div class="skill-item">VR Studies</div><div class="skill-item">Questionnaire Analysis</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title"><div class="skill-group-icon" style="background:rgba(251,191,36,0.1)">🌐</div>Languages</div>
+        <div class="skill-items">
+          <div class="skill-item">English (Fluent)</div><div class="skill-item">Japanese (Basic)</div><div class="skill-item">Hindi (Native)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section class="section" id="awards">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">🏆 Awards & Honors</div>
+      <div class="section-title">Recognition</div>
+    </div>
+    <div class="awards-grid reveal">
+      <div class="award-card"><div class="award-icon">🎓</div><div class="award-info"><h4>FFDP Certificate</h4><p>UTokyo, 2025</p></div></div>
+      <div class="award-card"><div class="award-icon">🏅</div><div class="award-info"><h4>OzCHI Top 3 Student Design</h4><p>2024</p></div></div>
+      <div class="award-card"><div class="award-icon">🚗</div><div class="award-info"><h4>IEEE ITSS Young Professionals</h4><p>Committee, 2023</p></div></div>
+      <div class="award-card"><div class="award-icon">🎯</div><div class="award-info"><h4>Honjo International Scholarship</h4><p>Scholar</p></div></div>
+      <div class="award-card"><div class="award-icon">📱</div><div class="award-info"><h4>HUAWEI Seeds for the Future</h4><p>Tech4Good Winner, 2021</p></div></div>
+      <div class="award-card"><div class="award-icon">🇫🇷</div><div class="award-info"><h4>France Excellence Programme</h4><p>Scholar, 2020</p></div></div>
+      <div class="award-card"><div class="award-icon">🇹🇼</div><div class="award-info"><h4>MOST GASE Taiwan</h4><p>Global Talent Program, 2020</p></div></div>
+      <div class="award-card"><div class="award-icon">🎓</div><div class="award-info"><h4>Udacity Self-Driving Car</h4><p>Nanodegree, 2022</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container contact-section">
+    <div class="reveal">
+      <div class="contact-box">
+        <h3>Let's Connect</h3>
+        <p>Whether it's research collaboration, engineering roles, or just a good conversation about HMI and autonomous vehicles — I'd love to hear from you.</p>
+        <div class="contact-links">
+          <a href="mailto:vishalchauhan@outlook.sg" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            vishalchauhan@outlook.sg
+          </a>
+          <a href="https://github.com/vish0012" target="_blank" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="https://aivishal.com" target="_blank" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            aivishal.com
+          </a>
+        </div>
+        <a href="mailto:vishalchauhan@outlook.sg" class="btn btn-primary">✉️ Send Email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Vishal Chauhan · Built with ❤️ · Tokyo, Japan</p>
+  </div>
+</footer>
+
+<script>
+// Particles
+const pc=document.getElementById('particles');
+for(let i=0;i<30;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.animationDuration=(8+Math.random()*12)+'s';p.style.animationDelay=Math.random()*10+'s';p.style.width=p.style.height=(1+Math.random()*2)+'px';pc.appendChild(p)}
+
+// Nav scroll
+const nav=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>50)});
+
+// Scroll reveal
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+reveals.forEach(el=>obs.observe(el));
+
+// Active nav link
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-200)cur=s.getAttribute('id')});
+  navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur)});
+});
+</script>
+</body>
+</html>
