@@ -968,6 +968,13 @@ nav.primary a[aria-current="page"] {
   color: var(--ink-faint);
   margin: 0 0.15rem;
 }
+.console-body .email-meta {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+  margin-left: 0.25rem;
+}
 
 .live-time {
   font-family: var(--mono);
