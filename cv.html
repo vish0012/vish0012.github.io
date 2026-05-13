@@ -1,385 +1,563 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CV — Vishal Chauhan</title>
-<meta name="description" content="Curriculum vitae of Vishal Chauhan — Doctoral researcher at The University of Tokyo.">
-<link rel="canonical" href="https://vish0012.github.io/cv.html">
-
-<meta property="og:type" content="profile">
-<meta property="og:title" content="CV — Vishal Chauhan">
-<meta property="og:description" content="Curriculum vitae of Vishal Chauhan.">
-<meta property="og:url" content="https://vish0012.github.io/cv.html">
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23ffffff'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='20' font-weight='600' fill='%231a1a1a' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="assets/style.css">
-
-<style>
-  /* CV-specific layout: two-column with date / content */
-  .cv-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: 'Source Serif 4', Georgia, serif;
-    font-style: italic;
-    color: var(--ink-muted);
-    text-decoration: none;
-    margin-top: 1.5rem;
-  }
-  .cv-back:hover { color: var(--link-hover); }
-
-  .cv-title {
-    text-align: center;
-    margin: 3rem 0 2.5rem;
-  }
-  .cv-title h1 {
-    font-family: 'Source Serif 4', Georgia, serif;
-    font-size: 2.4rem;
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-  }
-  .cv-title .sub {
-    font-family: 'Source Serif 4', Georgia, serif;
-    font-style: italic;
-    color: var(--ink-muted);
-    font-size: 1.05rem;
-  }
-
-  .cv-section { margin: 2.5rem 0; }
-  .cv-section h2 {
-    font-family: 'Source Serif 4', Georgia, serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 0.4rem;
-    margin-bottom: 1.2rem;
-    color: var(--ink);
-  }
-  .cv-row {
-    display: grid;
-    grid-template-columns: 140px 1fr;
-    gap: 1.5rem;
-    padding: 0.7rem 0;
-    align-items: baseline;
-  }
-  .cv-row + .cv-row { border-top: 1px solid var(--rule-soft); }
-  .cv-when {
-    font-family: 'Source Serif 4', Georgia, serif;
-    font-style: italic;
-    color: var(--ink-muted);
-    font-size: 0.97rem;
-  }
-  .cv-what { color: var(--ink-soft); font-size: 1rem; }
-  .cv-what strong { color: var(--ink); font-weight: 600; }
-  .cv-what em { color: var(--ink-muted); }
-  .cv-sub {
-    font-size: 0.92rem;
-    color: var(--ink-muted);
-    margin-top: 0.15rem;
-  }
-
-  @media (max-width: 640px) {
-    .cv-title h1 { font-size: 1.9rem; }
-    .cv-row { grid-template-columns: 1fr; gap: 0.2rem; padding: 0.85rem 0; }
-    .cv-when { font-size: 0.9rem; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV — Vishal Chauhan</title>
+  <meta name="description" content="Curriculum vitae of Vishal Chauhan, doctoral candidate at The University of Tokyo working on HMI, autonomous vehicles, and robotics." />
+  <link rel="canonical" href="https://vish0012.github.io/cv.html" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    .cv-section { margin: 2rem 0 2.5rem; }
+    .cv-section h2 {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.6rem;
+      color: var(--accent);
+      margin: 0 0 0.5rem;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 0.4rem;
+    }
+    .cv-entry {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 1.25rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .cv-entry:last-child { border-bottom: 0; }
+    .cv-when {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.03em;
+      padding-top: 3px;
+    }
+    .cv-what { font-size: 0.97rem; line-height: 1.6; }
+    .cv-what strong { color: var(--ink); font-weight: 600; }
+    .cv-what .where { color: var(--ink-soft); }
+    .cv-what ul {
+      margin: 0.4rem 0 0;
+      padding-left: 1.1rem;
+      color: var(--ink-soft);
+      font-size: 0.93rem;
+    }
+    .cv-what ul li { margin: 0.15rem 0; }
+    .cv-pub-line {
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--rule-soft);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+    .cv-pub-line:last-child { border-bottom: 0; }
+    .cv-pub-line .me { color: var(--ink); font-weight: 600; }
+    .cv-pub-line em { color: var(--ink-soft); }
+    .cv-summary {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.62;
+      color: var(--ink-soft);
+      max-width: 60ch;
+      margin: 1rem 0 0;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 1rem;
+      font-size: 0.93rem;
+    }
+    .skills-grid dt {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.03em;
+      padding-top: 4px;
+    }
+    .skills-grid dd { margin: 0; padding: 0.4rem 0; color: var(--ink-soft); border-bottom: 1px solid var(--rule-soft); }
+    .skills-grid dd:last-of-type { border-bottom: 0; }
+    @media (max-width: 600px) {
+      .cv-entry, .skills-grid { grid-template-columns: 1fr; gap: 0.2rem; }
+    }
+  </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<nav class="top">
-  <ul>
-    <li><a href="index.html#research">
-      <svg class="nav-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M 8 6 Q 8.1 14, 8 22"/>
-        <path d="M 8 9 Q 14 6, 18 8"/>
-        <circle cx="18" cy="8" r="2.2"/>
-        <circle cx="18" cy="8" r="0.9" fill="currentColor" stroke="none"/>
-        <circle cx="22" cy="18" r="1.5"/>
-        <path d="M 22 20 L 22 24"/>
-        <path d="M 22 21 L 20 23"/>
-        <path d="M 22 21 L 24 23"/>
-        <path d="M 22 24 L 21 27"/>
-        <path d="M 22 24 L 23.5 27"/>
-        <path d="M 4 28 Q 16 27.5, 28 28" stroke-width="1"/>
-      </svg>
-      <span class="nav-label">research</span>
-    </a></li>
-    <li><a href="index.html#publications">
-      <svg class="nav-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M 4 7 Q 14 6, 16 7 Q 18 6, 28 7"/>
-        <path d="M 4 7 L 4 25 Q 14 24, 16 25 Q 18 24, 28 25 L 28 7"/>
-        <path d="M 16 7 L 16 25"/>
-        <path d="M 7 11 L 13 11" stroke-width="0.8"/>
-        <path d="M 7 14 L 13 14" stroke-width="0.8"/>
-        <path d="M 7 17 L 13 17" stroke-width="0.8"/>
-        <path d="M 21 13 L 21 21" stroke-width="0.9"/>
-        <path d="M 21 14 Q 23 13, 25 14" stroke-width="0.9"/>
-        <circle cx="25" cy="14" r="1" stroke-width="0.8"/>
-        <circle cx="23" cy="20" r="0.7" stroke-width="0.8" fill="currentColor"/>
-      </svg>
-      <span class="nav-label">publications</span>
-    </a></li>
-    <li><a href="index.html">
-      <svg class="nav-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M 5 10 Q 16 6, 27 10 L 25 24 L 7 24 L 5 10"/>
-        <path d="M 8 18 L 8 15 L 11 15 L 11 18" stroke-width="0.8"/>
-        <path d="M 12 18 L 12 11 L 15 11 L 15 18" stroke-width="0.8"/>
-        <path d="M 16 18 L 16 13 L 18 13 L 18 18" stroke-width="0.8"/>
-        <path d="M 19 18 L 19 14 L 22 14 L 22 18" stroke-width="0.8"/>
-        <path d="M 23 18 L 23 16 L 24 16 L 24 18" stroke-width="0.8"/>
-        <path d="M 7 24 L 25 24" stroke-width="1.1"/>
-      </svg>
-      <span class="nav-label">home</span>
-    </a></li>
-    <li><a href="index.html#contact">
-      <svg class="nav-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="16" cy="16" r="9" stroke-width="1.4"/>
-        <circle cx="16" cy="16" r="3.5" stroke-width="1.2"/>
-        <path d="M 19.3 16 Q 21 15, 21.5 17 Q 22 20, 21 22 Q 19 24, 16 24" stroke-width="1.2"/>
-      </svg>
-      <span class="nav-label">contact</span>
-    </a></li>
-  </ul>
-</nav>
+  <header class="site">
+    <div class="container">
+      <a class="brand" href="index.html">Vishal Chauhan</a>
+      <nav class="primary" aria-label="Primary">
+        <ul>
+          <li><a href="publications.html">Publications</a></li>
+          <li><a href="cv.html" aria-current="page">CV</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-<div class="wrap">
+  <main id="main">
+    <section>
+      <div class="container">
+        <p class="section-eyebrow">Curriculum Vitae</p>
+        <h1 style="font-size: clamp(2rem, 4vw, 2.8rem);">Vishal Chauhan</h1>
+        <p style="color:var(--ink-soft); margin-bottom: 0.5rem;">
+          Doctoral Candidate (D3) · Tsukada Laboratory · Department of Creative Informatics<br/>
+          The University of Tokyo · Tokyo, Japan
+        </p>
+        <p style="font-family: var(--mono); font-size: 0.82rem; color: var(--ink-faint); margin-bottom: 1rem;">
+          <a href="mailto:vishalchauhan@outlook.sg">vishalchauhan@outlook.sg</a>
+          &nbsp;·&nbsp;
+          <a href="https://scholar.google.com/citations?user=SHkxvc4AAAAJ">Scholar</a>
+          &nbsp;·&nbsp;
+          <a href="https://github.com/vish0012">GitHub</a>
+          &nbsp;·&nbsp;
+          <a href="https://www.linkedin.com/in/aivishalcom/">LinkedIn</a>
+          &nbsp;·&nbsp;
+          <a href="https://tlab.hongo.wide.ad.jp/">Tsukada Lab</a>
+        </p>
 
-<div class="cv-title">
-  <h1>Vishal Chauhan</h1>
-  <div class="sub">Curriculum Vitae · Updated <span id="updated">May 2026</span></div>
-</div>
+        <!-- ============ SUMMARY ============ -->
+        <div class="cv-section">
+          <h2>Summary</h2>
+          <p class="cv-summary">
+            I work on human–machine interaction, autonomous vehicles, and robotics —
+            designing and prototyping pedestrian–AV interaction approaches, then
+            validating them through VR/AWSIM simulation and real-world experiments.
+            In parallel I support the Autoware engineering team at
+            <a href="https://tier4.jp/en/">Tier IV</a>, integrating the latest
+            Autoware nearly daily, running scenario tests with physical robots, and
+            contributing upstream improvements that strengthen scenario-test
+            reliability across GitHub Actions CI.
+          </p>
+        </div>
 
-<!-- EDUCATION -->
-<section class="cv-section">
-  <h2>Education</h2>
-  <div class="cv-row">
-    <div class="cv-when">Oct 2023 – Oct 2026</div>
-    <div class="cv-what">
-      <strong>PhD, Creative Informatics</strong> — The University of Tokyo
-      <div class="cv-sub">Advisor: Prof. Manabu Tsukada · Fellowship for Creation of Intelligent World</div>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">Oct 2021 – Oct 2023</div>
-    <div class="cv-what">
-      <strong>M.S., Intelligent Information Processing</strong> — The University of Tokyo
-      <div class="cv-sub">GPA 3.0/3.0 · Todai Fellowship</div>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">2016 – 2020</div>
-    <div class="cv-what">
-      <strong>B.Tech, Information Technology</strong> — Vel Tech University with exchange research at NTU Singapore
-      <div class="cv-sub">GPA 8.37/10 · PM Scholarship · NTU Fellowship · Chancellor's Scholarship</div>
-    </div>
-  </div>
-</section>
+        <!-- ============ EDUCATION ============ -->
+        <div class="cv-section">
+          <h2>Education</h2>
 
-<!-- POSITIONS -->
-<section class="cv-section">
-  <h2>Positions &amp; Affiliations</h2>
-  <div class="cv-row">
-    <div class="cv-when">Dec 2024 →</div>
-    <div class="cv-what">
-      <strong>Autonomous Driving Engineer</strong>, <a href="https://tier4.jp/en/" target="_blank" rel="noopener">Tier IV</a>, Tokyo (part-time)
-      <div class="cv-sub">Autoware Universe; Pilot.Auto S1 planning simulation; physical-robot scenario testing; upstream CI fixes.</div>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">Dec 2024 – Mar 2025</div>
-    <div class="cv-what">
-      <strong>Advanced AI Development</strong>, Visionary Lab, Tokyo
-      <div class="cv-sub">Flutter audio PoC and Whisper-API integration for AR-headset prototyping.</div>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">Aug – Sep 2024</div>
-    <div class="cv-what">
-      <strong>Visiting Researcher</strong>, <a href="https://www.ntnu.edu/" target="_blank" rel="noopener">NTNU Norway</a>, Gjøvik
-      <div class="cv-sub">VR + LLM decision models for pedestrian–AV interaction (work that became IJHCS 2025).</div>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">Jun 2023 – Sep 2024</div>
-    <div class="cv-what">
-      <strong>Product Strategy Advisor</strong>, <a href="https://zeroney.ai" target="_blank" rel="noopener">Zeroney.ai</a>, Tokyo
-      <div class="cv-sub">Product roadmap, content strategy, student workshops.</div>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">Jan – Jun 2023</div>
-    <div class="cv-what">
-      <strong>Research Intern</strong>, <a href="https://www.riken.jp/en/" target="_blank" rel="noopener">RIKEN</a>, Tokyo
-      <div class="cv-sub">Tensor-based learning (AlphaTensor) applied to AV interaction problems.</div>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">Jul – Sep 2022</div>
-    <div class="cv-what">
-      <strong>Intern, Spacecraft Operations</strong>, <a href="https://ispace-inc.com/en/" target="_blank" rel="noopener">ispace</a>, Tokyo
-      <div class="cv-sub">Grafana dashboards and automation for satellite operations.</div>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">Jun – Aug 2019</div>
-    <div class="cv-what">
-      <strong>Research Intern</strong>, <a href="https://www.ccu.edu.tw/eng/" target="_blank" rel="noopener">National Chung Cheng University</a>, Taiwan
-      <div class="cv-sub">RGB-D walkable-region detection with ICP fusion for mobile robots.</div>
-    </div>
-  </div>
-</section>
+          <div class="cv-entry">
+            <div class="cv-when">Oct 2023 – Oct 2026</div>
+            <div class="cv-what">
+              <strong>Ph.D., Creative Informatics</strong> · Tsukada Laboratory<br/>
+              <span class="where">Graduate School of Information Science and Technology, The University of Tokyo</span><br/>
+              Fellowship for Creation of Intelligent World. Advisor: Prof. Manabu Tsukada.
+            </div>
+          </div>
 
-<!-- PUBLICATIONS -->
-<section class="cv-section">
-  <h2>Publications</h2>
-  <div class="cv-row">
-    <div class="cv-when">CHI 2026 🏆</div>
-    <div class="cv-what">
-      <strong>Vishal Chauhan</strong>, Anubhav, Mark Colley, Chia-Ming Chang, Xinyue Gui, Ding Xia, Ehsan Javanmardi, Takeo Igarashi, Kantaro Fujiwara, Manabu Tsukada. "Don't Worry, Just Follow Me: Prototyping and In-the-Wild Evaluation of Smart Pole Interaction Unit with Mobility." <em>Proc. ACM CHI 2026</em>. <strong>Honourable Mention Award.</strong>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">CHI 2026 🏆</div>
-    <div class="cv-what">
-      Xinyue Gui, Ding Xia, Mark Colley, Yuan Li, <strong>Vishal Chauhan</strong>, Anubhav, Zhongyi Zhou, Ehsan Javanmardi, Stela Hanbyeol Seo, Chia-Ming Chang, Manabu Tsukada, Takeo Igarashi. "Peeking Ahead of the Field Study: Exploring VLM Personas as Support Tools for Embodied Studies in HCI." <em>Proc. ACM CHI 2026</em>. <strong>Honourable Mention Award.</strong> <a href="https://doi.org/10.1145/3772318.3790537" target="_blank" rel="noopener">DOI</a>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">VRST 2025</div>
-    <div class="cv-what">
-      <strong>Vishal Chauhan</strong>, Anubhav, Robin Sidhu, Yu Asabe, Kanta Tanaka, Chia-Ming Chang, Xiang Su, Ehsan Javanmardi, Takeo Igarashi, Alex Orsholits, Kantaro Fujiwara, Manabu Tsukada. "A Silent Negotiator? Cross-cultural VR Evaluation of Smart Pole Interaction Units in Dynamic Shared Spaces." <em>Proc. ACM VRST 2025</em>. <a href="https://doi.org/10.1145/3756884.3765991" target="_blank" rel="noopener">DOI</a>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">IJHCS 2025</div>
-    <div class="cv-what">
-      <strong>Vishal Chauhan</strong>, Chia-Ming Chang, Xiang Su, Jin Nakazato, Ehsan Javanmardi, Alex Orsholits, Takeo Igarashi, Kantaro Fujiwara, Manabu Tsukada. "Towards the Future of Pedestrian–AV Interaction: Human Perception vs. LLM Insights on Smart Pole Interaction Unit." <em>International Journal of Human–Computer Studies</em>, 2025.
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">ICEA 2024</div>
-    <div class="cv-what">
-      <strong>Vishal Chauhan</strong>, Anubhav, Chia-Ming Chang, Jin Nakazato, Ehsan Javanmardi, Alex Orsholits, Takeo Igarashi, Kantaro Fujiwara, Manabu Tsukada. "Connected Shared Spaces: Expert Insights into the Impact of eHMI and SPIU for Next-Generation Pedestrian-AV Communication." <em>Intl. Conf. on Intelligent Computing and Emerging Applications</em>, 2024. <a href="https://doi.org/10.1145/3732437.3732752" target="_blank" rel="noopener">DOI</a>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">AutoUI 2024</div>
-    <div class="cv-what">
-      <strong>Vishal Chauhan</strong>, Anubhav, Chia-Ming Chang, Jin Nakazato, Ehsan Javanmardi, Alex Orsholits, Takeo Igarashi, Kantaro Fujiwara, Manabu Tsukada. "Transforming Pedestrian and Autonomous Vehicles Interactions in Shared Spaces: A Think-Tank Study on Exploring Human-Centric Designs." <em>ACM AutomotiveUI 2024 (Adjunct)</em>. <a href="https://doi.org/10.1145/3641308.3685037" target="_blank" rel="noopener">DOI</a>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">Electronics 2023</div>
-    <div class="cv-what">
-      <strong>Vishal Chauhan</strong>, Chia-Ming Chang, Ehsan Javanmardi, Jin Nakazato, Pengfei Lin, Takeo Igarashi, Manabu Tsukada. "Fostering Fuzzy Logic in Enhancing Pedestrian Safety: Harnessing Smart Pole Interaction Unit for Autonomous Vehicle-to-Pedestrian Communication and Decision Optimization." <em>Electronics</em> 12(20):4207, 2023. <a href="https://doi.org/10.3390/electronics12204207" target="_blank" rel="noopener">DOI</a>
-    </div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">WF-IoT 2023</div>
-    <div class="cv-what">
-      <strong>Vishal Chauhan</strong>, Chia-Ming Chang, Ehsan Javanmardi, Jin Nakazato, Koki Toda, Pengfei Lin, Takeo Igarashi, Manabu Tsukada. "Keep Calm and Cross: Smart Pole Interaction Unit for Easing Pedestrian Cognitive Load." <em>IEEE 9th World Forum on the Internet of Things</em>, 2023.
-    </div>
-  </div>
-  <p style="text-align:center;font-style:italic;color:var(--ink-muted);font-size:0.93rem;margin-top:1rem">
-    Full list and citation counts on <a href="https://scholar.google.com/citations?user=SHkxvc4AAAAJ" target="_blank" rel="noopener">Google Scholar</a>.
-  </p>
-</section>
+          <div class="cv-entry">
+            <div class="cv-when">Oct 2021 – Oct 2023</div>
+            <div class="cv-what">
+              <strong>M.S., Intelligent Information Processing</strong><br/>
+              <span class="where">The University of Tokyo</span> · GPA 3.0/3.0<br/>
+              Todai Fellowship.
+            </div>
+          </div>
 
-<!-- TALKS -->
-<section class="cv-section">
-  <h2>Invited Talks &amp; Schools</h2>
-  <div class="cv-row">
-    <div class="cv-when">Sep 2025</div>
-    <div class="cv-what">CIV Summer School — Cooperative Interacting Vehicles. <em>Blonay, Switzerland.</em></div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">Jul 2022</div>
-    <div class="cv-what">CIV Summer School — Perception &amp; Motion Planning. <em>Lake Tahoe, USA.</em></div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">2022</div>
-    <div class="cv-what">M-BIC Mobility Business Innovation Contest, team leader. <em>UTokyo × Doshisha, with Tier IV and Digital Agency.</em></div>
-  </div>
-</section>
+          <div class="cv-entry">
+            <div class="cv-when">2016 – 2020</div>
+            <div class="cv-what">
+              <strong>B.Tech., Information Technology</strong><br/>
+              <span class="where">Vel Tech University (Chennai, India) + Nanyang Technological University (Singapore)</span> · GPA 8.37/10<br/>
+              Prime Minister Scholarship · NTU-Fellowship.
+            </div>
+          </div>
+        </div>
 
-<!-- AWARDS -->
-<section class="cv-section">
-  <h2>Awards &amp; Honours</h2>
-  <div class="cv-row"><div class="cv-when">2026</div><div class="cv-what"><strong>ACM CHI 2026 Honourable Mention Award</strong> — "Don't Worry, Just Follow Me" (lead author)</div></div>
-  <div class="cv-row"><div class="cv-when">2026</div><div class="cv-what"><strong>ACM CHI 2026 Honourable Mention Award</strong> — "Peeking Ahead of the Field Study: VLM Personas"</div></div>
-  <div class="cv-row"><div class="cv-when">2025</div><div class="cv-what">FFDP Certificate, The University of Tokyo</div></div>
-  <div class="cv-row"><div class="cv-when">2024</div><div class="cv-what">OzCHI Student Design Challenge — Top 3</div></div>
-  <div class="cv-row"><div class="cv-when">2023</div><div class="cv-what">IEEE ITSS Young Professionals Committee</div></div>
-  <div class="cv-row"><div class="cv-when">2023</div><div class="cv-what">Honjo International Scholarship</div></div>
-  <div class="cv-row"><div class="cv-when">2022</div><div class="cv-what">Udacity Self-Driving Car Engineer Nanodegree</div></div>
-  <div class="cv-row"><div class="cv-when">2021</div><div class="cv-what">HUAWEI Seeds for the Future / Tech4Good</div></div>
-  <div class="cv-row"><div class="cv-when">2021</div><div class="cv-what">UTokyo Fellowship Scholar</div></div>
-  <div class="cv-row"><div class="cv-when">2020</div><div class="cv-what">France Excellence Programme Scholar</div></div>
-  <div class="cv-row"><div class="cv-when">2020</div><div class="cv-what">Global Talent Program (MOST Taiwan)</div></div>
-  <div class="cv-row"><div class="cv-when">2019</div><div class="cv-what">TEEP@ASIA Plus Scholar</div></div>
-  <div class="cv-row"><div class="cv-when">2016</div><div class="cv-what">Chancellor's Scholarship, Vel Tech University</div></div>
-</section>
+        <!-- ============ EXPERIENCE ============ -->
+        <div class="cv-section">
+          <h2>Experience</h2>
 
-<!-- SERVICE -->
-<section class="cv-section">
-  <h2>Service &amp; Open Source</h2>
-  <div class="cv-row">
-    <div class="cv-when">Ongoing</div>
-    <div class="cv-what">Contributor, <a href="https://github.com/autowarefoundation" target="_blank" rel="noopener">Autoware Foundation</a> — CI reliability and scenario testing for the Autoware Universe stack.</div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">2023 →</div>
-    <div class="cv-what">Member, IEEE ITSS Young Professionals Committee.</div>
-  </div>
-</section>
+          <div class="cv-entry">
+            <div class="cv-when">Dec 2024 – present</div>
+            <div class="cv-what">
+              <strong>Autonomous Driving Engineer (part-time)</strong> · <a href="https://tier4.jp/en/">Tier IV</a>, Tokyo
+              <ul>
+                <li><strong>Autoware Universe:</strong> created JSON schemas, updated docs/README, resolved PR feedback across multiple packages, maintained PR tracking and delivered merged updates.</li>
+                <li><strong>Pilot.Auto S1:</strong> updated pilot-auto.s1 workspace; executed planning simulation and scenario tests with physical robot; synced parameters with awf-latest and verified SWB3 simulations; implemented health-check / debug scripting.</li>
+                <li><strong>Evaluation:</strong> ran repeatable planning checks and documented failure patterns and reproduction notes to speed up triage and debugging.</li>
+                <li><strong>Upstream CI:</strong> contributed merged fixes to Autoware scenario-test GitHub Actions (workflow stability, dependency installation, scenario-test workflow / version updates), improving CI reliability.</li>
+              </ul>
+            </div>
+          </div>
 
-<!-- SKILLS -->
-<section class="cv-section">
-  <h2>Technical</h2>
-  <div class="cv-row">
-    <div class="cv-when">Research</div>
-    <div class="cv-what">VR user studies (Unity, AWSIM), field experiments, mixed-methods analysis, LLM-driven evaluation.</div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">Robotics</div>
-    <div class="cv-what">ROS 2, Autoware, sensor fusion (RGB-D, LiDAR), Pilot.Auto, scenario testing.</div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">Programming</div>
-    <div class="cv-what">Python, C++, C#, Flutter/Dart, JavaScript, shell.</div>
-  </div>
-  <div class="cv-row">
-    <div class="cv-when">Languages</div>
-    <div class="cv-what">English (fluent), Japanese (conversational), Hindi (native).</div>
-  </div>
-</section>
+          <div class="cv-entry">
+            <div class="cv-when">Dec 2024 – Mar 2025</div>
+            <div class="cv-what">
+              <strong>Assistant, Advanced AI Development</strong> · Visionary Lab, Tokyo
+              <ul>
+                <li>Implemented an end-to-end audio recording and transcription proof-of-concept in Flutter/Dart using flutter_sound, with OpenAI Whisper API integration.</li>
+                <li>Built a SoundVisualizer widget for real-time amplitude visualization; delivered a tested feature branch plus setup documentation for pilot users on NAM mic and Even Reality AR glasses.</li>
+                <li><a href="https://github.com/vish0012/EvenDemoApp">github.com/vish0012/EvenDemoApp</a></li>
+              </ul>
+            </div>
+          </div>
 
-<a href="index.html" class="cv-back">← back to homepage</a>
+          <div class="cv-entry">
+            <div class="cv-when">Aug 2024 – Sep 2024</div>
+            <div class="cv-what">
+              <strong>Visiting Researcher</strong> · <a href="https://www.ntnu.edu/">NTNU Norway</a>, Gjøvik
+              <ul>
+                <li>Built VR scenarios and evaluated human vs. LLM decision models for safety-critical pedestrian–AV interaction.</li>
+                <li>Related publication: <em>Towards the Future of Pedestrian–AV Interaction</em> (IJHCS, 2025).</li>
+              </ul>
+            </div>
+          </div>
 
-</div>
+          <div class="cv-entry">
+            <div class="cv-when">Jan 2023 – Jun 2023</div>
+            <div class="cv-what">
+              <strong>Research Intern</strong> · <a href="https://www.riken.jp/en/">RIKEN</a>, Tokyo
+              <ul>
+                <li>Explored tensor-based learning methods (e.g., AlphaTensor) for advanced data processing.</li>
+                <li>Studied applications of tensor learning to pedestrian–AV interaction and system performance.</li>
+              </ul>
+            </div>
+          </div>
 
-<footer>
-  <svg class="mark" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M14 36 Q 14 30, 19 30 L 28 30 L 32 25 L 42 25 L 46 30 L 49 30 Q 53 30, 53 36 L 53 42 Q 53 44, 51 44"/>
-    <path d="M16 44 L 49 44"/>
-    <line x1="32" y1="26" x2="42" y2="26"/>
-    <circle cx="22" cy="44" r="3"/>
-    <circle cx="46" cy="44" r="3"/>
-    <rect x="35" y="20" width="4" height="5" rx="0.5"/>
-    <circle cx="37" cy="22.5" r="1" fill="currentColor" stroke="none"/>
-  </svg>
-  <div>© <span id="year">2026</span> Vishal Chauhan · Tokyo</div>
-</footer>
+          <div class="cv-entry">
+            <div class="cv-when">Jul 2022 – Sep 2022</div>
+            <div class="cv-what">
+              <strong>Intern, Spacecraft Operation Engineering Team</strong> · <a href="https://ispace-inc.com/en/">ispace</a>, Tokyo
+              <ul>
+                <li>Analyzed and visualized satellite operations data using Grafana dashboards.</li>
+                <li>Wrote automation scripts to optimize satellite capture scheduling and reporting.</li>
+              </ul>
+            </div>
+          </div>
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+          <div class="cv-entry">
+            <div class="cv-when">Jun 2019 – Aug 2019</div>
+            <div class="cv-what">
+              <strong>Research Intern</strong> · National Chung Cheng University, Chiayi, Taiwan
+              <ul>
+                <li>Developed walkable-region detection for mobile robots using Intel RealSense D435 RGB-D sensing.</li>
+                <li>Improved tracking accuracy through ICP fusion of color and depth for hospital and commercial robot scenarios.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ OPEN SOURCE ============ -->
+        <div class="cv-section">
+          <h2>Open-source contributions</h2>
+
+          <div class="cv-entry">
+            <div class="cv-when">2025</div>
+            <div class="cv-what">
+              <strong>Autoware Foundation</strong> · upstream contributor (Autoware / Autoware Universe)
+              <ul>
+                <li>Improved scenario-test CI reliability — workflow stability, health-check, dependency fixes — making regression runs more reproducible.</li>
+                <li>Created and updated configuration schemas and developer documentation across Autoware Universe to support consistent setup and onboarding.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2023 – 2024</div>
+            <div class="cv-what">
+              <strong>Smartpole-VR-AWSIM</strong> · <a href="https://github.com/tlab-wide/Smartpole-VR-AWSIM">tlab-wide/Smartpole-VR-AWSIM</a>
+              <ul>
+                <li>Built Unity / AWSIM scenarios and scoring criteria to compare interaction behaviors and evaluation outcomes for eHMI research.</li>
+                <li>Packaged the pipeline into a reusable, reproducible simulation testbed — scenarios, metrics, and documentation — enabling repeatable experiments and cross-scenario comparison.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ PUBLICATIONS ============ -->
+        <div class="cv-section">
+          <h2>Publications</h2>
+          <p style="font-size: 0.9rem; color: var(--ink-faint); margin-bottom: 1rem;">
+            Reverse chronological. See the <a href="publications.html">publications page</a> for thumbnails, abstracts, and links — or <a href="https://scholar.google.com/citations?user=SHkxvc4AAAAJ">Google Scholar</a> for the full list with citation metrics.
+          </p>
+
+          <h4 style="margin-top: 1.25rem;">2026</h4>
+          <div class="cv-pub-line">
+            <span class="me">Chauhan, V.</span>, Anubhav, Chang, C.-M., Javanmardi, E., Igarashi, T., Orsholits, A., Fujiwara, K., Tsukada, M.
+            <em>Colored Shared Spaces (CSS): How Visual Design Transforms Pedestrian Experiences.</em>
+            HCII 2026, Montréal (forthcoming).
+          </div>
+          <div class="cv-pub-line">
+            <span class="me">Chauhan, V.</span>, Anubhav, Colley, M., Chang, C.-M., Gui, X., Xia, D., Javanmardi, E., Igarashi, T., Fujiwara, K., Tsukada, M.
+            <em>Don't Worry, Just Follow Me: Prototyping and In-the-Wild Evaluation of Smart Pole Interaction Unit with Mobility.</em>
+            ACM CHI 2026, Barcelona. <strong>🏆 Honourable Mention.</strong>
+          </div>
+          <div class="cv-pub-line">
+            Gui, X., Xia, D., Colley, M., Li, Y., <span class="me">Chauhan, V.</span>, Anubhav, Zhou, Z., Javanmardi, E., Seo, S. H., Chang, C.-M., Tsukada, M., Igarashi, T.
+            <em>Peeking Ahead of the Field Study: Exploring VLM Personas as Support Tools for Embodied Studies in HCI.</em>
+            ACM CHI 2026, Barcelona. <strong>🏆 Honourable Mention.</strong>
+          </div>
+
+          <h4 style="margin-top: 1.25rem;">2025</h4>
+          <div class="cv-pub-line">
+            <span class="me">Chauhan, V.</span>, Anubhav, Sidhu, R., Asabe, Y., Tanaka, K., Chang, C.-M., Su, X., Javanmardi, E., Igarashi, T., Orsholits, A., Fujiwara, K., Tsukada, M.
+            <em>A Silent Negotiator? Cross-cultural VR Evaluation of Smart Pole Interaction Units in Dynamic Shared Spaces.</em>
+            ACM VRST 2025, Montréal.
+          </div>
+          <div class="cv-pub-line">
+            <span class="me">Chauhan, V.</span>, Anubhav, Chang, C.-M., Su, X., Nakazato, J., Javanmardi, E., Orsholits, A., Igarashi, T., Fujiwara, K., Tsukada, M.
+            <em>Towards the Future of Pedestrian–AV Interaction: Human Perception vs. LLM Insights on Smart Pole Interaction Unit.</em>
+            International Journal of Human–Computer Studies 205, 103628.
+          </div>
+
+          <h4 style="margin-top: 1.25rem;">2024</h4>
+          <div class="cv-pub-line">
+            <span class="me">Chauhan, V.</span>, Anubhav, Chang, C.-M., Nakazato, J., Javanmardi, E., Orsholits, A., Igarashi, T., Fujiwara, K., Tsukada, M.
+            <em>Connected Shared Spaces: Expert Insights into the Impact of eHMI and SPIU for Next-Generation Pedestrian-AV Communication.</em>
+            ICEA 2024, Tokyo.
+          </div>
+          <div class="cv-pub-line">
+            <span class="me">Chauhan, V.</span>, Anubhav, Chang, C.-M., Nakazato, J., Javanmardi, E., Orsholits, A., Igarashi, T., Fujiwara, K., Tsukada, M.
+            <em>Transforming Pedestrian and AV Interactions in Shared Spaces: A Think-Tank Study.</em>
+            ACM AutoUI 2024 (Adjunct), Stanford.
+          </div>
+
+          <h4 style="margin-top: 1.25rem;">2023</h4>
+          <div class="cv-pub-line">
+            <span class="me">Chauhan, V.</span>, Chang, C.-M., Javanmardi, E., Nakazato, J., Lin, P., Igarashi, T., Tsukada, M.
+            <em>Fostering Fuzzy Logic in Enhancing Pedestrian Safety.</em>
+            Electronics 12(20):4207.
+          </div>
+          <div class="cv-pub-line">
+            <span class="me">Chauhan, V.</span>, Chang, C.-M., Javanmardi, E., Nakazato, J., Toda, K., Lin, P., Igarashi, T., Tsukada, M.
+            <em>Keep Calm and Cross: Smart Pole Interaction Unit for Easing Pedestrian Cognitive Load.</em>
+            IEEE WF-IoT 2023, Aveiro.
+          </div>
+        </div>
+
+        <!-- ============ AWARDS ============ -->
+        <div class="cv-section">
+          <h2>Awards &amp; honours</h2>
+
+          <div class="cv-entry">
+            <div class="cv-when">2026</div>
+            <div class="cv-what">
+              <strong>🏆 Honourable Mention Award</strong> · ACM CHI 2026<br/>
+              <span class="where"><em>Don't Worry, Just Follow Me</em></span>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2026</div>
+            <div class="cv-what">
+              <strong>🏆 Honourable Mention Award</strong> · ACM CHI 2026<br/>
+              <span class="where"><em>Peeking Ahead of the Field Study</em> (VLM Personas)</span>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2025</div>
+            <div class="cv-what">
+              <strong>FFDP Certificate</strong> · The University of Tokyo
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2024</div>
+            <div class="cv-what">
+              <strong>OzCHI Student Design Competition</strong> · Top 3
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2024</div>
+            <div class="cv-what">
+              <strong>WIDE Project Team Member</strong>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2023</div>
+            <div class="cv-what">
+              <strong>IEEE ITSS Young Professionals Committee</strong>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2023</div>
+            <div class="cv-what">
+              <strong>Honjo International Scholarship Scholar</strong>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2022</div>
+            <div class="cv-what">
+              <strong>M-BIC Team Leader</strong> · Mobility Business Innovation Contest · UTokyo × Doshisha
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2022</div>
+            <div class="cv-what">
+              <strong>UTokyo Intelligent World Program</strong> · recipient
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2021</div>
+            <div class="cv-what">
+              <strong>UTokyo (Todai) Fellowship Scholar</strong>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2021</div>
+            <div class="cv-what">
+              <strong>HUAWEI Seeds for the Future / Tech4Good Winner</strong>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2020</div>
+            <div class="cv-what">
+              <strong>France Excellence Programme Scholar</strong>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2020</div>
+            <div class="cv-what">
+              <strong>Global Talent Program Scholar</strong> · MOST GASE, Taiwan
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2019</div>
+            <div class="cv-what">
+              <strong>TEEP@ASIA Plus</strong>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2016</div>
+            <div class="cv-what">
+              <strong>Chancellor's Scholarship</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ CONFERENCE / SEMINAR ============ -->
+        <div class="cv-section">
+          <h2>Conference &amp; seminar participation</h2>
+
+          <div class="cv-entry">
+            <div class="cv-when">2022 &amp; 2025</div>
+            <div class="cv-what">
+              <strong>CIV Summer School</strong> (Cooperative Interacting Vehicles)<br/>
+              <span class="where">Lake Tahoe, USA (2022) and Blonay, Switzerland (2025)</span><br/>
+              Cooperative perception, motion planning, AI/data for mobility, implicit and explicit human–AV interaction, infrastructure eHMI.
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">May – Dec 2022</div>
+            <div class="cv-what">
+              <strong>M-BIC</strong> · Mobility Business Innovation Contest · team lead<br/>
+              <span class="where">UTokyo × Doshisha, with industry mentors from Tier IV, Digital Agency, NeoCareer, ASMobility.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ TEACHING ============ -->
+        <div class="cv-section">
+          <h2>Teaching &amp; mentoring</h2>
+
+          <div class="cv-entry">
+            <div class="cv-when">ongoing</div>
+            <div class="cv-what">
+              <strong>Student mentoring</strong> · Tsukada Lab, UTokyo<br/>
+              <span class="where">VR experiment design, AWSIM scenario authoring, field-study logistics for pedestrian–AV research.</span>
+            </div>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-when">2023 – 2024</div>
+            <div class="cv-what">
+              <strong>Student workshops on AI &amp; product strategy</strong> · Zeroney.ai, Tokyo
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ SKILLS ============ -->
+        <div class="cv-section">
+          <h2>Skills</h2>
+          <dl class="skills-grid">
+            <dt>Programming</dt>
+            <dd>Python, C++, C#</dd>
+
+            <dt>Robotics &amp; simulation</dt>
+            <dd>ROS 2, Autoware, CARLA, AWSIM, Unity</dd>
+
+            <dt>Tools</dt>
+            <dd>Git, Linux, Docker</dd>
+
+            <dt>Data &amp; analysis</dt>
+            <dd>Pandas, NumPy, Matplotlib, evaluation analysis, LLM</dd>
+
+            <dt>Testing &amp; debugging</dt>
+            <dd>Scenario regression testing, GitHub Actions (CI/CD), parameter validation</dd>
+
+            <dt>Research</dt>
+            <dd>Experimental design, eHMI prototyping, human-subject study preparation (ethics / IRB), questionnaire design &amp; analysis</dd>
+          </dl>
+        </div>
+
+        <!-- ============ CERTIFICATIONS ============ -->
+        <div class="cv-section">
+          <h2>Certifications</h2>
+          <div class="cv-entry">
+            <div class="cv-when">2022</div>
+            <div class="cv-what"><strong>Udacity Self-Driving Car Nanodegree</strong></div>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-when">—</div>
+            <div class="cv-what"><strong>Elements of AI</strong> · University of Helsinki</div>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-when">—</div>
+            <div class="cv-what"><strong>Google Analytics IQ</strong> · Google Digital Unlocked</div>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-when">—</div>
+            <div class="cv-what"><strong>UTokyo IST Research Hackathon</strong></div>
+          </div>
+        </div>
+
+        <!-- ============ LANGUAGES ============ -->
+        <div class="cv-section">
+          <h2>Languages</h2>
+          <dl class="skills-grid">
+            <dt>English</dt>
+            <dd>Fluent</dd>
+
+            <dt>Hindi</dt>
+            <dd>Native</dd>
+
+            <dt>Japanese</dt>
+            <dd>Basic</dd>
+          </dl>
+        </div>
+
+        <p class="see-all">
+          <a href="index.html">← Back to home</a>
+        </p>
+
+        <p style="font-family: var(--mono); font-size: 0.78rem; color: var(--ink-faint); margin-top: 2rem;">
+          Updated May 2026.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    <div class="container">
+      © 2026 Vishal Chauhan · Tokyo
+    </div>
+  </footer>
 </body>
 </html>

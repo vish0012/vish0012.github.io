@@ -1,651 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vishal Chauhan — University of Tokyo</title>
-<meta name="description" content="Vishal Chauhan — Doctoral researcher at The University of Tokyo, working on human–machine interaction for autonomous vehicles, pedestrian–AV interaction, and infrastructure-based eHMI.">
-<meta name="author" content="Vishal Chauhan">
-<link rel="canonical" href="https://vish0012.github.io/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vishal Chauhan — University of Tokyo</title>
+  <meta name="description" content="Vishal Chauhan — Doctoral researcher at The University of Tokyo. Infrastructure-based eHMI for pedestrian–autonomous-vehicle interaction." />
+  <meta name="author" content="Vishal Chauhan" />
 
-<!-- Open Graph -->
-<meta property="og:type" content="profile">
-<meta property="og:title" content="Vishal Chauhan — University of Tokyo">
-<meta property="og:description" content="Human–machine interaction for autonomous vehicles. PhD candidate at The University of Tokyo.">
-<meta property="og:url" content="https://vish0012.github.io/">
-<meta property="og:image" content="https://vish0012.github.io/photo.jpg">
-<meta name="twitter:card" content="summary_large_image">
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Vishal Chauhan — University of Tokyo" />
+  <meta property="og:description" content="Infrastructure-based eHMI for pedestrian–autonomous-vehicle interaction. PhD candidate, University of Tokyo." />
+  <meta property="og:image" content="https://vish0012.github.io/photo.jpg" />
+  <meta property="og:url" content="https://vish0012.github.io/" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-<!-- Favicon -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23ffffff'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='20' font-weight='600' fill='%231a1a1a' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
+  <link rel="canonical" href="https://vish0012.github.io/" />
+  <link rel="stylesheet" href="assets/style.css" />
 
-<!-- Fonts: serif for display, sans for body -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="assets/style.css">
-
-<!-- JSON-LD -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Vishal Chauhan",
-  "url": "https://vish0012.github.io/",
-  "image": "https://vish0012.github.io/photo.jpg",
-  "jobTitle": "PhD Candidate",
-  "affiliation": {
-    "@type": "Organization",
-    "name": "The University of Tokyo",
-    "url": "https://www.u-tokyo.ac.jp/en/"
-  },
-  "knowsAbout": [
-    "Human-Machine Interaction",
-    "Autonomous Vehicles",
-    "Pedestrian-AV Interaction",
-    "External Human-Machine Interfaces",
-    "Virtual Reality",
-    "Robotics"
-  ],
-  "sameAs": [
-    "https://github.com/vish0012",
-    "https://scholar.google.com/citations?user=SHkxvc4AAAAJ"
-  ]
-}
-</script>
+  <!-- JSON-LD Person schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Vishal Chauhan",
+    "jobTitle": "Doctoral Candidate",
+    "affiliation": {
+      "@type": "CollegeOrUniversity",
+      "name": "The University of Tokyo"
+    },
+    "url": "https://vish0012.github.io/",
+    "image": "https://vish0012.github.io/photo.jpg",
+    "sameAs": [
+      "https://scholar.google.com/citations?user=SHkxvc4AAAAJ",
+      "https://github.com/vish0012",
+      "https://www.linkedin.com/in/aivishalcom/"
+    ],
+    "knowsAbout": [
+      "Human-Computer Interaction",
+      "Autonomous Vehicles",
+      "External Human-Machine Interfaces",
+      "Pedestrian-AV Interaction",
+      "Smart Pole Interaction Unit",
+      "Cross-cultural HCI"
+    ]
+  }
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- ========== NAV ========== -->
-<nav class="top">
-  <ul>
-    <li><a href="#research">
-      <svg class="nav-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M 8 6 Q 8.1 14, 8 22"/>
-        <path d="M 8 9 Q 14 6, 18 8"/>
-        <circle cx="18" cy="8" r="2.2"/>
-        <circle cx="18" cy="8" r="0.9" fill="currentColor" stroke="none"/>
-        <circle cx="22" cy="18" r="1.5"/>
-        <path d="M 22 20 L 22 24"/>
-        <path d="M 22 21 L 20 23"/>
-        <path d="M 22 21 L 24 23"/>
-        <path d="M 22 24 L 21 27"/>
-        <path d="M 22 24 L 23.5 27"/>
-        <path d="M 4 28 Q 16 27.5, 28 28" stroke-width="1"/>
-      </svg>
-      <span class="nav-label">research</span>
-    </a></li>
-    <li><a href="#publications">
-      <svg class="nav-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M 4 7 Q 14 6, 16 7 Q 18 6, 28 7"/>
-        <path d="M 4 7 L 4 25 Q 14 24, 16 25 Q 18 24, 28 25 L 28 7"/>
-        <path d="M 16 7 L 16 25"/>
-        <path d="M 7 11 L 13 11" stroke-width="0.8"/>
-        <path d="M 7 14 L 13 14" stroke-width="0.8"/>
-        <path d="M 7 17 L 13 17" stroke-width="0.8"/>
-        <path d="M 21 13 L 21 21" stroke-width="0.9"/>
-        <path d="M 21 14 Q 23 13, 25 14" stroke-width="0.9"/>
-        <circle cx="25" cy="14" r="1" stroke-width="0.8"/>
-        <circle cx="23" cy="20" r="0.7" stroke-width="0.8" fill="currentColor"/>
-      </svg>
-      <span class="nav-label">publications</span>
-    </a></li>
-    <li><a href="#teaching">
-      <svg class="nav-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M 4 5 L 28 5 L 28 21 L 4 21 L 4 5"/>
-        <path d="M 8 21 L 6 27"/>
-        <path d="M 24 21 L 26 27"/>
-        <path d="M 8 11 L 12 11" stroke-width="0.9"/>
-        <circle cx="14" cy="11" r="0.8" stroke-width="0.9"/>
-        <path d="M 16 11 L 20 11" stroke-width="0.9"/>
-        <path d="M 9 16 L 22 16" stroke-width="0.9"/>
-        <path d="M 20 14.5 L 22 16 L 20 17.5" stroke-width="0.9"/>
-      </svg>
-      <span class="nav-label">teaching</span>
-    </a></li>
-    <li><a href="#collaborators">
-      <svg class="nav-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M 8 17 Q 16 16, 24 17 Q 24 19, 16 20 Q 8 19, 8 17"/>
-        <path d="M 11 17.5 L 21 18" stroke-width="0.7"/>
-        <circle cx="16" cy="6" r="1.8"/>
-        <path d="M 14 9 L 14 14" stroke-width="1.1"/>
-        <path d="M 18 9 L 18 14" stroke-width="1.1"/>
-        <circle cx="6" cy="12" r="1.8"/>
-        <path d="M 4 14 Q 4 17, 6 18" stroke-width="1.1"/>
-        <circle cx="26" cy="12" r="1.8"/>
-        <path d="M 28 14 Q 28 17, 26 18" stroke-width="1.1"/>
-      </svg>
-      <span class="nav-label">collaborators</span>
-    </a></li>
-    <li><a href="#about">
-      <svg class="nav-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M 5 10 Q 16 6, 27 10 L 25 24 L 7 24 L 5 10"/>
-        <path d="M 8 18 L 8 15 L 11 15 L 11 18" stroke-width="0.8"/>
-        <path d="M 12 18 L 12 11 L 15 11 L 15 18" stroke-width="0.8"/>
-        <path d="M 16 18 L 16 13 L 18 13 L 18 18" stroke-width="0.8"/>
-        <path d="M 19 18 L 19 14 L 22 14 L 22 18" stroke-width="0.8"/>
-        <path d="M 23 18 L 23 16 L 24 16 L 24 18" stroke-width="0.8"/>
-        <path d="M 7 24 L 25 24" stroke-width="1.1"/>
-        <path d="M 7 21 L 25 21" stroke-width="0.6" opacity="0.5"/>
-      </svg>
-      <span class="nav-label">about</span>
-    </a></li>
-    <li><a href="#contact">
-      <svg class="nav-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="16" cy="16" r="9" stroke-width="1.4"/>
-        <circle cx="16" cy="16" r="3.5" stroke-width="1.2"/>
-        <path d="M 19.3 16 Q 21 15, 21.5 17 Q 22 20, 21 22 Q 19 24, 16 24" stroke-width="1.2"/>
-      </svg>
-      <span class="nav-label">contact</span>
-    </a></li>
-  </ul>
-</nav>
-
-<div class="wrap">
-
-<!-- ========== HERO ========== -->
-<header class="hero">
-  <img src="photo.jpg" alt="Vishal Chauhan" class="hero-photo" width="200" height="240">
-  <div class="hero-text">
-    <h1>Vishal Chauhan</h1>
-    <div class="titles">
-      <div>Doctoral Candidate (D3)</div>
-      <div><a href="https://tlab.hongo.wide.ad.jp/" target="_blank" rel="noopener">Tsukada Laboratory</a> · Department of Creative Informatics</div>
-      <div><a href="https://www.u-tokyo.ac.jp/en/" target="_blank" rel="noopener">The University of Tokyo</a></div>
+  <header class="site">
+    <div class="container">
+      <a class="brand" href="#top">Vishal Chauhan</a>
+      <nav class="primary" aria-label="Primary">
+        <ul>
+          <li><a href="publications.html">Publications</a></li>
+          <li><a href="cv.html">CV</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-  </div>
-  <!-- Smart-city scene: AV approaching, smart pole signaling, pedestrian crossing.
-       Hand-drawn-style illustration custom-drawn for this site - the wobbles and 
-       imperfections are intentional, not flaws. -->
-  <svg class="hero-mark" viewBox="0 0 240 160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <!-- Building 1 -->
-    <g stroke-width="0.9" opacity="0.5">
-      <path d="M 9 24 L 9 102 L 46 103 L 47 23 L 9 24"/>
-      <path d="M 15 36 L 20 36" stroke-width="0.7"/>
-      <path d="M 25 36 L 30 36" stroke-width="0.7"/>
-      <path d="M 35 36 L 40 36" stroke-width="0.7"/>
-      <path d="M 15 48 L 20 47" stroke-width="0.7"/>
-      <path d="M 25 48 L 30 48" stroke-width="0.7"/>
-      <path d="M 35 48 L 40 48" stroke-width="0.7"/>
-      <path d="M 15 60 L 20 60" stroke-width="0.7"/>
-      <path d="M 25 60 L 30 60" stroke-width="0.7"/>
-      <path d="M 35 60 L 40 60" stroke-width="0.7"/>
-      <path d="M 15 72 L 20 72" stroke-width="0.7"/>
-      <path d="M 25 72 L 30 72" stroke-width="0.7"/>
-      <path d="M 35 72 L 40 71" stroke-width="0.7"/>
-      <path d="M 15 84 L 20 84" stroke-width="0.7"/>
-      <path d="M 25 84 L 30 84" stroke-width="0.7"/>
-      <path d="M 35 84 L 40 84" stroke-width="0.7"/>
-    </g>
-    <!-- Building 2 (smaller, behind) -->
-    <g stroke-width="0.8" opacity="0.35">
-      <path d="M 51 43 L 51 102 L 73 103 L 73 42 L 51 43"/>
-      <path d="M 57 53 L 60 53" stroke-width="0.6"/>
-      <path d="M 65 53 L 68 53" stroke-width="0.6"/>
-      <path d="M 57 65 L 60 65" stroke-width="0.6"/>
-      <path d="M 65 65 L 68 64" stroke-width="0.6"/>
-      <path d="M 57 77 L 60 77" stroke-width="0.6"/>
-      <path d="M 65 77 L 68 77" stroke-width="0.6"/>
-    </g>
-    <!-- Smart pole -->
-    <path d="M 86 43 Q 86.3 60, 86 80 Q 85.8 100, 86 119" stroke-width="1.4"/>
-    <path d="M 86 51 Q 96 44, 106 47 Q 116 50, 122 51" stroke-width="1.3"/>
-    <circle cx="122" cy="51" r="6.2" stroke-width="1.4"/>
-    <circle cx="122" cy="51" r="2.6" fill="currentColor" stroke="none"/>
-    <path d="M 122 39 L 121.5 35" stroke-width="1"/>
-    <path d="M 131 45 L 135 42" stroke-width="1"/>
-    <path d="M 131 57 L 135 60" stroke-width="1"/>
-    <path d="M 110 51 L 106 51" stroke-width="1"/>
-    <path d="M 80 119 Q 86 121, 92 119" stroke-width="1"/>
-    <!-- Crosswalk -->
-    <g stroke-width="1.2" opacity="0.55">
-      <path d="M 100 121 L 109 121"/>
-      <path d="M 114 121 L 124 121.3"/>
-      <path d="M 128 121 L 138 121"/>
-      <path d="M 142 121 L 152 120.8"/>
-      <path d="M 156 121 L 166 121"/>
-    </g>
-    <!-- Pedestrian -->
-    <g stroke-width="1.4">
-      <path d="M 132 91 Q 132 87, 136 87 Q 140 87, 140 91 Q 140 95, 136 95 Q 132 95, 132 91"/>
-      <path d="M 136 95 Q 135.7 100, 136 108"/>
-      <path d="M 136 99 Q 132 102, 130 105"/>
-      <path d="M 136 99 Q 140 101, 142 103"/>
-      <path d="M 136 108 Q 134 113, 132 119"/>
-      <path d="M 136 108 Q 138 113, 141 119"/>
-    </g>
-    <!-- Autonomous vehicle -->
-    <g stroke-width="1.4">
-      <path d="M 178 110 Q 178 102, 184 102 L 196 102 Q 200 102, 202 96 L 205 94 L 217 93 Q 220 93, 222 96 L 224 100 Q 226 102, 228 102 L 230 102 Q 234 102, 234 110 L 234 116 Q 234 119, 230 119"/>
-      <path d="M 224 119 L 192 119"/>
-      <path d="M 184 119 L 180 119 Q 178 118, 178 116"/>
-      <path d="M 203 95 Q 210 94, 218 95"/>
-      <path d="M 209 95 Q 209 99, 208 102"/>
-      <path d="M 186 119 Q 186 115, 190 115 Q 194 115, 194 119 Q 194 123, 190 123 Q 186 123, 186 119"/>
-      <path d="M 218 119 Q 218 115, 222 115 Q 226 115, 226 119 Q 226 123, 222 123 Q 218 123, 218 119"/>
-      <path d="M 208 87 L 213 87 L 213 93 L 208 93 L 208 87"/>
-      <circle cx="210.5" cy="90" r="1" fill="currentColor" stroke="none"/>
-      <path d="M 213 89 Q 217 88, 220 90" stroke-width="0.7" opacity="0.5"/>
-    </g>
-    <!-- Road -->
-    <path d="M 4 129 Q 60 128.5, 120 129 Q 180 129.3, 236 129" stroke-width="1.2" opacity="0.55"/>
-    <g stroke-width="0.9" opacity="0.35">
-      <path d="M 14 133 L 24 133"/>
-      <path d="M 38 133 L 48 133"/>
-      <path d="M 62 133 L 72 133"/>
-      <path d="M 172 133 L 182 133"/>
-      <path d="M 196 133 L 206 133"/>
-      <path d="M 220 133 L 230 133"/>
-    </g>
-  </svg>
-</header>
+  </header>
 
-<!-- ========== RESEARCH (intro + threads) ========== -->
-<section class="section" id="research">
-  <div class="section-head">
-    <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M 8 6 Q 8.1 14, 8 22"/>
-      <path d="M 8 9 Q 14 6, 18 8"/>
-      <circle cx="18" cy="8" r="2.2"/>
-      <circle cx="18" cy="8" r="0.9" fill="currentColor" stroke="none"/>
-      <circle cx="22" cy="18" r="1.5"/>
-      <path d="M 22 20 L 22 24"/>
-      <path d="M 22 21 L 20 23"/>
-      <path d="M 22 21 L 24 23"/>
-      <path d="M 22 24 L 21 27"/>
-      <path d="M 22 24 L 23.5 27"/>
-      <path d="M 4 28 Q 16 27.5, 28 28" stroke-width="1"/>
-    </svg>
-    <h2>research</h2>
-  </div>
+  <main id="main">
 
-  <div class="prose">
-    <p>I study how pedestrians and autonomous vehicles negotiate shared space when there is no driver to make eye contact with. My doctoral work introduces the <strong>Smart Pole Interaction Unit (SPIU)</strong>: an infrastructure-based external HMI that decouples intent signaling from the vehicle itself, delivering explicit "WALK" and "STOP" cues to pedestrians via elevated, context-aware visual signals. The work has been evaluated in VR with N=40 participants across Japan and Norway, and in-the-wild with a mobile SPIU on a real autonomous vehicle. In parallel I contribute to the <a href="https://github.com/autowarefoundation" target="_blank" rel="noopener">Autoware</a> open-source stack at <a href="https://tier4.jp/en/" target="_blank" rel="noopener">Tier IV</a>, where the same software runs both my experiments and real vehicles on the road.</p>
-    <p>Selected research threads:</p>
-
-    <h3>Infrastructure-based external HMI</h3>
-    <p>Conventional eHMI lives on the vehicle. SPIU moves the channel into the <strong>built environment</strong> — a pole at the curb that knows what the approaching vehicle will do and signals it in place. We've shown this <em>reduces pedestrian decision time by 40% to over 80%</em> compared to a no-SPIU baseline, depending on scenario and cultural context. The work spans early VR prototypes through to in-the-wild deployment of a mobile SPIU with cameras and LED displays, evaluated against a four-factor design (CarBehavior × Mobility × eHMI × SPIU) showing significant gains in understandability, trust, and perceived safety.</p>
-
-    <h3>Cross-cultural pedestrian behaviour</h3>
-    <p>Most eHMI research happens in one country; deployment is global. During a visit to <a href="https://www.ntnu.edu/" target="_blank" rel="noopener">NTNU Norway</a> I ran a parallel VR study (40 participants, 32 trials each) replicating an experiment originally developed in Japan. Results showed SPIU's adaptability across differing urban and social contexts, with effect sizes varying by culture in informative ways.</p>
-
-    <h3>Synthetic participants for HCI</h3>
-    <p>Field studies are irreplaceable but slow and expensive. In collaboration with lab members, I co-authored work asking whether <strong>Vision-Language Model personas</strong> can stand in for real participants in pedestrian–AV interaction studies. We ran parallel experiments with 20 real participants and 20 VLM personas and found that VLMs capture key behavioural patterns but lack nuance in non-verbal cues and complex social behaviour — a useful limit on the "synthetic participant" idea now circulating in HCI.</p>
-
-    <h3>Reproducible simulation for HCI research</h3>
-    <p>Together with collaborators I maintain an <a href="https://github.com/tlab-wide/Smartpole-VR-AWSIM" target="_blank" rel="noopener">open VR + AWSIM testbed</a> so that pedestrian–AV studies can actually be replicated. The same scenarios drive both VR experiments and physical-robot deployments.</p>
-  </div>
-</section>
-
-<!-- ========== PUBLICATIONS ========== -->
-<section class="section" id="publications">
-  <div class="section-head">
-    <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M 4 7 Q 14 6, 16 7 Q 18 6, 28 7"/>
-      <path d="M 4 7 L 4 25 Q 14 24, 16 25 Q 18 24, 28 25 L 28 7"/>
-      <path d="M 16 7 L 16 25"/>
-      <path d="M 7 11 L 13 11" stroke-width="0.8"/>
-      <path d="M 7 14 L 13 14" stroke-width="0.8"/>
-      <path d="M 7 17 L 13 17" stroke-width="0.8"/>
-      <path d="M 21 13 L 21 21" stroke-width="0.9"/>
-      <path d="M 21 14 Q 23 13, 25 14" stroke-width="0.9"/>
-      <circle cx="25" cy="14" r="1" stroke-width="0.8"/>
-      <circle cx="23" cy="20" r="0.7" stroke-width="0.8" fill="currentColor"/>
-    </svg>
-    <h2>publications</h2>
-  </div>
-
-  <article class="pub" id="chi-2026-spiu">
-    <div class="pub-thumb placeholder">SPIU<br>in&nbsp;the&nbsp;wild</div>
-    <div class="pub-body">
-      <div class="pub-title">Don't Worry, Just Follow Me: Prototyping and In-the-Wild Evaluation of Smart Pole Interaction Unit with Mobility <span style="font-size:0.78em;color:var(--accent-deep);font-weight:600;background:rgba(107,142,138,0.12);padding:1px 6px;border-radius:3px;margin-left:4px;vertical-align:middle">🏆 Honourable Mention</span></div>
-      <div class="pub-authors"><span class="me">Vishal Chauhan</span>, Anubhav, Mark Colley, Chia-Ming Chang, Xinyue Gui, Ding Xia, Ehsan Javanmardi, Takeo Igarashi, Kantaro Fujiwara, Manabu Tsukada</div>
-      <div class="pub-venue">ACM CHI 2026 · Barcelona, Spain</div>
-      <div class="pub-links">
-        <span class="disabled">PDF</span>
-        <span class="disabled">video</span>
-        <span class="disabled">DOI</span>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+      <div class="container">
+        <div class="hero-grid">
+          <img class="portrait" src="photo.jpg" alt="Portrait of Vishal Chauhan" />
+          <div class="hero-text">
+            <h1>Vishal&nbsp;Chauhan</h1>
+            <p class="role">Doctoral Candidate (D3)</p>
+            <p class="affil">
+              <a href="https://tlab.hongo.wide.ad.jp/">Tsukada&nbsp;Laboratory</a> · Department of Creative Informatics<br />
+              <a href="https://www.u-tokyo.ac.jp/en/">The&nbsp;University&nbsp;of&nbsp;Tokyo</a> &nbsp;·&nbsp; <a href="https://tier4.jp/en/">Tier&nbsp;IV</a>
+            </p>
+            <ul class="keyword-row" aria-label="Research areas">
+              <li>Pedestrian–AV interaction</li>
+              <li>In-cabin HMI</li>
+              <li>External HMI</li>
+              <li>Cross-cultural HCI</li>
+              <li>Smart cities</li>
+              <li>Robotics</li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="pub-note">In-the-wild evaluation (N=21) of a mobile SPIU with cameras and LED displays delivering explicit WALK/STOP cues. Four-factor design showing improvements in understandability, trust, and perceived safety.</div>
-    </div>
-  </article>
+    </section>
 
-  <article class="pub" id="chi-2026-vlm">
-    <div class="pub-thumb placeholder">VLM<br>personas</div>
-    <div class="pub-body">
-      <div class="pub-title">Peeking Ahead of the Field Study: Exploring VLM Personas as Support Tools for Embodied Studies in HCI <span style="font-size:0.78em;color:var(--accent-deep);font-weight:600;background:rgba(107,142,138,0.12);padding:1px 6px;border-radius:3px;margin-left:4px;vertical-align:middle">🏆 Honourable Mention</span></div>
-      <div class="pub-authors">Xinyue Gui, Ding Xia, Mark Colley, Yuan Li, <span class="me">Vishal Chauhan</span>, Anubhav, Zhongyi Zhou, Ehsan Javanmardi, Stela Hanbyeol Seo, Chia-Ming Chang, Manabu Tsukada, Takeo Igarashi</div>
-      <div class="pub-venue">ACM CHI 2026 · Barcelona, Spain</div>
-      <div class="pub-links">
-        <a href="https://arxiv.org/abs/2602.16157" target="_blank" rel="noopener">arXiv</a>
-        <a href="https://doi.org/10.1145/3772318.3790537" target="_blank" rel="noopener">DOI</a>
+    <!-- ============ ABOUT (short) ============ -->
+    <section id="about">
+      <div class="container">
+        <p class="section-eyebrow">About</p>
+        <p class="lead">
+          I'm an <strong>HCI researcher</strong> working on how people interact with
+          autonomous vehicles, robots, and VR. I design
+          interfaces, prototype them in simulation, and test them with
+          participants in the lab and on real streets.
+        </p>
+        <p>
+          Part-time at <a href="https://tier4.jp/en/">Tier IV</a>, I contribute
+          to <a href="https://github.com/autowarefoundation">Autoware</a> —
+          the open-source self-driving stack behind both my experiments and
+          real road vehicles.
+          <a class="cv-link" href="cv.html">Full CV →</a>
+        </p>
       </div>
-      <div class="pub-note">Parallel field study (N=20 real participants vs. N=20 VLM personas) on street-crossing decisions with autonomous vehicles. Maps where VLM personas can substitute for human participants — and where they cannot.</div>
-    </div>
-  </article>
+    </section>
 
-  <article class="pub" id="vrst-2025">
-    <div class="pub-thumb placeholder">Cross-cultural<br>VR&nbsp;study</div>
-    <div class="pub-body">
-      <div class="pub-title">A Silent Negotiator? Cross-cultural VR Evaluation of Smart Pole Interaction Units in Dynamic Shared Spaces</div>
-      <div class="pub-authors"><span class="me">Vishal Chauhan</span>, Anubhav, Robin Sidhu, Yu Asabe, Kanta Tanaka, Chia-Ming Chang, Xiang Su, Ehsan Javanmardi, Takeo Igarashi, Alex Orsholits, Kantaro Fujiwara, Manabu Tsukada</div>
-      <div class="pub-venue">ACM VRST 2025 · Montréal, Canada</div>
-      <div class="pub-links">
-        <a href="https://github.com/tlab-wide/Smartpole-VR-AWSIM" target="_blank" rel="noopener">code</a>
-        <a href="https://doi.org/10.1145/3756884.3765991" target="_blank" rel="noopener">DOI</a>
+    <!-- ============ SELECTED PUBLICATIONS ============ -->
+    <section id="publications">
+      <div class="container">
+        <p class="section-eyebrow">Selected publications</p>
+        <h2>Recent work.</h2>
+
+        <div class="pub-list">
+
+          <article class="pub">
+            <figure class="pub-thumb">
+              <img src="assets/images/image4.png" alt="Mobile SPIU prototype with LED displays delivering WALK and STOP cues to pedestrians in shared space" />
+            </figure>
+            <div class="pub-body">
+              <h3>
+                Don't Worry, Just Follow Me: Prototyping and In-the-Wild Evaluation of Smart Pole Interaction Unit with Mobility
+                <span class="award-badge">🏆 Honourable Mention</span>
+              </h3>
+              <p class="pub-authors">
+                <span class="me">Vishal Chauhan</span>, Anubhav, Mark Colley, Chia-Ming Chang,
+                Xinyue Gui, Ding Xia, Ehsan Javanmardi, Takeo Igarashi,
+                Kantaro Fujiwara, Manabu Tsukada
+              </p>
+              <p class="pub-venue">ACM CHI 2026 · Barcelona, Spain</p>
+              <p class="pub-blurb">
+                In-the-wild evaluation (N=21) of a mobile SPIU with cameras and LED
+                displays. Four-factor analysis shows clear gains in understandability,
+                trust, and perceived safety; strongest when SPIU and vehicle eHMI
+                work together.
+              </p>
+              <p class="pub-links">
+                <a href="https://doi.org/10.1145/3772318.3790882">DOI</a>
+                <span class="sep">·</span>
+                <a href="https://www.youtube.com/watch?v=PLmCgmTwsHQ">Video</a>
+              </p>
+            </div>
+          </article>
+
+          <article class="pub">
+            <figure class="pub-thumb">
+              <img src="assets/images/image5.png" alt="VR study setup for cross-cultural evaluation of SPIU across Japan and Norway in high-risk crossing scenarios" />
+            </figure>
+            <div class="pub-body">
+              <h3>
+                A Silent Negotiator? Cross-cultural VR Evaluation of Smart Pole Interaction Units in Dynamic Shared Spaces
+              </h3>
+              <p class="pub-authors">
+                <span class="me">Vishal Chauhan</span>, Anubhav, Robin Sidhu,
+                Yu Asabe, Kanta Tanaka, Chia-Ming Chang, Xiang Su, Ehsan Javanmardi,
+                Takeo Igarashi, Alex Orsholits, Kantaro Fujiwara, Manabu Tsukada
+              </p>
+              <p class="pub-venue">ACM VRST 2025 · Montréal, Canada</p>
+              <p class="pub-blurb">
+                Parallel VR study (N=40 across Japan and Norway, 32 trials each)
+                across four high-risk scenarios. SPIU reduces pedestrian decision
+                time by 40–80% depending on scenario and cultural context.
+              </p>
+              <p class="pub-links">
+                <a href="https://doi.org/10.1145/3756884.3765991">DOI</a>
+                <span class="sep">·</span>
+                <a href="https://github.com/tlab-wide/Smartpole-VR-AWSIM">Code</a>
+              </p>
+            </div>
+          </article>
+
+          <article class="pub">
+            <figure class="pub-thumb">
+              <img src="assets/images/image6.png" alt="Comparison of human and LLM responses for SPIU interaction design in shared spaces" />
+            </figure>
+            <div class="pub-body">
+              <h3>
+                Towards the Future of Pedestrian–AV Interaction: Human Perception vs. LLM Insights on Smart Pole Interaction Unit
+              </h3>
+              <p class="pub-authors">
+                <span class="me">Vishal Chauhan</span>, Anubhav, Chia-Ming Chang,
+                Xiang Su, Jin Nakazato, Ehsan Javanmardi, Alex Orsholits,
+                Takeo Igarashi, Kantaro Fujiwara, Manabu Tsukada
+              </p>
+              <p class="pub-venue">International Journal of Human–Computer Studies, 2025</p>
+              <p class="pub-blurb">
+                Group design study (N=25 humans) compared against three multimodal
+                LLMs as experts. 90% of participants preferred SPIU-mediated
+                multi-AV interaction; LLMs used safety-related keywords 30% more
+                frequently than humans.
+              </p>
+              <p class="pub-links">
+                <a href="https://doi.org/10.1016/j.ijhcs.2025.103628">DOI</a>
+              </p>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="see-all">
+          <a href="publications.html">View all publications →</a>
+        </p>
       </div>
-      <div class="pub-note">Parallel VR study (N=40 across Japan and Norway, 32 trials each) on four high-risk scenarios. SPIU reduces pedestrian decision time by 40% to over 80% depending on scenario and cultural context.</div>
-    </div>
-  </article>
+    </section>
 
-  <article class="pub" id="ijhcs-2025">
-    <div class="pub-thumb placeholder">LLM&nbsp;vs<br>human</div>
-    <div class="pub-body">
-      <div class="pub-title">Towards the Future of Pedestrian–AV Interaction: Human Perception vs. LLM Insights on Smart Pole Interaction Unit</div>
-      <div class="pub-authors"><span class="me">Vishal Chauhan</span>, Chia-Ming Chang, Xiang Su, Jin Nakazato, Ehsan Javanmardi, Alex Orsholits, Takeo Igarashi, Kantaro Fujiwara, Manabu Tsukada</div>
-      <div class="pub-venue">International Journal of Human–Computer Studies, 2025</div>
-      <div class="pub-links">
-        <span class="disabled">PDF</span>
-        <span class="disabled">DOI</span>
+    <!-- ============ RECENT ============ -->
+    <section id="recent">
+      <div class="container">
+        <p class="section-eyebrow">Recent</p>
+        <h2>News.</h2>
+        <ul class="news-list">
+          <li>
+            <span class="news-date">Apr 2026</span>
+            <span>Presented two papers at <strong>CHI 2026</strong> in Barcelona — both received <strong>Honourable Mention Awards</strong> 🏆.</span>
+          </li>
+          <li>
+            <span class="news-date">Mar 2026</span>
+            <span>New paper accepted at <strong>HCII 2026</strong>: <em>Colored Shared Spaces</em>.</span>
+          </li>
+          <li>
+            <span class="news-date">Nov 2025</span>
+            <span>Presented <strong>VRST 2025</strong> in Montréal: cross-cultural VR evaluation of SPIU.</span>
+          </li>
+          <li>
+            <span class="news-date">Sep 2025</span>
+            <span><strong>IJHCS</strong> article on human-vs-LLM perception of eHMI published.</span>
+          </li>
+          <li>
+            <span class="news-date">Sep 2025</span>
+            <span>Attended <strong>CIV Summer School</strong>, Blonay, Switzerland.</span>
+          </li>
+          <li>
+            <span class="news-date">Dec 2024</span>
+            <span>Joined <a href="https://tier4.jp/en/">Tier IV</a> as an Autonomous Driving Engineer.</span>
+          </li>
+          <li>
+            <span class="news-date">Aug 2024</span>
+            <span>Visiting researcher at <a href="https://www.ntnu.edu/">NTNU Norway</a>.</span>
+          </li>
+        </ul>
+        <p class="see-all">
+          <a href="news.html">…older entries →</a>
+        </p>
       </div>
-    </div>
-  </article>
+    </section>
 
-  <article class="pub" id="icea-2024">
-    <div class="pub-thumb placeholder">Expert<br>insights</div>
-    <div class="pub-body">
-      <div class="pub-title">Connected Shared Spaces: Expert Insights into the Impact of eHMI and SPIU for Next-Generation Pedestrian-AV Communication</div>
-      <div class="pub-authors"><span class="me">Vishal Chauhan</span>, Anubhav, Chia-Ming Chang, Jin Nakazato, Ehsan Javanmardi, Alex Orsholits, Takeo Igarashi, Kantaro Fujiwara, Manabu Tsukada</div>
-      <div class="pub-venue">Intl. Conf. on Intelligent Computing and Emerging Applications (ICEA 2024)</div>
-      <div class="pub-links">
-        <a href="https://doi.org/10.1145/3732437.3732752" target="_blank" rel="noopener">DOI</a>
+    <!-- ============ TEACHING ============ -->
+    <section id="teaching">
+      <div class="container">
+        <p class="section-eyebrow">Teaching &amp; mentoring</p>
+        <h2>Beyond the bench.</h2>
+
+        <div class="teaching-item">
+          <h3>Student mentoring · Tsukada Lab</h3>
+          <p class="teaching-meta">The University of Tokyo · ongoing</p>
+          <p>Mentoring master's students on VR experiment design, AWSIM scenario authoring, and field-study logistics for pedestrian–AV research.</p>
+        </div>
+
+        <div class="teaching-item">
+          <h3>Student workshops on AI &amp; product strategy</h3>
+          <p class="teaching-meta">Zeroney.ai · Tokyo · 2023–2024</p>
+          <p>Designed and led workshops for university students on applying AI to product design and roadmap thinking.</p>
+        </div>
+
+        <div class="teaching-item">
+          <h3>M-BIC Mobility Business Innovation Contest</h3>
+          <p class="teaching-meta">UTokyo × Doshisha, with Tier IV and Digital Agency · 2022</p>
+          <p>Team lead for an interdisciplinary student team competing on a mobility business challenge.</p>
+        </div>
       </div>
-    </div>
-  </article>
+    </section>
 
-  <article class="pub" id="autoui-2024">
-    <div class="pub-thumb placeholder">Think-tank<br>study</div>
-    <div class="pub-body">
-      <div class="pub-title">Transforming Pedestrian and Autonomous Vehicles Interactions in Shared Spaces: A Think-Tank Study on Exploring Human-Centric Designs</div>
-      <div class="pub-authors"><span class="me">Vishal Chauhan</span>, Anubhav, Chia-Ming Chang, Jin Nakazato, Ehsan Javanmardi, Alex Orsholits, Takeo Igarashi, Kantaro Fujiwara, Manabu Tsukada</div>
-      <div class="pub-venue">ACM AutomotiveUI 2024 (Adjunct) · Stanford, USA</div>
-      <div class="pub-links">
-        <a href="https://doi.org/10.1145/3641308.3685037" target="_blank" rel="noopener">DOI</a>
+    <!-- ============ COLLABORATORS ============ -->
+    <section id="collaborators">
+      <div class="container">
+        <p class="section-eyebrow">Collaborators</p>
+        <h2>Network.</h2>
+
+        <div class="collab-group">
+          <h4>Advisor</h4>
+          <ul class="collab-list">
+            <li><strong>Prof. Manabu Tsukada</strong> · The University of Tokyo</li>
+          </ul>
+        </div>
+
+        <div class="collab-group">
+          <h4>Recurring research collaborators</h4>
+          <ul class="collab-list">
+            <li>Chia-Ming Chang · UTokyo</li>
+            <li>Ehsan Javanmardi · UTokyo</li>
+            <li>Prof. Takeo Igarashi · UTokyo</li>
+            <li>Kantaro Fujiwara · UTokyo</li>
+            <li>Mark Colley · University of Ulm</li>
+            <li>Alex Orsholits · NTNU Norway</li>
+            <li>Xiang Su · NTNU / University of Oulu</li>
+            <li>Jin Nakazato · UTokyo</li>
+          </ul>
+        </div>
+
+        <div class="collab-group">
+          <h4>Co-authors &amp; lab members</h4>
+          <ul class="collab-list">
+            <li>Anubhav</li>
+            <li>Robin Sidhu</li>
+            <li>Yu Asabe</li>
+            <li>Kanta Tanaka</li>
+            <li>Xinyue Gui</li>
+            <li>Ding Xia</li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </article>
+    </section>
 
-  <article class="pub" id="electronics-2023">
-    <div class="pub-thumb placeholder">Fuzzy<br>logic</div>
-    <div class="pub-body">
-      <div class="pub-title">Fostering Fuzzy Logic in Enhancing Pedestrian Safety: Harnessing Smart Pole Interaction Unit for Autonomous Vehicle-to-Pedestrian Communication and Decision Optimization</div>
-      <div class="pub-authors"><span class="me">Vishal Chauhan</span>, Chia-Ming Chang, Ehsan Javanmardi, Jin Nakazato, Pengfei Lin, Takeo Igarashi, Manabu Tsukada</div>
-      <div class="pub-venue">Electronics 12(20):4207, 2023</div>
-      <div class="pub-links">
-        <a href="https://doi.org/10.3390/electronics12204207" target="_blank" rel="noopener">DOI</a>
+    <!-- ============ CONTACT ============ -->
+    <section id="contact">
+      <div class="container">
+        <p class="section-eyebrow">Contact</p>
+        <h2>Get in touch.</h2>
+
+        <div class="contact-block">
+          <p>
+            <a href="mailto:vishalchauhan@outlook.sg">vishalchauhan@outlook.sg</a>
+          </p>
+          <p>
+            <a href="https://tlab.hongo.wide.ad.jp/">Tsukada Laboratory</a><br />
+            Room 91B1, Bldg. 2 of Engineering Department<br />
+            The University of Tokyo<br />
+            7-3-1 Hongo, Bunkyō-ku, Tokyo 113-8656, Japan
+          </p>
+        </div>
+
+        <div class="social-row">
+          <a href="https://scholar.google.com/citations?user=SHkxvc4AAAAJ">Google Scholar</a>
+          <a href="https://github.com/vish0012">GitHub</a>
+          <a href="https://www.linkedin.com/in/aivishalcom/">LinkedIn</a>
+        </div>
       </div>
+    </section>
+
+  </main>
+
+  <footer class="site">
+    <div class="container">
+      © 2026 Vishal Chauhan · Tokyo
     </div>
-  </article>
-
-  <article class="pub" id="wfiot-2023">
-    <div class="pub-thumb placeholder">Cognitive<br>load</div>
-    <div class="pub-body">
-      <div class="pub-title">Keep Calm and Cross: Smart Pole Interaction Unit for Easing Pedestrian Cognitive Load</div>
-      <div class="pub-authors"><span class="me">Vishal Chauhan</span>, Chia-Ming Chang, Ehsan Javanmardi, Jin Nakazato, Koki Toda, Pengfei Lin, Takeo Igarashi, Manabu Tsukada</div>
-      <div class="pub-venue">IEEE 9th World Forum on the Internet of Things (WF-IoT 2023)</div>
-      <div class="pub-links">
-        <span class="disabled">IEEE</span>
-      </div>
-    </div>
-  </article>
-
-  <p class="pub-note" style="text-align:center;margin-top:1.5rem">
-    Full list and citation metrics on <a href="https://scholar.google.com/citations?user=SHkxvc4AAAAJ" target="_blank" rel="noopener">Google Scholar</a>.
-  </p>
-</section>
-
-<!-- ========== TEACHING ========== -->
-<section class="section" id="teaching">
-  <div class="section-head">
-    <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M 4 5 L 28 5 L 28 21 L 4 21 L 4 5"/>
-      <path d="M 8 21 L 6 27"/>
-      <path d="M 24 21 L 26 27"/>
-      <path d="M 8 11 L 12 11" stroke-width="0.9"/>
-      <circle cx="14" cy="11" r="0.8" stroke-width="0.9"/>
-      <path d="M 16 11 L 20 11" stroke-width="0.9"/>
-      <path d="M 9 16 L 22 16" stroke-width="0.9"/>
-      <path d="M 20 14.5 L 22 16 L 20 17.5" stroke-width="0.9"/>
-    </svg>
-    <h2>teaching &amp; mentoring</h2>
-  </div>
-
-  <div class="prose">
-    <p style="text-align:center;font-style:italic;color:var(--ink-muted)">
-      Teaching activities will appear here as they begin. In the interim:
-    </p>
-  </div>
-
-  <div style="max-width:66ch;margin:1.5rem auto 0">
-    <div class="entry">
-      <div class="entry-title">Student mentoring &amp; lab activities</div>
-      <div class="entry-meta">Tsukada Lab, The University of Tokyo · ongoing</div>
-      <div class="entry-desc">Mentoring of master's students on VR experiment design, AWSIM scenario authoring, and field-study logistics for pedestrian–AV research.</div>
-    </div>
-    <div class="entry">
-      <div class="entry-title">Student workshops on AI and product strategy</div>
-      <div class="entry-meta">Zeroney.ai · Tokyo · 2023–2024</div>
-      <div class="entry-desc">Designed and led workshops for university students on applying AI to product design and roadmap thinking.</div>
-    </div>
-    <div class="entry">
-      <div class="entry-title">M-BIC Mobility Business Innovation Contest</div>
-      <div class="entry-meta">UTokyo × Doshisha, with Tier IV and Digital Agency · 2022</div>
-      <div class="entry-desc">Team lead for an interdisciplinary student team competing on a mobility business challenge.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== COLLABORATORS ========== -->
-<section class="section" id="collaborators">
-  <div class="section-head">
-    <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M 8 17 Q 16 16, 24 17 Q 24 19, 16 20 Q 8 19, 8 17"/>
-      <path d="M 11 17.5 L 21 18" stroke-width="0.7"/>
-      <circle cx="16" cy="6" r="1.8"/>
-      <path d="M 14 9 L 14 14" stroke-width="1.1"/>
-      <path d="M 18 9 L 18 14" stroke-width="1.1"/>
-      <circle cx="6" cy="12" r="1.8"/>
-      <path d="M 4 14 Q 4 17, 6 18" stroke-width="1.1"/>
-      <circle cx="26" cy="12" r="1.8"/>
-      <path d="M 28 14 Q 28 17, 26 18" stroke-width="1.1"/>
-    </svg>
-    <h2>collaborators</h2>
-  </div>
-
-  <div style="max-width:66ch;margin:0 auto">
-    <div class="team-group">
-      <h3>Advisor</h3>
-      <ul class="team-list">
-        <li>Prof. <a href="https://www.u-tokyo.ac.jp/en/" target="_blank" rel="noopener">Manabu Tsukada</a> — The University of Tokyo</li>
-      </ul>
-    </div>
-
-    <div class="team-group">
-      <h3>Recurring research collaborators</h3>
-      <ul class="team-list">
-        <li>Chia-Ming Chang — The University of Tokyo</li>
-        <li>Ehsan Javanmardi — The University of Tokyo</li>
-        <li>Prof. Takeo Igarashi — The University of Tokyo</li>
-        <li>Kantaro Fujiwara — The University of Tokyo</li>
-        <li>Mark Colley — University of Ulm</li>
-        <li>Alex Orsholits — NTNU Norway</li>
-        <li>Xiang Su — NTNU Norway / University of Oulu</li>
-      </ul>
-    </div>
-
-    <div class="team-group">
-      <h3>Co-authors &amp; lab members</h3>
-      <ul class="team-list">
-        <li>Anubhav, Robin Sidhu, Yu Asabe, Kanta Tanaka</li>
-        <li>Xinyue Gui, Ding Xia, Jin Nakazato</li>
-      </ul>
-    </div>
-
-    <p style="font-size:0.95rem;color:var(--ink-muted);margin-top:1.5rem;font-style:italic">
-      Interested in collaboration on pedestrian–AV interaction, multi-agent eHMI, or cross-cultural HCI methods? <a href="#contact">Get in touch.</a>
-    </p>
-  </div>
-</section>
-
-<!-- ========== ABOUT ========== -->
-<section class="section" id="about">
-  <div class="section-head">
-    <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M 5 10 Q 16 6, 27 10 L 25 24 L 7 24 L 5 10"/>
-      <path d="M 8 18 L 8 15 L 11 15 L 11 18" stroke-width="0.8"/>
-      <path d="M 12 18 L 12 11 L 15 11 L 15 18" stroke-width="0.8"/>
-      <path d="M 16 18 L 16 13 L 18 13 L 18 18" stroke-width="0.8"/>
-      <path d="M 19 18 L 19 14 L 22 14 L 22 18" stroke-width="0.8"/>
-      <path d="M 23 18 L 23 16 L 24 16 L 24 18" stroke-width="0.8"/>
-      <path d="M 7 24 L 25 24" stroke-width="1.1"/>
-      <path d="M 7 21 L 25 21" stroke-width="0.6" opacity="0.5"/>
-    </svg>
-    <h2>about</h2>
-  </div>
-
-  <div class="prose">
-    <p>I am a third-year doctoral candidate (D3) in <strong>Creative Informatics</strong> at <a href="https://www.u-tokyo.ac.jp/en/" target="_blank" rel="noopener">The University of Tokyo</a>, working in <a href="https://tlab.hongo.wide.ad.jp/" target="_blank" rel="noopener">Tsukada Laboratory</a> under Prof. <strong>Manabu Tsukada</strong>. Before that I did a master's at the same university on the Todai Fellowship, with a research focus that gradually narrowed from broad robotics into the specific question of how humans and autonomous vehicles communicate without language.</p>
-    <p>Earlier in my path I read information technology at <strong>Vel Tech University</strong> with exchange research at <strong>NTU Singapore</strong>; held research internships at <a href="https://www.riken.jp/en/" target="_blank" rel="noopener">RIKEN</a>, <a href="https://ispace-inc.com/en/" target="_blank" rel="noopener">ispace</a>, and <a href="https://www.ccu.edu.tw/eng/" target="_blank" rel="noopener">National Chung Cheng University</a> in Taiwan; and was a visiting researcher at <a href="https://www.ntnu.edu/" target="_blank" rel="noopener">NTNU Norway</a>. Alongside the PhD I work part-time at <a href="https://tier4.jp/en/" target="_blank" rel="noopener">Tier IV</a> as an Autonomous Driving Engineer on the Autoware Universe stack.</p>
-
-    <h3>CV</h3>
-    <p>A full curriculum vitae is <a href="cv.html">here</a>, with positions, awards, talks, and a complete publication list.</p>
-
-    <h3>Outside the lab</h3>
-    <p>I write occasionally at about AI, mobility, and what they're doing to each other. Beyond the screen, I'm trying to get better at long-distance running and at reading Japanese without a dictionary.</p>
-  </div>
-
-  <!-- Text affiliation row in lieu of logos (UTokyo logo requires prior application;
-       Tier IV and others have similar restrictions). Tasteful italic text instead. -->
-  <div class="affil">
-    <a href="https://www.u-tokyo.ac.jp/en/" target="_blank" rel="noopener" title="The University of Tokyo">
-      <svg class="affil-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M3 9l9-5 9 5"/>
-        <path d="M5 9v9h14V9"/>
-        <path d="M9 18v-5h6v5"/>
-      </svg>
-      <span>The University of Tokyo</span>
-    </a>
-    <a href="https://tier4.jp/en/" target="_blank" rel="noopener" title="Tier IV">
-      <svg class="affil-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="3" y="6" width="18" height="12" rx="1.5"/>
-        <path d="M7 10h4M7 14h10M14 10h3"/>
-      </svg>
-      <span>Tier IV</span>
-    </a>
-  </div>
-</section>
-
-<!-- ========== NEWS (subtle, low-key) ========== -->
-<section class="section" id="news" style="padding-top:2rem">
-  <div class="section-head">
-    <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="16" cy="18" r="9" stroke-width="1.4"/>
-      <circle cx="16" cy="18" r="7.5" stroke-width="0.7" opacity="0.4"/>
-      <path d="M 16 11 L 16 12.5" stroke-width="0.9"/>
-      <path d="M 22.5 18 L 21 18" stroke-width="0.9"/>
-      <path d="M 9.5 18 L 11 18" stroke-width="0.9"/>
-      <path d="M 16 18 L 16 13" stroke-width="1.1"/>
-      <path d="M 16 18 L 20 19" stroke-width="1.1"/>
-      <circle cx="16" cy="18" r="0.7" fill="currentColor" stroke="none"/>
-      <path d="M 16 9 Q 16 6, 14 5" stroke-width="0.9"/>
-      <circle cx="13.5" cy="5" r="0.8" stroke-width="0.9"/>
-    </svg>
-    <h2>recent</h2>
-  </div>
-
-  <div style="max-width:60ch;margin:0 auto">
-    <div class="news-row">
-      <span class="news-date">Apr 2026</span>
-      <span class="news-text">Presented two papers at <strong>CHI 2026</strong> in Barcelona — both received <strong>Honourable Mention Awards</strong> 🏆. <a href="#chi-2026-spiu">SPIU paper</a> · <a href="#chi-2026-vlm">VLM personas paper</a></span>
-    </div>
-    <div class="news-row">
-      <span class="news-date">Mar 2026</span>
-      <span class="news-text">Two papers accepted at <strong>ACM CHI 2026</strong> — both with Honourable Mention recognition.</span>
-    </div>
-    <div class="news-row">
-      <span class="news-date">Nov 2025</span>
-      <span class="news-text">Presented <a href="#vrst-2025"><strong>VRST 2025</strong></a> in Montréal: cross-cultural VR evaluation of SPIU.</span>
-    </div>
-    <div class="news-row">
-      <span class="news-date">Sep 2025</span>
-      <span class="news-text"><a href="#ijhcs-2025"><strong>IJHCS</strong></a> article on human-vs-LLM perception of eHMI published.</span>
-    </div>
-    <div class="news-row">
-      <span class="news-date">Sep 2025</span>
-      <span class="news-text">Attended CIV Summer School, Blonay, Switzerland.</span>
-    </div>
-    <div class="news-row">
-      <span class="news-date">Dec 2024</span>
-      <span class="news-text">Joined <a href="https://tier4.jp/en/" target="_blank" rel="noopener">Tier IV</a> as an Autonomous Driving Engineer.</span>
-    </div>
-    <div class="news-row">
-      <span class="news-date">Sep 2024</span>
-      <span class="news-text">Presented <a href="#autoui-2024">think-tank study</a> at <strong>AutoUI 2024</strong>, Stanford.</span>
-    </div>
-    <div class="news-row">
-      <span class="news-date">Aug 2024</span>
-      <span class="news-text">Visiting researcher at <a href="https://www.ntnu.edu/" target="_blank" rel="noopener">NTNU Norway</a>.</span>
-    </div>
-  </div>
-</section>
-
-<!-- ========== CONTACT ========== -->
-<section class="section" id="contact">
-  <div class="section-head">
-    <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="16" cy="16" r="9" stroke-width="1.4"/>
-      <circle cx="16" cy="16" r="3.5" stroke-width="1.2"/>
-      <path d="M 19.3 16 Q 21 15, 21.5 17 Q 22 20, 21 22 Q 19 24, 16 24" stroke-width="1.2"/>
-    </svg>
-    <h2>contact</h2>
-  </div>
-
-  <div class="contact-block">
-    <div class="email"><a href="mailto:vishalchauhan@outlook.sg">vishalchauhan@outlook.sg</a></div>
-    <div><a href="https://tlab.hongo.wide.ad.jp/" target="_blank" rel="noopener">Tsukada Laboratory</a> · Room 91B1, Bldg. 2 of Engineering Department</div>
-    <div>The University of Tokyo · 7-3-1 Hongo, Bunkyō-ku, Tokyo 113-8656, Japan</div>
-    <div style="margin-top:1rem;font-size:0.95rem">
-      <a href="https://scholar.google.com/citations?user=SHkxvc4AAAAJ" target="_blank" rel="noopener">Google&nbsp;Scholar</a>
-      &nbsp;·&nbsp;
-      <a href="https://github.com/vish0012" target="_blank" rel="noopener">GitHub</a>
-      &nbsp;·&nbsp;
-      <a href="https://www.linkedin.com/in/aivishalcom/" target="_blank" rel="noopener">LinkedIn</a>
-      &nbsp;·&nbsp;
-    </div>
-  </div>
-</section>
-
-</div><!-- /.wrap -->
-
-<footer>
-  <svg class="mark" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <!-- Small AV from above -->
-    <path d="M14 36 Q 14 30, 19 30 L 28 30 L 32 25 L 42 25 L 46 30 L 49 30 Q 53 30, 53 36 L 53 42 Q 53 44, 51 44"/>
-    <path d="M16 44 L 49 44"/>
-    <line x1="32" y1="26" x2="42" y2="26"/>
-    <circle cx="22" cy="44" r="3"/>
-    <circle cx="46" cy="44" r="3"/>
-    <!-- LiDAR sensor -->
-    <rect x="35" y="20" width="4" height="5" rx="0.5"/>
-    <circle cx="37" cy="22.5" r="1" fill="currentColor" stroke="none"/>
-  </svg>
-  <div>© <span id="year">2026</span> Vishal Chauhan · Tokyo</div>
-</footer>
-
-<script>
-  // Minimal: just update the year. No animations, no cursor effects, no theme toggle.
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+  </footer>
 </body>
 </html>
