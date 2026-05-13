@@ -428,7 +428,7 @@ nav.primary a[aria-current="page"] {
 .pub.pub-text .pub-body { padding-left: 0; }
 .pub-thumb {
   margin: 0;
-  background: #fff;
+  background: #FAF8F3;
   border: 1px solid var(--rule);
   border-radius: 2px;
   overflow: hidden;
@@ -438,7 +438,7 @@ nav.primary a[aria-current="page"] {
   justify-content: center;
 }
 .pub-thumb img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
+  width: 100%; height: 100%; object-fit: contain; display: block;
 }
 .pub-thumb.placeholder {
   background: linear-gradient(135deg, #F4F2EC 0%, #E8E4D9 100%);
