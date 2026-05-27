@@ -322,6 +322,66 @@ nav.primary a[aria-current="page"] {
   background: transparent;
   white-space: nowrap;
   line-height: 1.4;
+  cursor: default;
+  transition: transform var(--t-fast) ease,
+              border-color var(--t-fast),
+              color var(--t-fast),
+              background var(--t-fast),
+              box-shadow var(--t-fast);
+  opacity: 0;
+  animation: chipFadeIn 0.55s ease forwards;
+}
+.keyword-row li:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  color: var(--ink);
+  background: var(--surface-tint);
+  box-shadow: 0 2px 6px rgba(74, 109, 92, 0.12);
+}
+.keyword-row li:nth-child(1) { animation-delay: 0.15s; }
+.keyword-row li:nth-child(2) { animation-delay: 0.22s; }
+.keyword-row li:nth-child(3) { animation-delay: 0.29s; }
+.keyword-row li:nth-child(4) { animation-delay: 0.36s; }
+.keyword-row li:nth-child(5) { animation-delay: 0.43s; }
+.keyword-row li:nth-child(6) { animation-delay: 0.50s; }
+@keyframes chipFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- hero cursor glow ----------
+   A soft accent-coloured spotlight that follows the cursor across the hero.
+   The position is set via the --mx/--my custom properties from JavaScript.
+   Falls back to a static gradient when prefers-reduced-motion is on. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  --mx: 50%;
+  --my: 50%;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(
+    520px circle at var(--mx) var(--my),
+    color-mix(in srgb, var(--accent) 14%, transparent) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.hero.is-hovered::before { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .keyword-row li {
+    opacity: 1;
+    animation: none;
+    transition: none;
+  }
+  .keyword-row li:hover { transform: none; box-shadow: none; }
+  .hero::before { display: none; }
 }
 
 @media (max-width: 760px) {
