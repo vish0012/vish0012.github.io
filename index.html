@@ -25,6 +25,28 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://vish0012.github.io/" />
   <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- Future Tokyo interactive panel — self-contained styles for the About layout -->
+  <style>
+    #about .about-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:start; }
+    #about .about-text{ min-width:0; }
+    #about .about-visual{ position:sticky; top:96px; }
+    .citysketch{ width:100%; max-width:480px; }
+    .citysketch__stage{
+      width:100%; border:1px solid var(--rule); border-radius:14px;
+      overflow:hidden; line-height:0; background:transparent;
+      box-shadow:0 16px 34px -28px rgba(0,0,0,.4);
+    }
+    .citysketch__stage canvas{ display:block; width:100%; cursor:pointer; touch-action:manipulation; }
+    .citysketch__cap{ margin:14px 2px 0; font-family:var(--sans); font-size:.9rem; line-height:1.55; max-width:46ch; color:var(--ink-soft); }
+    .citysketch__cap b{ color:var(--ink); font-weight:600; }
+    @media (max-width:860px){
+      #about .about-grid{ grid-template-columns:1fr; gap:28px; }
+      #about .about-visual{ position:static; }
+      .citysketch{ max-width:560px; margin-top:4px; }
+    }
+  </style>
+
   <!-- JSON-LD Person schema -->
   <script type="application/ld+json">
   {
@@ -122,53 +144,61 @@
       </div>
     </section>
 
-    
-<!-- ============ ABOUT (short) ============ -->
-<!-- ============ ABOUT (short) ============ -->
-<section id="about">
-  <div class="container">
-    <p class="section-eyebrow">About</p>
+    <!-- ============ ABOUT (short) ============ -->
+    <section id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-text">
+            <p class="section-eyebrow">About</p>
 
-    <p class="lead">
-      I'm an <strong>HCI researcher</strong> studying how people interact with
-      autonomous vehicles, robots, VR, and intelligent systems — and how those
-      systems can communicate back more clearly. My doctoral work at
-      <a href="https://www.u-tokyo.ac.jp/en/">The University of Tokyo</a> centers on
-      the <strong>Smart Pole Interaction Unit (SPIU)</strong>, an infrastructure-based
-      eHMI I designed to make communication between pedestrians, autonomous vehicles,
-      and robots safer and more intuitive in the spaces they share.
-    </p>
+            <p class="lead">
+              I'm an <strong>HCI researcher</strong> studying how people interact with
+              autonomous vehicles, robots, VR, and intelligent systems — and how those
+              systems can communicate back more clearly. My doctoral work at
+              <a href="https://www.u-tokyo.ac.jp/en/">The University of Tokyo</a> centers on
+              the <strong>Smart Pole Interaction Unit (SPIU)</strong>, an infrastructure-based
+              eHMI I designed to make communication between pedestrians, autonomous vehicles,
+              and robots safer and more intuitive in the spaces they share.
+            </p>
 
-    <p class="lead">
-      My work sits at the intersection of <strong>human-computer interaction</strong>,
-      <strong>autonomous mobility</strong>, <strong>robotics</strong>, and
-      <strong>machine learning</strong>. Along the way, I've been lucky to work
-      alongside inspiring researchers and labs in Japan, Singapore, Canada, Norway,
-      and beyond — collaborations that continue to shape how I think about future
-      cities and the ways people and machines share them.
-    </p>
+            <p class="lead">
+              My work sits at the intersection of <strong>human-computer interaction</strong>,
+              <strong>autonomous mobility</strong>, <strong>robotics</strong>, and
+              <strong>machine learning</strong>. Along the way, I've been lucky to work
+              alongside inspiring researchers and labs in Japan, Singapore, Canada, Norway,
+              and beyond — collaborations that continue to shape how I think about future
+              cities and the ways people and machines share them.
+            </p>
 
-    <p class="lead">
-      Before my PhD, I completed my M.S. at
-      <a href="https://www.u-tokyo.ac.jp/en/">The University of Tokyo</a> and my
-      B.Tech split between <a href="https://www.veltech.edu.in/">Vel Tech University</a>
-      (India) and <a href="https://www.ntu.edu.sg/">Nanyang Technological University</a>
-      (Singapore). I also contribute to
-      <strong>Tier IV's open-source autonomous driving platform</strong>, working with
-      their engineering team.
-    </p>
+            <p class="lead">
+              Before my PhD, I completed my M.S. at
+              <a href="https://www.u-tokyo.ac.jp/en/">The University of Tokyo</a> and my
+              B.Tech split between <a href="https://www.veltech.edu.in/">Vel Tech University</a>
+              (India) and <a href="https://www.ntu.edu.sg/">Nanyang Technological University</a>
+              (Singapore). I also contribute to
+              <strong>Tier IV's open-source autonomous driving platform</strong>, working with
+              their engineering team.
+            </p>
 
-    <p class="cv-line">
-      <a class="cv-link" href="cv.html">Full CV →</a>
-    </p>
+            <p class="cv-line">
+              <a class="cv-link" href="cv.html">Full CV →</a>
+            </p>
 
-    <p class="now-line">
-      <span class="now-dot" aria-hidden="true"></span>
-      <strong>Now</strong> — exploring human–AV interaction · open to faculty conversations from late 2026 · 16 countries down, with a dream to reach all 195.
-    </p>
-  </div>
-</section>
+            <p class="now-line">
+              <span class="now-dot" aria-hidden="true"></span>
+              <strong>Now</strong> — exploring human–AV interaction · open to faculty conversations from late 2026 · 16 countries down, with a dream to reach all 195.
+            </p>
+          </div>
 
+          <div class="about-visual">
+            <div class="citysketch">
+              <div class="citysketch__stage"><canvas id="citySketch"></canvas></div>
+              <p class="citysketch__cap"><b>A future Tokyo, sketched — then coloured in.</b> Tokyo Tower over a street where people, transit, and machines share space. The world I'm designing toward. <span style="opacity:.85">(tap to redraw)</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ============ RECENT NEWS ============ -->
     <section id="recent">
@@ -457,6 +487,188 @@
       hero.addEventListener('mouseleave', function () { hero.classList.remove('is-hovered'); });
       hero.addEventListener('mousemove', onMove);
     })();
+  </script>
+
+  <!-- ============ FUTURE TOKYO — interactive About sketch ============ -->
+  <script>
+  (function(){
+    "use strict";
+    const canvas=document.getElementById('citySketch');
+    if(!canvas) return;
+    const ctx=canvas.getContext('2d');
+    const W=500, H=380;
+    function rgba(hex,a){hex=(hex||'').trim();const n=parseInt(hex.slice(1),16);return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
+    function ss(x){x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);}
+    function rnd(s){const x=Math.sin(s*127.1+311.7)*43758.5453;return x-Math.floor(x);}
+
+    // pull live theme tokens so the sketch matches the site exactly (light & dark)
+    let PAPER='#ffffff', INK='#1a1916', ACCENT='#4a6d5c';
+    function readTokens(){
+      const cs=getComputedStyle(document.documentElement);
+      PAPER=(cs.getPropertyValue('--paper').trim())||PAPER;
+      INK=(cs.getPropertyValue('--ink').trim())||INK;
+      ACCENT=(cs.getPropertyValue('--accent').trim())||ACCENT;
+    }
+    readTokens();
+    new MutationObserver(readTokens).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+    const LAYER={far:{a:0.42,w:1.0}, mid:{a:0.74,w:1.35}, fore:{a:0.95,w:1.8}};
+    const FA=[[40,310],[40,168],[62,168],[62,310]], FB=[[404,310],[404,182],[426,182],[426,310]], FC=[[432,310],[432,205],[456,205],[456,310]];
+    const MA=[[74,310],[86,150],[110,150],[122,310]];
+    const MB=[[140,310],[140,176],[158,176],[158,146],[182,146],[182,120],[196,120],[196,310]];
+    const ME=[[342,310],[346,134],[362,134],[366,310]];
+    const POD=[[146,210],[146,200],[174,200],[174,210]];
+    const AVB=[[252,312],[252,300],[268,288],[306,288],[322,300],[322,312]];
+    const TTRI=[[216,310],[262,118],[308,310]];
+    const CITY=[
+      {l:'mid',t:'line',a:[34,310],b:[466,310]},
+      {l:'far',t:'circle',x:430,y:78,r:21,amp:0.7},
+      {l:'far',t:'poly',pts:FA},{l:'far',t:'poly',pts:FB},{l:'far',t:'poly',pts:FC},
+      {l:'mid',t:'poly',pts:MA},{l:'mid',t:'line',a:[98,150],b:[98,116]},
+      {l:'mid',t:'poly',pts:MB},
+      {l:'mid',t:'poly',pts:ME},{l:'mid',t:'line',a:[354,134],b:[354,106]},
+      {l:'mid',tt:1,t:'curve',a:[216,310],c:[246,248],b:[253,150]},
+      {l:'mid',tt:1,t:'curve',a:[308,310],c:[278,248],b:[271,150]},
+      {l:'mid',tt:1,t:'line',a:[216,310],b:[286,236]},
+      {l:'mid',tt:1,t:'line',a:[308,310],b:[238,236]},
+      {l:'mid',tt:1,t:'line',a:[228,272],b:[296,272]},
+      {l:'mid',tt:1,t:'line',a:[238,236],b:[286,236]},
+      {l:'mid',tt:1,t:'poly',pts:[[230,200],[294,200],[294,209],[230,209]]},
+      {l:'mid',tt:1,t:'line',a:[253,150],b:[257,118]},
+      {l:'mid',tt:1,t:'line',a:[271,150],b:[267,118]},
+      {l:'mid',tt:1,t:'line',a:[253,150],b:[271,150]},
+      {l:'mid',tt:1,t:'poly',pts:[[254,112],[270,112],[270,122],[254,122]]},
+      {l:'mid',tt:1,t:'line',a:[262,112],b:[262,50]},
+      {l:'mid',t:'curve',a:[80,224],c:[150,206],b:[214,224]},
+      {l:'mid',t:'line',a:[130,215],b:[130,310]},{l:'mid',t:'line',a:[205,213],b:[205,310]},
+      {l:'mid',t:'poly',pts:POD},
+      {l:'fore',t:'line',a:[70,326],b:[70,288]},
+      {l:'fore',t:'circle',x:70,y:271,r:15,amp:1.5},{l:'fore',t:'circle',x:57,y:280,r:10,amp:1.5},{l:'fore',t:'circle',x:83,y:279,r:10,amp:1.5},
+      {l:'fore',t:'line',a:[150,326],b:[150,252]},
+      {l:'fore',t:'circle',x:150,y:241,r:12},
+      {l:'fore',t:'line',a:[150,229],b:[150,222]},{l:'fore',t:'circle',x:150,y:219,r:2.5,amp:0.6},
+      {l:'fore',t:'poly',pts:[[143,326],[157,326],[155,335],[145,335]]},
+      {l:'fore',t:'circle',x:146,y:337,r:3.4,amp:0.6},{l:'fore',t:'circle',x:154,y:337,r:3.4,amp:0.6},
+      {l:'fore',t:'circle',x:180,y:260,r:8.5},
+      {l:'fore',t:'line',a:[180,269],b:[180,304]},
+      {l:'fore',t:'line',a:[180,304],b:[172,326]},{l:'fore',t:'line',a:[180,304],b:[189,326]},
+      {l:'fore',t:'line',a:[180,280],b:[169,295]},{l:'fore',t:'line',a:[180,280],b:[191,293]},
+      {l:'fore',t:'line',a:[252,312],b:[322,312]},
+      {l:'fore',t:'poly',pts:AVB},
+      {l:'fore',t:'circle',x:268,y:314,r:7,amp:0.6},{l:'fore',t:'circle',x:306,y:314,r:7,amp:0.6},
+      {l:'fore',t:'circle',x:287,y:285,r:4,amp:0.6}
+    ];
+    function genLine(a,b){const n=Math.max(8,(Math.hypot(b[0]-a[0],b[1]-a[1])/6)|0),o=[];for(let i=0;i<=n;i++){const t=i/n;o.push([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]);}return o;}
+    function genCurve(a,c,b){const n=24,o=[];for(let i=0;i<=n;i++){const t=i/n,u=1-t;o.push([u*u*a[0]+2*u*t*c[0]+t*t*b[0],u*u*a[1]+2*u*t*c[1]+t*t*b[1]]);}return o;}
+    function genCircle(x,y,r){const n=46,o=[],s=-0.4,e=Math.PI*2+0.32;for(let i=0;i<=n;i++){const a=s+(e-s)*i/n;o.push([x+Math.cos(a)*r,y+Math.sin(a)*r]);}return o;}
+    function genPoly(P){const o=[];for(let s=0;s<P.length-1;s++){const a=P[s],b=P[s+1],n=Math.max(2,(Math.hypot(b[0]-a[0],b[1]-a[1])/7)|0);for(let i=(s===0?0:1);i<=n;i++){const t=i/n;o.push([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]);}}return o;}
+    function wob(pts,seed,amp){
+      const f1=0.12+0.10*rnd(seed),p1=rnd(seed+1.3)*6.283,f2=0.30+0.18*rnd(seed+2.1),p2=rnd(seed+3.7)*6.283;
+      const f3=0.11+0.09*rnd(seed+5),p3=rnd(seed+6.2)*6.283,f4=0.33+0.16*rnd(seed+7.4),p4=rnd(seed+8.1)*6.283;
+      return pts.map((p,i)=>[ p[0]+(Math.sin(i*f1+p1)*0.7+Math.sin(i*f2+p2)*0.3)*amp, p[1]+(Math.sin(i*f3+p3)*0.7+Math.sin(i*f4+p4)*0.3)*amp ]);
+    }
+    function build(cseed){
+      return CITY.map((sp,idx)=>{
+        let base = sp.t==='line'?genLine(sp.a,sp.b): sp.t==='curve'?genCurve(sp.a,sp.c,sp.b): sp.t==='poly'?genPoly(sp.pts): genCircle(sp.x,sp.y,sp.r);
+        const pts=wob(base, idx*2.7+cseed, sp.amp||1.05);
+        let len=0; const cum=[0];
+        for(let i=1;i<pts.length;i++){len+=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]); cum.push(len);}
+        return {pts,cum,len,l:sp.l||'mid',tt:!!sp.tt};
+      });
+    }
+    const st={strokes:[],si:0,frac:0,phase:'draw',A:1,ct:0,hold:0};
+    function start(){ st.strokes=build(Math.random()*20); st.si=0; st.frac=0; st.phase='draw'; st.A=1; st.ct=0; st.hold=0; }
+    function update(dt){
+      if(st.phase==='draw'){ const s=st.strokes[st.si]; if(!s){ st.phase='color'; st.ct=0; return; }
+        st.frac += dt*460/Math.max(1,s.len);
+        if(st.frac>=1){ st.frac=0; st.si++; if(st.si>=st.strokes.length){ st.phase='color'; st.ct=0; } }
+      } else if(st.phase==='color'){ st.ct+=dt/0.95; if(st.ct>=1){st.ct=1;st.phase='hold';st.hold=0;} }
+      else if(st.phase==='hold'){ st.hold+=dt; if(st.hold>1.8) st.phase='fade'; }
+      else { st.A-=dt/0.7; if(st.A<=0) start(); }
+    }
+    function fillPoly(P,col,a){ if(a<=0)return; ctx.fillStyle=rgba(col,a); ctx.beginPath(); ctx.moveTo(P[0][0],P[0][1]); for(let i=1;i<P.length;i++)ctx.lineTo(P[i][0],P[i][1]); ctx.closePath(); ctx.fill(); }
+    function fillDisc(x,y,r,col,a){ if(a<=0)return; ctx.fillStyle=rgba(col,a); ctx.beginPath(); ctx.arc(x,y,r,0,6.2832); ctx.fill(); }
+    function shadeBld(P,col,aTop,aBot){
+      if(aBot<=0&&aTop<=0)return;
+      let y0=1e9,y1=-1e9; for(const p of P){if(p[1]<y0)y0=p[1];if(p[1]>y1)y1=p[1];}
+      ctx.save(); ctx.beginPath(); ctx.moveTo(P[0][0],P[0][1]); for(let i=1;i<P.length;i++)ctx.lineTo(P[i][0],P[i][1]); ctx.closePath(); ctx.clip();
+      const g=ctx.createLinearGradient(0,y0,0,y1); g.addColorStop(0,rgba(col,aTop)); g.addColorStop(1,rgba(col,aBot));
+      ctx.fillStyle=g; ctx.fillRect(0,y0,W,y1-y0); ctx.restore();
+    }
+    function drawColor(ct,A){
+      const al=(d,b)=>ss((ct-d)/0.5)*b*A;
+      let a=al(0,0.13); if(a>0){const g=ctx.createLinearGradient(0,0,0,215); g.addColorStop(0,rgba('#7e95b0',a)); g.addColorStop(1,rgba('#7e95b0',0)); ctx.fillStyle=g; ctx.fillRect(0,0,W,215);}
+      a=al(0.03,0.11); if(a>0){const g=ctx.createLinearGradient(0,255,0,312); g.addColorStop(0,rgba('#e8b66a',0)); g.addColorStop(1,rgba('#e8b66a',a)); ctx.fillStyle=g; ctx.fillRect(0,255,W,57);}
+      a=al(0.05,1); if(a>0){const g=ctx.createRadialGradient(430,78,2,430,78,44); g.addColorStop(0,rgba('#f3c06a',0.5*a)); g.addColorStop(1,rgba('#f3c06a',0)); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(430,78,44,0,6.2832); ctx.fill();}
+      fillDisc(430,78,12,'#f3c06a',al(0.07,0.45));
+      fillPoly(FA,'#7e95b0',al(0.05,0.12)); fillPoly(FB,'#7e95b0',al(0.06,0.12)); fillPoly(FC,'#7e95b0',al(0.07,0.12));
+      shadeBld(MA,'#6c86a6',al(0.10,0.09),al(0.10,0.18));
+      shadeBld(MB,'#6c86a6',al(0.14,0.09),al(0.14,0.18));
+      shadeBld(ME,ACCENT,al(0.20,0.10),al(0.20,0.20));
+      fillPoly(TTRI,'#e8542a',al(0.16,0.08));
+      a=al(0.4,0.8); if(a>0){ctx.fillStyle=rgba('#f3c06a',a); for(const w of [[146,158],[166,196],[350,152],[358,182],[350,212]]) ctx.fillRect(w[0],w[1],5,6);}
+      fillPoly(POD,ACCENT,al(0.34,0.5));
+      fillDisc(70,271,15,ACCENT,al(0.34,0.30)); fillDisc(57,280,10,ACCENT,al(0.36,0.28)); fillDisc(83,279,10,ACCENT,al(0.36,0.28));
+      a=al(0.46,1); if(a>0){const g=ctx.createRadialGradient(150,241,2,150,241,24); g.addColorStop(0,rgba(ACCENT,0.5*a)); g.addColorStop(1,rgba(ACCENT,0)); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(150,241,24,0,6.2832); ctx.fill();}
+      fillDisc(150,241,11,ACCENT,al(0.48,0.34));
+      fillPoly(AVB,ACCENT,al(0.4,0.34));
+    }
+    function smoothInk(p,off){
+      if(p.length<3){ ctx.moveTo(p[0][0]+off,p[0][1]+off); for(let i=1;i<p.length;i++)ctx.lineTo(p[i][0]+off,p[i][1]+off); return; }
+      ctx.moveTo(p[0][0]+off,p[0][1]+off);
+      for(let i=1;i<p.length-1;i++){const mx=(p[i][0]+p[i+1][0])/2+off,my=(p[i][1]+p[i+1][1])/2+off; ctx.quadraticCurveTo(p[i][0]+off,p[i][1]+off,mx,my);}
+      ctx.lineTo(p[p.length-1][0]+off,p[p.length-1][1]+off);
+    }
+    function strokeUpto(s,frac,A){
+      if(s.len<=0) return s.pts[0];
+      const target=Math.min(frac,1)*s.len;
+      const vis=[s.pts[0]]; let pen=s.pts[0];
+      for(let i=1;i<s.pts.length;i++){
+        if(s.cum[i]<=target){ vis.push(s.pts[i]); pen=s.pts[i]; }
+        else{ const seg=s.cum[i]-s.cum[i-1], tt=seg>0?(target-s.cum[i-1])/seg:0;
+          pen=[s.pts[i-1][0]+(s.pts[i][0]-s.pts[i-1][0])*tt, s.pts[i-1][1]+(s.pts[i][1]-s.pts[i-1][1])*tt];
+          vis.push(pen); break; }
+      }
+      const L=LAYER[s.l]||LAYER.mid;
+      ctx.strokeStyle=rgba(INK,A*L.a); ctx.lineWidth=L.w; ctx.lineJoin='round'; ctx.lineCap='round';
+      ctx.beginPath(); smoothInk(vis,0); ctx.stroke();
+      ctx.strokeStyle=rgba(INK,A*L.a*0.16); ctx.lineWidth=L.w*0.8;
+      ctx.beginPath(); smoothInk(vis,0.8); ctx.stroke();
+      return pen;
+    }
+    function strokeTint(s,A,col,alpha){
+      if(s.len<=0)return; const L=LAYER[s.l]||LAYER.mid;
+      ctx.strokeStyle=rgba(col,alpha*A); ctx.lineWidth=L.w*1.15; ctx.lineJoin='round'; ctx.lineCap='round';
+      ctx.beginPath(); smoothInk(s.pts,0); ctx.stroke();
+    }
+    function draw(){
+      ctx.fillStyle=PAPER; ctx.fillRect(0,0,W,H);
+      const A=st.A;
+      if(st.ct>0) drawColor(st.ct,A);
+      const drawn=(st.phase==='draw')?st.si:st.strokes.length;
+      for(let i=0;i<drawn;i++) strokeUpto(st.strokes[i],1,A);
+      let pen=null;
+      if(st.phase==='draw' && st.strokes[st.si]) pen=strokeUpto(st.strokes[st.si],st.frac,A);
+      if(st.ct>0){ const oa=ss(st.ct)*0.95; for(const s of st.strokes){ if(s.tt) strokeTint(s,A,'#e8542a',oa); } }
+      if(pen){
+        ctx.fillStyle=rgba(INK,A); ctx.beginPath(); ctx.arc(pen[0],pen[1],2.1,0,6.2832); ctx.fill();
+        ctx.strokeStyle=rgba(ACCENT,A*0.85); ctx.lineWidth=2.2; ctx.lineCap='round';
+        ctx.beginPath(); ctx.moveTo(pen[0],pen[1]); ctx.lineTo(pen[0]+7,pen[1]-10); ctx.stroke();
+      }
+    }
+    canvas.addEventListener('pointerdown',start);
+    function resize(){
+      const stage=canvas.parentElement;
+      const cw=Math.min(stage.clientWidth||W,500), scale=cw/W, ch=H*scale, dpr=Math.min(window.devicePixelRatio||1,2);
+      canvas.width=Math.round(cw*dpr); canvas.height=Math.round(ch*dpr);
+      canvas.style.height=ch+'px';
+      ctx.setTransform(dpr*scale,0,0,dpr*scale,0,0);
+    }
+    window.addEventListener('resize',resize);
+    let last=performance.now();
+    function loop(now){const dt=Math.min((now-last)/1000,0.05);last=now;update(dt);draw();requestAnimationFrame(loop);}
+    resize(); start(); requestAnimationFrame(loop);
+  })();
   </script>
 </body>
 </html>
