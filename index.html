@@ -583,7 +583,7 @@
         st.frac += dt*460/Math.max(1,s.len);
         if(st.frac>=1){ st.frac=0; st.si++; if(st.si>=st.strokes.length){ st.phase='color'; st.ct=0; } }
       } else if(st.phase==='color'){ st.ct+=dt/0.95; if(st.ct>=1){st.ct=1;st.phase='hold';st.hold=0;} }
-      else if(st.phase==='hold'){ st.hold+=dt; if(st.hold>1.8) st.phase='fade'; }
+      else if(st.phase==='hold'){ /* finished — hold the drawing until tapped */ }
       else { st.A-=dt/0.7; if(st.A<=0) start(); }
     }
     function fillPoly(P,col,a){ if(a<=0)return; ctx.fillStyle=rgba(col,a); ctx.beginPath(); ctx.moveTo(P[0][0],P[0][1]); for(let i=1;i<P.length;i++)ctx.lineTo(P[i][0],P[i][1]); ctx.closePath(); ctx.fill(); }
