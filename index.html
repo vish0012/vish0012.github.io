@@ -507,11 +507,11 @@
     {l:'fore',t:'poly',pts:[[264.5,312],[271.5,312],[273.5,335],[262.5,335],[264.5,312]],amp:0.6},
     {l:'fore',t:'poly',pts:[[279.5,312],[286.5,312],[288.5,335],[277.5,335],[279.5,312]],amp:0.6},
     {l:'fore',t:'poly',pts:[[294.5,312],[301.5,312],[303.5,335],[292.5,335],[294.5,312]],amp:0.6},
-    // pedestrian (mid-crossing)
-    {l:'fore',t:'circle',x:222,y:260,r:8.5},
-    {l:'fore',t:'line',a:[222,269],b:[222,304]},
-    {l:'fore',t:'line',a:[222,304],b:[214,326]},{l:'fore',t:'line',a:[222,304],b:[231,326]},
-    {l:'fore',t:'line',a:[222,280],b:[211,295]},{l:'fore',t:'line',a:[222,280],b:[233,293]},
+    // pedestrian (at the crossing edge, clear of the tower)
+    {l:'fore',t:'circle',x:206,y:260,r:8.5},
+    {l:'fore',t:'line',a:[206,269],b:[206,304]},
+    {l:'fore',t:'line',a:[206,304],b:[198,326]},{l:'fore',t:'line',a:[206,304],b:[215,326]},
+    {l:'fore',t:'line',a:[206,280],b:[195,295]},{l:'fore',t:'line',a:[206,280],b:[217,293]},
     // delivery robot (crossing alongside)
     {l:'fore',t:'poly',pts:[[260,308],[260,298],[263,294],[277,294],[280,298],[280,308],[260,308]],amp:0.8},
     {l:'fore',t:'circle',x:265,y:310,r:3.5,amp:0.6},{l:'fore',t:'circle',x:275,y:310,r:3.5,amp:0.6},
@@ -586,8 +586,27 @@
     const al=(d,b)=>ss((ct-d)/0.5)*b*A;
     let a=al(0,0.13); if(a>0){const g=ctx.createLinearGradient(0,0,0,215); g.addColorStop(0,rgba('#7e95b0',a)); g.addColorStop(1,rgba('#7e95b0',0)); ctx.fillStyle=g; ctx.fillRect(0,0,W,215);}
     a=al(0.03,0.11); if(a>0){const g=ctx.createLinearGradient(0,255,0,312); g.addColorStop(0,rgba('#e8b66a',0)); g.addColorStop(1,rgba('#e8b66a',a)); ctx.fillStyle=g; ctx.fillRect(0,255,W,57);}
-    // crosswalk paint (vertical stripes)
-    { const cw=al(0.26,0.16); if(cw>0){ const C=[193,208,223,238,253,268,283,298]; for(const cx of C) fillPoly([[cx-3.5,312],[cx+3.5,312],[cx+5.5,335],[cx-5.5,335]],'#9aa3ab',cw); } }
+    // colored shared-space road surface — smart-pavement perspective grid
+    { const ra=al(0.10,1); if(ra>0){
+        ctx.save(); ctx.beginPath(); ctx.rect(30,309,440,71); ctx.clip();
+        const VPx=250, VPy=301, baseY=380; const RC=['#6f9d86','#7fa3c0','#e6c184','#d99a78','#b99ec0'];
+        const rows=[]; let yy=baseY; for(let k=0;k<7;k++){ rows.push(yy); yy=VPy+(yy-VPy)*0.72; }
+        const colsX=[]; for(let x=-260;x<=760;x+=72) colsX.push(x);
+        const pt=(xB,h)=>{ const t=(baseY-h)/(baseY-VPy); return [xB+(VPx-xB)*t, h]; };
+        let ci=0;
+        for(let r=0;r<rows.length-1;r++) for(let c=0;c<colsX.length-1;c++){
+          ci++; if(rnd(c*1.7+r*3.1)<0.5) continue;
+          const a1=pt(colsX[c],rows[r]), b1=pt(colsX[c+1],rows[r]), b2=pt(colsX[c+1],rows[r+1]), a2=pt(colsX[c],rows[r+1]);
+          ctx.fillStyle=rgba(RC[ci%RC.length], 0.17*ra);
+          ctx.beginPath(); ctx.moveTo(a1[0],a1[1]); ctx.lineTo(b1[0],b1[1]); ctx.lineTo(b2[0],b2[1]); ctx.lineTo(a2[0],a2[1]); ctx.closePath(); ctx.fill();
+        }
+        ctx.strokeStyle=rgba(INK,0.13*ra); ctx.lineWidth=0.7;
+        for(const x of colsX){ ctx.beginPath(); ctx.moveTo(x,baseY); ctx.lineTo(VPx,VPy); ctx.stroke(); }
+        for(const h of rows){ const L=pt(colsX[0],h), R=pt(colsX[colsX.length-1],h); ctx.beginPath(); ctx.moveTo(L[0],h); ctx.lineTo(R[0],h); ctx.stroke(); }
+        ctx.restore();
+    } }
+    // crosswalk paint (light vertical bars on the colored surface)
+    { const cw=al(0.30,0.55); if(cw>0){ const C=[193,208,223,238,253,268,283,298]; for(const cx of C) fillPoly([[cx-3.5,312],[cx+3.5,312],[cx+5.5,335],[cx-5.5,335]],'#eceae3',cw); } }
     a=al(0.05,1); if(a>0){const g=ctx.createRadialGradient(430,78,2,430,78,44); g.addColorStop(0,rgba('#f3c06a',0.5*a)); g.addColorStop(1,rgba('#f3c06a',0)); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(430,78,44,0,6.2832); ctx.fill();}
     fillDisc(430,78,12,'#f3c06a',al(0.07,0.45));
     fillPoly(FA,'#7e95b0',al(0.05,0.12)); fillPoly(FB,'#7e95b0',al(0.06,0.12));
