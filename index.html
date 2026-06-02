@@ -457,7 +457,7 @@
   const MB=[[140,310],[140,176],[158,176],[158,146],[182,146],[182,120],[196,120],[196,310]];
   const ME=[[342,310],[346,134],[362,134],[366,310]];
   const AVB=[[325,312],[325,300],[341,288],[379,288],[395,300],[395,312]];
-  const TTRI=[[216,310],[262,118],[308,310]];
+  const TTRI=[[216,310],[262,110],[308,310]];
   const CITY=[
     {l:'mid',t:'line',a:[34,310],b:[466,310]},
     {l:'far',t:'circle',x:430,y:78,r:21,amp:0.7},
@@ -465,18 +465,27 @@
     {l:'mid',t:'poly',pts:MA},{l:'mid',t:'line',a:[98,150],b:[98,116]},
     {l:'mid',t:'poly',pts:MB},
     {l:'mid',t:'poly',pts:ME},{l:'mid',t:'line',a:[354,134],b:[354,106]},
-    {l:'mid',tt:1,t:'curve',a:[216,310],c:[246,248],b:[253,150]},
-    {l:'mid',tt:1,t:'curve',a:[308,310],c:[278,248],b:[271,150]},
-    {l:'mid',tt:1,t:'line',a:[216,310],b:[286,236]},
-    {l:'mid',tt:1,t:'line',a:[308,310],b:[238,236]},
-    {l:'mid',tt:1,t:'line',a:[228,272],b:[296,272]},
-    {l:'mid',tt:1,t:'line',a:[238,236],b:[286,236]},
-    {l:'mid',tt:1,t:'poly',pts:[[230,200],[294,200],[294,209],[230,209]]},
-    {l:'mid',tt:1,t:'line',a:[253,150],b:[257,118]},
-    {l:'mid',tt:1,t:'line',a:[271,150],b:[267,118]},
-    {l:'mid',tt:1,t:'line',a:[253,150],b:[271,150]},
-    {l:'mid',tt:1,t:'poly',pts:[[254,112],[270,112],[270,122],[254,122]]},
-    {l:'mid',tt:1,t:'line',a:[262,112],b:[262,50]},
+    // ── Tokyo Tower (detailed) ──
+    {l:'mid',tt:1,t:'curve',a:[216,310],c:[232,252],b:[241,212]},
+    {l:'mid',tt:1,t:'curve',a:[241,212],c:[247,168],b:[253,120]},
+    {l:'mid',tt:1,t:'curve',a:[308,310],c:[292,252],b:[283,212]},
+    {l:'mid',tt:1,t:'curve',a:[283,212],c:[277,168],b:[271,120]},
+    {l:'mid',tt:1,t:'line',a:[226,272],b:[298,272]},
+    {l:'mid',tt:1,t:'line',a:[235,236],b:[289,236]},
+    {l:'mid',tt:1,t:'line',a:[241,212],b:[283,212]},
+    {l:'mid',tt:1,t:'line',a:[248,160],b:[276,160]},
+    {l:'mid',tt:1,t:'line',a:[253,120],b:[271,120]},
+    {l:'mid',tt:1,t:'line',a:[216,310],b:[298,272]},{l:'mid',tt:1,t:'line',a:[308,310],b:[226,272]},
+    {l:'mid',tt:1,t:'line',a:[226,272],b:[289,236]},{l:'mid',tt:1,t:'line',a:[298,272],b:[235,236]},
+    {l:'mid',tt:1,t:'line',a:[235,236],b:[283,212]},{l:'mid',tt:1,t:'line',a:[289,236],b:[241,212]},
+    {l:'mid',tt:1,t:'line',a:[241,212],b:[276,160]},{l:'mid',tt:1,t:'line',a:[283,212],b:[248,160]},
+    {l:'mid',tt:1,t:'line',a:[248,160],b:[271,120]},{l:'mid',tt:1,t:'line',a:[276,160],b:[253,120]},
+    {l:'mid',tt:1,t:'poly',pts:[[229,210],[229,195],[295,195],[295,210],[229,210]]},
+    {l:'mid',tt:1,t:'line',a:[229,203],b:[295,203]},
+    {l:'mid',tt:1,t:'poly',pts:[[248,122],[248,110],[276,110],[276,122],[248,122]]},
+    {l:'mid',tt:1,t:'line',a:[258,110],b:[261,76]},{l:'mid',tt:1,t:'line',a:[266,110],b:[263,76]},
+    {l:'mid',tt:1,t:'line',a:[262,76],b:[262,50]},
+    {l:'mid',tt:1,t:'line',a:[259.5,92],b:[264.5,92]},
     // tree (far left)
     {l:'fore',t:'line',a:[52,326],b:[52,286]},
     {l:'fore',t:'circle',x:52,y:268,r:15,amp:1.5},{l:'fore',t:'circle',x:40,y:278,r:10,amp:1.5},{l:'fore',t:'circle',x:64,y:277,r:10,amp:1.5},
@@ -486,15 +495,32 @@
     {l:'fore',t:'line',a:[92,312],b:[92,288]},
     {l:'fore',t:'line',a:[122,312],b:[122,300]},
     {l:'fore',t:'line',a:[107,300],b:[107,288]},
+    // children playing on the plaza (foreground)
+    {l:'fore',t:'circle',x:96,y:340,r:5,amp:0.6},
+    {l:'fore',t:'curve',a:[101,335],c:[105,336],b:[104,340],amp:0.4},
+    {l:'fore',t:'circle',x:70,y:322,r:5.5},
+    {l:'fore',t:'line',a:[70,327],b:[70,340]},
+    {l:'fore',t:'line',a:[70,330],b:[63,323]},{l:'fore',t:'line',a:[70,330],b:[77,323]},
+    {l:'fore',t:'line',a:[70,340],b:[64,351]},{l:'fore',t:'line',a:[70,340],b:[76,351]},
+    {l:'fore',t:'circle',x:68,y:320.5,r:0.7,amp:0.3},{l:'fore',t:'circle',x:72,y:320.5,r:0.7,amp:0.3},
+    {l:'fore',t:'curve',a:[67.5,323],c:[70,325],b:[72.5,323],amp:0.35},
+    {l:'fore',t:'circle',x:122,y:324,r:5.5},
+    {l:'fore',t:'line',a:[122,329],b:[122,341]},
+    {l:'fore',t:'line',a:[122,332],b:[113,336]},{l:'fore',t:'line',a:[122,332],b:[129,330]},
+    {l:'fore',t:'line',a:[122,341],b:[116,352]},{l:'fore',t:'line',a:[122,341],b:[128,352]},
+    {l:'fore',t:'circle',x:120,y:322.5,r:0.7,amp:0.3},{l:'fore',t:'circle',x:124,y:322.5,r:0.7,amp:0.3},
+    {l:'fore',t:'curve',a:[119.5,325],c:[122,327],b:[124.5,325],amp:0.35},
     // tiny delivery robot waiting at the kerb
     {l:'fore',t:'poly',pts:[[136,309],[136,300],[138,297],[150,297],[152,300],[152,309],[136,309]],amp:0.7},
     {l:'fore',t:'circle',x:141,y:311,r:3,amp:0.5},{l:'fore',t:'circle',x:148,y:311,r:3,amp:0.5},
     {l:'fore',t:'circle',x:143,y:302,r:1,amp:0.5},{l:'fore',t:'circle',x:147,y:302,r:1,amp:0.5},
+    {l:'fore',t:'curve',a:[142.5,303],c:[145,304],b:[147.5,303],amp:0.35},
     {l:'fore',t:'line',a:[144,297],b:[144,292]},
     {l:'fore',t:'poly',pts:[[144,291],[150,293],[144,295],[144,291]],amp:0.5},
     // SPIU smart pole (left kerb)
     {l:'fore',t:'line',a:[172,326],b:[172,252]},
     {l:'fore',t:'circle',x:172,y:241,r:12},
+    {l:'fore',t:'circle',x:172,y:241,r:4,amp:0.4},
     {l:'fore',t:'line',a:[172,229],b:[172,222]},{l:'fore',t:'circle',x:172,y:219,r:2.5,amp:0.6},
     {l:'fore',t:'poly',pts:[[165,326],[179,326],[177,335],[167,335]]},
     {l:'fore',t:'circle',x:168,y:337,r:3.4,amp:0.6},{l:'fore',t:'circle',x:176,y:337,r:3.4,amp:0.6},
@@ -507,34 +533,40 @@
     {l:'fore',t:'poly',pts:[[264.5,312],[271.5,312],[273.5,335],[262.5,335],[264.5,312]],amp:0.6},
     {l:'fore',t:'poly',pts:[[279.5,312],[286.5,312],[288.5,335],[277.5,335],[279.5,312]],amp:0.6},
     {l:'fore',t:'poly',pts:[[294.5,312],[301.5,312],[303.5,335],[292.5,335],[294.5,312]],amp:0.6},
-    // pedestrian (at the crossing edge, clear of the tower)
+    // pedestrian (clear of the tower) + friendly face
     {l:'fore',t:'circle',x:206,y:260,r:8.5},
     {l:'fore',t:'line',a:[206,269],b:[206,304]},
     {l:'fore',t:'line',a:[206,304],b:[198,326]},{l:'fore',t:'line',a:[206,304],b:[215,326]},
     {l:'fore',t:'line',a:[206,280],b:[195,295]},{l:'fore',t:'line',a:[206,280],b:[217,293]},
-    // delivery robot (crossing alongside)
+    {l:'fore',t:'circle',x:203,y:258,r:1,amp:0.3},{l:'fore',t:'circle',x:209,y:258,r:1,amp:0.3},
+    {l:'fore',t:'curve',a:[202,262.5],c:[206,265.5],b:[210,262.5],amp:0.4},
+    // delivery robot (crossing) + smiley face
     {l:'fore',t:'poly',pts:[[260,308],[260,298],[263,294],[277,294],[280,298],[280,308],[260,308]],amp:0.8},
     {l:'fore',t:'circle',x:265,y:310,r:3.5,amp:0.6},{l:'fore',t:'circle',x:275,y:310,r:3.5,amp:0.6},
     {l:'fore',t:'poly',pts:[[263,298],[277,298],[277,303],[263,303],[263,298]],amp:0.6},
     {l:'fore',t:'circle',x:268,y:300.5,r:1,amp:0.5},{l:'fore',t:'circle',x:272,y:300.5,r:1,amp:0.5},
+    {l:'fore',t:'curve',a:[266,302],c:[270,303.4],b:[274,302],amp:0.4},
     {l:'fore',t:'line',a:[270,294],b:[270,288]},
     {l:'fore',t:'poly',pts:[[270,287],[277,289],[270,291],[270,287]],amp:0.6},
     // pedestrian signal (right kerb)
     {l:'fore',t:'line',a:[312,326],b:[312,268]},
     {l:'fore',t:'poly',pts:[[306,256],[318,256],[318,268],[306,268],[306,256]],amp:0.6},
-    // autonomous vehicle (yielding)
+    // autonomous vehicle (yielding) + face (headlight eye + eHMI smile)
     {l:'fore',t:'line',a:[325,312],b:[395,312]},
     {l:'fore',t:'poly',pts:AVB},
     {l:'fore',t:'circle',x:341,y:314,r:7,amp:0.6},{l:'fore',t:'circle',x:379,y:314,r:7,amp:0.6},
     {l:'fore',t:'circle',x:360,y:285,r:4,amp:0.6},
     {l:'fore',t:'line',a:[360,285],b:[360,281]},
-    {l:'fore',t:'poly',pts:[[327,302],[339,302],[339,306],[327,306],[327,302]],amp:0.5},
-    // e-scooter rider (right)
+    {l:'fore',t:'circle',x:335,y:296,r:2.3,amp:0.4},{l:'fore',t:'circle',x:335.6,y:296,r:0.7,amp:0.3},
+    {l:'fore',t:'curve',a:[328,303],c:[334,307.5],b:[341,303],amp:0.4},
+    // e-scooter rider (right) + face
     {l:'fore',t:'circle',x:458,y:313,r:4,amp:0.6},{l:'fore',t:'circle',x:438,y:313,r:4,amp:0.6},
     {l:'fore',t:'line',a:[440,312],b:[456,312]},
     {l:'fore',t:'line',a:[438,311],b:[436,288]},
     {l:'fore',t:'line',a:[432,288],b:[440,288]},
     {l:'fore',t:'circle',x:442,y:274,r:6},
+    {l:'fore',t:'circle',x:440,y:272.5,r:0.9,amp:0.3},{l:'fore',t:'circle',x:444,y:272.5,r:0.9,amp:0.3},
+    {l:'fore',t:'curve',a:[439.5,275],c:[442,277],b:[444.5,275],amp:0.35},
     {l:'fore',t:'line',a:[442,280],b:[448,300]},
     {l:'fore',t:'line',a:[448,300],b:[446,311]},{l:'fore',t:'line',a:[448,300],b:[452,311]},
     {l:'fore',t:'line',a:[444,284],b:[436,288]},
@@ -543,7 +575,15 @@
     {l:'fore',t:'line',a:[120,107],b:[112,103]},{l:'fore',t:'line',a:[132,107],b:[140,103]},
     {l:'fore',t:'line',a:[106,102],b:[118,102]},{l:'fore',t:'line',a:[134,102],b:[146,102]},
     {l:'fore',t:'line',a:[123,110],b:[123,116]},{l:'fore',t:'line',a:[129,110],b:[129,116]},
-    {l:'fore',t:'poly',pts:[[122,116],[130,116],[130,122],[122,122],[122,116]],amp:0.6}
+    {l:'fore',t:'poly',pts:[[122,116],[130,116],[130,122],[122,122],[122,116]],amp:0.6},
+    // flying car (upper right)
+    {l:'fore',t:'poly',pts:[[360,107],[367,99],[405,99],[412,106],[408,112],[364,112],[360,107]],amp:0.6},
+    {l:'fore',t:'line',a:[368,99],b:[373,107]},
+    {l:'fore',t:'line',a:[373,101],b:[399,101]},
+    {l:'fore',t:'circle',x:364,y:106,r:1.4,amp:0.3},
+    {l:'fore',t:'line',a:[412,106],b:[417,100]},
+    {l:'fore',t:'circle',x:374,y:114,r:2.4,amp:0.4},{l:'fore',t:'circle',x:399,y:114,r:2.4,amp:0.4},
+    {l:'fore',t:'line',a:[419,103],b:[429,103]},{l:'fore',t:'line',a:[418,108],b:[426,108]}
   ];
   function genLine(a,b){const n=Math.max(8,(Math.hypot(b[0]-a[0],b[1]-a[1])/6)|0),o=[];for(let i=0;i<=n;i++){const t=i/n;o.push([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]);}return o;}
   function genCurve(a,c,b){const n=24,o=[];for(let i=0;i<=n;i++){const t=i/n,u=1-t;o.push([u*u*a[0]+2*u*t*c[0]+t*t*b[0],u*u*a[1]+2*u*t*c[1]+t*t*b[1]]);}return o;}
@@ -619,13 +659,16 @@
     fillPoly([[136,309],[136,300],[138,297],[150,297],[152,300],[152,309]],ACCENT,al(0.30,0.32));
     a=al(0.40,1); if(a>0){const g=ctx.createRadialGradient(172,241,2,172,241,24); g.addColorStop(0,rgba(ACCENT,0.5*a)); g.addColorStop(1,rgba(ACCENT,0)); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(172,241,24,0,6.2832); ctx.fill();}
     fillDisc(172,241,11,ACCENT,al(0.42,0.34));
+    { const sg=al(0.46,0.7); if(sg>0){ ctx.strokeStyle=rgba(ACCENT,sg); ctx.lineWidth=1.6; ctx.lineCap='round'; for(const rr of [16,21,26]){ ctx.beginPath(); ctx.arc(172,241,rr,-0.6,0.6); ctx.stroke(); } } }
     fillPoly(AVB,ACCENT,al(0.44,0.34));
-    a=al(0.52,1); if(a>0){const g=ctx.createRadialGradient(333,304,1,333,304,12); g.addColorStop(0,rgba('#6fae8e',0.8*a)); g.addColorStop(1,rgba('#6fae8e',0)); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(333,304,12,0,6.2832); ctx.fill();}
-    fillPoly([[327,302],[339,302],[339,306],[327,306]],'#6fae8e',al(0.52,0.65));
+    a=al(0.52,1); if(a>0){const g=ctx.createRadialGradient(334,304,1,334,304,13); g.addColorStop(0,rgba('#6fae8e',0.8*a)); g.addColorStop(1,rgba('#6fae8e',0)); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(334,304,13,0,6.2832); ctx.fill();}
+    { const e=al(0.52,0.95); if(e>0){ ctx.strokeStyle=rgba('#6fae8e',e); ctx.lineWidth=2; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(328,303); ctx.quadraticCurveTo(334,307.8,341,303); ctx.stroke(); } }
     fillPoly([[260,308],[260,298],[263,294],[277,294],[280,298],[280,308]],ACCENT,al(0.48,0.32));
     fillPoly([[306,256],[318,256],[318,268],[306,268]],INK,al(0.50,0.18));
     fillPoly([[118,106],[134,106],[134,110],[118,110]],ACCENT,al(0.50,0.34));
     fillPoly([[122,116],[130,116],[130,122],[122,122]],ACCENT,al(0.50,0.28));
+    fillPoly([[360,107],[367,99],[405,99],[412,106],[408,112],[364,112]],ACCENT,al(0.62,0.32));
+    { const tg=al(0.66,0.9); if(tg>0){ for(const tx of [374,399]){ const g=ctx.createRadialGradient(tx,116,1,tx,116,7); g.addColorStop(0,rgba('#6fae8e',0.7*tg)); g.addColorStop(1,rgba('#6fae8e',0)); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(tx,116,7,0,6.2832); ctx.fill(); } } }
     { const wl=al(0.56,0.95); if(wl>0){
         ctx.fillStyle=rgba('#6fae8e',wl); ctx.beginPath(); ctx.arc(312,262,2.6,0,6.2832); ctx.fill();
         ctx.fillStyle=rgba('#f3c06a',wl);
