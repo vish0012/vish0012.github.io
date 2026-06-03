@@ -60,11 +60,11 @@
     .year-group .pub-thumb {
       order: 2;
       align-self: flex-start !important;   /* never stretch to the text height */
-      flex: 1 1 380px;
-      max-width: 480px;
+      flex: 1 1 400px;
+      max-width: 540px;
       width: auto;
-      height: auto !important;             /* size to the image, not the row */
-      aspect-ratio: auto !important;
+      aspect-ratio: 2 / 1 !important;      /* uniform frame for every figure */
+      height: auto !important;
       margin: 0;
       border: 1px solid var(--rule, #e8e7e1);
       border-radius: 6px;
@@ -74,8 +74,8 @@
     .year-group .pub-thumb img {
       display: block !important;
       width: 100% !important;
-      height: auto !important;             /* full natural height — no crop */
-      object-fit: contain !important;
+      height: 100% !important;             /* fill the box... */
+      object-fit: contain !important;      /* ...whole image visible, never cropped */
     }
 
     .year-group .pub h3 {
