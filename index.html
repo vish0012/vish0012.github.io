@@ -48,6 +48,11 @@
     /* Find-me social icons — inherit link colour, adapt to light/dark */
     .console-body .findme a{ display:inline-flex; align-items:center; }
     .console-body .findme a svg{ width:1em; height:1em; margin-right:.42em; fill:currentColor; flex:none; }
+    /* Affiliation highlight — tansei marker sweep */
+    .affil a { text-decoration: none; color: var(--ink);
+      background: linear-gradient(transparent 62%, rgba(31,127,184,.28) 62%);
+      transition: background .25s ease; }
+    .affil a:hover { background: linear-gradient(transparent 8%, rgba(31,127,184,.32) 8%); }
   </style>
   <!-- JSON-LD Person schema -->
   <script type="application/ld+json">
