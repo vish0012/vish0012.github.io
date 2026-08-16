@@ -62,7 +62,8 @@
     .keyword-row li:hover { background: rgba(74,109,92,.18); }
     [data-theme="dark"] .keyword-row li { background: rgba(110,143,128,.14);
       border-color: rgba(110,143,128,.35); }
-    
+    .kw-hi { background: var(--accent) !important; color: var(--paper);
+      border-color: var(--accent) !important; font-weight: 600; }
   </style>
   <!-- JSON-LD Person schema -->
   <script type="application/ld+json">
@@ -146,7 +147,7 @@
             </p>
             <ul class="keyword-row" aria-label="Research areas">
               <li>Pedestrian–AV interaction</li>
-              <li>Human Intelligence(HI)</li>
+              <li class="kw-hi">Human Intelligence(HI)</li>
               <li>Artificial Intelligence(AI)</li>
               <li>In-cabin HMI</li>
               <li>External HMI (eHMI)</li>
