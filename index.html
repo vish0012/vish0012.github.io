@@ -28,23 +28,267 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <!-- Future Tokyo interactive panel — self-contained styles for the About layout -->
   <style>
-    #about .about-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:start; }
-    #about .about-text{ min-width:0; }
-    #about .about-visual{ position:sticky; top:96px; }
-    .citysketch{ width:100%; max-width:480px; }
-    .citysketch__stage{
-      width:100%; border:1px solid var(--rule); border-radius:14px;
-      overflow:hidden; line-height:0; background:transparent;
-      box-shadow:0 16px 34px -28px rgba(0,0,0,.4);
-    }
-    .citysketch__stage canvas{ display:block; width:100%; cursor:pointer; touch-action:manipulation; }
-    .citysketch__cap{ margin:14px 2px 0; font-family:var(--sans); font-size:.9rem; line-height:1.55; max-width:46ch; color:var(--ink-soft); }
-    .citysketch__cap b{ color:var(--ink); font-weight:600; }
-    @media (max-width:860px){
-      #about .about-grid{ grid-template-columns:1fr; gap:28px; }
-      #about .about-visual{ position:static; }
-      .citysketch{ max-width:560px; margin-top:4px; }
-    }
+/* ═════════ ②-CSS · paste into your stylesheet (replaces v3 block) ═════════ */
+
+/* Everything is scoped to #about — it cannot touch your site-wide tokens.
+   It reads your existing --paper / --ink / --accent directly. */
+#about{
+  --kwc:var(--accent, #4a6d5c);   /* interaction color = YOUR site accent */
+  --muted:#6E6A63; --tansei:#1F7FB8;
+  --card:var(--paper, #FCFBF8); --line:#E7E2D8; --soft:#E4D9C6;
+  --amber:#F2B33D; --green:#3E8E5A;
+  --wash:color-mix(in srgb, var(--kwc) 14%, transparent);
+  /* illustration palette */
+  --sky1:#FFE9CE; --sky2:#FDF9F0;
+  --fuji:#CBD9E4; --snow:#FFFFFF;
+  --road:#EAE4D6; --walk:#F2ECDD; --zebra:#FFFDF4;
+  --glass:#AECDDD; --mull:#7FA8BF;
+  --sand:#EAD9B0; --sandw:#D8C393;
+  --sage:#C9D6BE; --slab:#DCD8CF;
+  --shop:#FFE0A0; --teal:#3E8E8E; --lidar:#3E8E8E;
+  --orangeA:#F0913B; --redA:#E05B4B; --skin:#F2C9A4;
+  --towerO:#E8501F; --deckW:#FFF6E8;
+  --trainG:#6FBF44; --trainB:#EDF0F2; --trainW:#BCD7E8;
+  --cloud:#FFFFFF; --wood:#C08A54;
+}
+:is(html[data-theme="dark"], html.dark, body.dark) #about{
+  --muted:#A39C90; --tansei:#6FB8DF;
+  --card:var(--paper, #1D1B17); --line:#37332B; --soft:#3A3E48;
+  --amber:#FFC65C; --green:#5FB483;
+  --sky1:#131A2C; --sky2:#20283A;
+  --fuji:#2A3448; --snow:#DDE6F2;
+  --road:#20242E; --walk:#292D38; --zebra:#C7CBD4;
+  --glass:#31465A; --mull:#4C6A80;
+  --sand:#4A4030; --sandw:#6B5B3E;
+  --sage:#37483B; --slab:#3A3E46;
+  --shop:#FFC65C; --teal:#58B0AE; --lidar:#58B0AE;
+  --towerO:#F06A2E; --deckW:#3A2E22;
+  --trainG:#5FAF3C; --trainB:#3A414C; --trainW:#5E7A93;
+  --cloud:#2E3648; --wood:#7E5C3B;
+}
+
+/* ---- layout: sticky sketch ---- */
+.about-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);
+  gap:clamp(2.2rem,5vw,4.5rem);
+  align-items:start;
+}
+.about-visual{position:sticky;top:92px}
+@media (max-width:920px){
+  .about-grid{grid-template-columns:1fr}
+  .about-visual{position:static;order:-1;max-width:560px;margin-inline:auto}
+}
+
+/* ---- keywords ---- */
+.kw{
+  cursor:pointer;
+  text-decoration:underline dotted;
+  text-decoration-color:color-mix(in srgb, var(--kwc) 75%, transparent);
+  text-decoration-thickness:2px;text-underline-offset:3px;
+  border-radius:3px;
+  transition:background .25s,color .25s,text-decoration-color .25s;
+}
+a.kw{color:var(--tansei);text-decoration-color:color-mix(in srgb, var(--tansei) 75%, transparent)}
+.kw:hover,.kw:focus-visible{text-decoration-style:solid}
+.kw-live{background:var(--wash);text-decoration-style:solid;text-decoration-color:var(--kwc)}
+a.kw.kw-live{text-decoration-color:var(--tansei)}
+.kw:focus-visible{outline:2px solid var(--kwc);outline-offset:2px}
+
+/* ---- card ---- */
+.citysketch{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:16px;padding:10px 10px 2px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);overflow:hidden;
+}
+.citysketch__stage svg{display:block;width:100%;height:auto;border-radius:10px}
+.citysketch__cap{margin:.5rem .35rem .55rem;font-size:.86rem;color:var(--muted)}
+.citysketch__cap b{color:var(--ink)}
+.cap-btn{
+  border:0;background:none;padding:0;margin-left:.15rem;
+  font:inherit;color:var(--muted);opacity:.75;cursor:pointer;
+  text-decoration:underline dotted;text-underline-offset:3px;
+}
+.cap-btn:hover{color:var(--kwc);opacity:1}
+.citysketch__hint{margin:.6rem .2rem 0;font-size:.84rem;color:var(--muted);font-style:italic}
+.citysketch__hint .hint-kw{
+  text-decoration:underline dotted;
+  text-decoration-color:color-mix(in srgb, var(--kwc) 75%, transparent);
+  text-decoration-thickness:2px;text-underline-offset:3px;
+}
+
+/* ---- SVG base ---- */
+.sk .s{fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.sk .thin{stroke-width:1.6}
+.sk .terra{stroke:var(--towerO);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.sk .softl{stroke:var(--soft);stroke-width:1.6}
+.sk .cf{transition:fill-opacity .6s}
+.sk .winb{fill:var(--amber);stroke:none;transition:opacity .45s}
+.sk .win{opacity:.4}
+.sk .win-x{opacity:0}
+.sk .win-x.on{opacity:.95}
+.sk .halo{fill:var(--kwc);opacity:0;transition:opacity .35s;pointer-events:all}
+.sk .shdw{fill:#2B241C;opacity:.08;stroke:none}
+.sk .tile{opacity:.16}
+:is(html[data-theme="dark"], html.dark, body.dark) .sk .tile{opacity:.28}
+.sk.predraw .cf,.sk.predraw .winb{fill-opacity:0}
+.sk .only-night{display:none}
+:is(html[data-theme="dark"], html.dark, body.dark) .sk .only-night{display:inline}
+:is(html[data-theme="dark"], html.dark, body.dark) .sk .only-day{display:none}
+.sk .sky1{stop-color:var(--sky1)} .sk .sky2{stop-color:var(--sky2)}
+
+/* night extras */
+.sk .stars{opacity:0;transition:opacity .6s}
+:is(html[data-theme="dark"], html.dark, body.dark) .sk .stars{opacity:1}
+.st.tw{animation:twinkle 2.8s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.25}to{opacity:1}}
+:is(html[data-theme="dark"], html.dark, body.dark) .sk .win{opacity:.95}
+:is(html[data-theme="dark"], html.dark, body.dark) .sk .glow-n{filter:drop-shadow(0 0 6px rgba(255,190,80,.85))}
+:is(html[data-theme="dark"], html.dark, body.dark) .sk .t-body{filter:drop-shadow(0 0 12px rgba(255,140,50,.35))}
+:is(html[data-theme="dark"], html.dark, body.dark) .sk .lampon{filter:drop-shadow(0 0 5px currentColor)}
+
+/* ---- interactive highlight ---- */
+.sk g.el{cursor:pointer}
+.sk g.el.is-live .s{stroke:var(--kwc);stroke-width:2.6}
+.sk g.el.is-live .halo{opacity:.15}
+.sk g.el.is-live{filter:drop-shadow(0 4px 10px color-mix(in srgb, var(--kwc) 45%, transparent))}
+#el-city.is-live .win,#el-city.is-live .win-x{opacity:.95}
+#el-pole.is-live .ring{animation-duration:1.1s !important}
+
+/* ════════ THE LIVING SCENE (16s story clock) ════════ */
+.mv-av{animation:av-move 16s infinite}
+@keyframes av-move{
+  0%   {transform:translateX(255px);opacity:0;animation-timing-function:linear}
+  2%   {transform:translateX(240px);opacity:1;animation-timing-function:cubic-bezier(.15,.6,.2,1)}
+  21%  {transform:translateX(0)}
+  68%  {transform:translateX(0);animation-timing-function:cubic-bezier(.55,.05,.85,.4)}
+  87%  {transform:translateX(-720px);opacity:1}
+  88%  {opacity:0}
+  89%  {transform:translateX(255px);opacity:0}
+  100% {transform:translateX(255px);opacity:0}
+}
+.av-dash{animation:dash-show 16s infinite;opacity:0}
+@keyframes dash-show{
+  0%,3%{opacity:0} 6%,17%{opacity:.6} 21%,67%{opacity:0}
+  70%,86%{opacity:.6} 88%,100%{opacity:0}
+}
+.lidar{animation:lidar-p 2.1s ease-in-out infinite}
+@keyframes lidar-p{0%,100%{opacity:.25}50%{opacity:.8}}
+
+.mv-bot{animation:bot-move 16s infinite}
+@keyframes bot-move{
+  0%,23% {transform:translateX(-96px);opacity:1;animation-timing-function:linear}
+  56%    {transform:translateX(78px);opacity:1}
+  60%    {opacity:1}
+  62%    {opacity:0;transform:translateX(78px)}
+  63%    {transform:translateX(-96px)}
+  69%    {opacity:0}
+  73%,100%{opacity:1;transform:translateX(-96px)}
+}
+.rig-hop{animation:hop 0.62s ease-in-out infinite}
+@keyframes hop{0%,100%{transform:translateY(0)}35%{transform:translateY(-2.6px)}}
+
+.sig-g,.pole-walk{animation:go-green 16s infinite;opacity:0}
+.sig-r,.pole-stand{animation:go-red 16s infinite}
+@keyframes go-green{0%,21%{opacity:0} 23%,60%{opacity:1} 63%,100%{opacity:0}}
+@keyframes go-red{0%,21%{opacity:1} 23%,60%{opacity:0} 63%,100%{opacity:1}}
+
+.ring{opacity:0;transform-box:fill-box;transform-origin:center;animation:ripple 2.8s ease-out infinite;stroke:var(--teal);stroke-width:2.2}
+.ring.r2{animation-delay:1.4s}
+@keyframes ripple{0%{transform:scale(.5);opacity:.8}70%{opacity:.3}100%{transform:scale(1.5);opacity:0}}
+
+.mv-flyer{animation:flyer-move 13s linear infinite}
+@keyframes flyer-move{
+  0%{transform:translateX(-470px);opacity:0}
+  4%{opacity:1}
+  91%{transform:translateX(96px);opacity:1}
+  95%{opacity:0}
+  100%{transform:translateX(-470px);opacity:0}
+}
+.fbob{animation:f-bob 2.4s ease-in-out infinite alternate}
+@keyframes f-bob{from{transform:translateY(0)}to{transform:translateY(-3.5px)}}
+
+.mv-train{animation:train-run 26s linear infinite}
+@keyframes train-run{0%{transform:translateX(700px)}100%{transform:translateX(-880px)}}
+
+.d-drift{animation:drift 8s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(14px)}}
+.d-bob{animation:dr-bob 3s ease-in-out infinite alternate}
+@keyframes dr-bob{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+.rotor{animation:rotor-f .16s steps(2) infinite}
+@keyframes rotor-f{from{opacity:1}to{opacity:.35}}
+.dr-shdw{transform-box:fill-box;transform-origin:center;animation:sh-b 3s ease-in-out infinite alternate}
+@keyframes sh-b{from{transform:scaleX(1);opacity:.08}to{transform:scaleX(.8);opacity:.05}}
+
+.cloud{animation:cloud-drift linear infinite}
+.cloud.c1{animation-duration:52s}
+.cloud.c2{animation-duration:74s;animation-delay:-30s}
+@keyframes cloud-drift{
+  0%{transform:translateX(-170px);opacity:0}
+  6%{opacity:.9}
+  92%{opacity:.9}
+  100%{transform:translateX(700px);opacity:0}
+}
+.mv-birds{animation:bird-fly 21s linear infinite;animation-delay:-6s}
+@keyframes bird-fly{
+  0%{transform:translate(-90px,0);opacity:0}
+  5%{opacity:.9}
+  90%{opacity:.9}
+  100%{transform:translate(740px,-26px);opacity:0}
+}
+.wing{transform-box:fill-box;transform-origin:50% 100%;animation:flap .34s ease-in-out infinite alternate}
+@keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(.45)}}
+
+.sun-core{transform-box:fill-box;transform-origin:center;animation:sun-b 5s ease-in-out infinite alternate}
+@keyframes sun-b{from{transform:scale(1)}to{transform:scale(1.06)}}
+.ray{animation:ray-b 4s ease-in-out infinite alternate}
+.ray:nth-of-type(odd){animation-delay:-2s}
+@keyframes ray-b{from{opacity:.35}to{opacity:.95}}
+.beacon{animation:beacon-p 2.4s ease-in-out infinite}
+.blinker{animation:beacon-p 3.2s ease-in-out infinite}
+@keyframes beacon-p{0%,100%{opacity:.12}45%,55%{opacity:.95}}
+.t-glow{animation:ray-b 3.6s ease-in-out infinite alternate}
+.leaf{animation:leaf-fall 5.5s linear infinite}
+.leaf.l2{animation-delay:-2.7s}
+@keyframes leaf-fall{
+  0%{transform:translate(0,0);opacity:0}
+  10%{opacity:.95}
+  100%{transform:translate(-12px,72px);opacity:0}
+}
+
+#wave-arm{transform-origin:258px 286px;animation:wave 1.7s ease-in-out infinite alternate}
+@keyframes wave{from{transform:rotate(-12deg)}to{transform:rotate(22deg)}}
+.ball-x{animation:ball-x 5.2s ease-in-out infinite}
+@keyframes ball-x{0%{transform:translateX(-24px)}50%{transform:translateX(22px)}100%{transform:translateX(-24px)}}
+.ball-y{animation:ball-y 2.6s ease-in infinite}
+@keyframes ball-y{0%{transform:translateY(0)}42%{transform:translateY(-15px)}100%{transform:translateY(0)}}
+#kick1{transform-origin:148px 382px;animation:kick-a 5.2s ease-in-out infinite}
+@keyframes kick-a{0%,88%{transform:rotate(0)}94%{transform:rotate(-30deg)}100%{transform:rotate(0)}}
+#kick2{transform-origin:200px 379px;animation:kick-b 5.2s ease-in-out infinite}
+@keyframes kick-b{0%,38%{transform:rotate(0)}44%{transform:rotate(30deg)}50%,100%{transform:rotate(0)}}
+.sc-glide{animation:sc-g 3.4s ease-in-out infinite}
+@keyframes sc-g{0%,100%{transform:translateX(0)}45%{transform:translateX(-7px)}}
+#push-leg{transform-origin:599px 332px;animation:sc-push 3.4s ease-in-out infinite}
+@keyframes sc-push{0%,20%,60%,100%{transform:rotate(0)}35%{transform:rotate(-34deg)}}
+.blink{transform-box:fill-box;transform-origin:center;animation:blink 4.6s infinite}
+.blink.b2{animation-delay:-2.3s}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}95%,97%{transform:scaleY(.1)}}
+.ant-tip{transform-origin:331px 344px;animation:ant-w 3.2s ease-in-out infinite alternate}
+@keyframes ant-w{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+#lyr-far,#lyr-mid{will-change:transform}
+
+/* pause / offscreen / reduced motion */
+.sk.paused *,.sk.offscreen *{animation-play-state:paused !important}
+.sk.anim-reset *{animation:none !important}
+@media (prefers-reduced-motion:reduce){
+  .sk *{animation:none !important}
+  .sk .ring{opacity:.3}
+  .sk .sig-r,.sk .pole-stand{opacity:1}
+}
+@keyframes now-pulse{50%{box-shadow:0 0 0 6px color-mix(in srgb, var(--green) 22%, transparent)}}
+@media (prefers-reduced-motion:reduce){.now-dot{animation:none !important}}
+
+/* ═════════ end ②-CSS ═════════ */
     /* Find-me social icons — inherit link colour, adapt to light/dark */
     .console-body .findme a{ display:inline-flex; align-items:center; }
     .console-body .findme a svg{ width:1em; height:1em; margin-right:.42em; fill:currentColor; flex:none; }
@@ -154,53 +398,519 @@
         </div>
       </div>
     </section>
-    <!-- ============ ABOUT (short) ============ -->
-    <section id="about">
-      <div class="container">
-        <div class="about-grid">
-          <div class="about-text">
-            <p class="section-eyebrow">About</p>
-            <p class="lead">
-              I'm an <strong>HCI researcher</strong> studying how humans interact with
-              autonomous vehicles, robots, and intelligent systems — and how these
-              systems can communicate back more clearly. My doctoral work at
-              <a href="https://www.u-tokyo.ac.jp/en/">The University of Tokyo</a> centers on
-              the <strong>Smart Pole Interaction Unit (SPIU)</strong>, an infrastructure-based
-              eHMI I designed to make communication between pedestrians, autonomous vehicles,
-              and robots safer and more intuitive in the spaces they share. I build with AI, but I design for <strong>Human Intelligence</strong> — the judgment, context, and care that machines don't have.
-            </p>
-            <p class="lead">
-              Along the way, I've been lucky to work
-              alongside inspiring researchers and labs in Japan, Singapore, Canada, Norway,
-              and beyond — collaborations that continue to shape how I think about future
-              cities and the ways humans and machines share them.
-            </p>
-            <p class="lead">
-              Before my PhD, I completed my Master at
-              <a href="https://www.u-tokyo.ac.jp/en/">The University of Tokyo</a> and my
-              Bachelor split between <a href="https://www.veltech.edu.in/">Vel Tech University</a>
-              (India) and <a href="https://www.ntu.edu.sg/">Nanyang Technological University</a>
-              (Singapore). I also contribute to
-              <strong>Tier IV's open-source autonomous driving platform</strong>, working with
-              their engineering team.
-            </p>
-            <p class="cv-line">
-              <a class="cv-link" href="cv.html">Full CV →</a>
-            </p>
-            <p class="now-line">
-              <span class="now-dot" aria-hidden="true"></span>
-              <strong>Now</strong> — exploring human–AV interaction · open to faculty conversations from late 2026 · 16 countries down, with a dream to reach all 195.
-            </p>
-          </div>
-          <div class="about-visual">
-            <div class="citysketch">
-              <div class="citysketch__stage"><canvas id="citySketch"></canvas></div>
-              <p class="citysketch__cap"><b>Every idea starts as a simple sketch.</b> <span style="opacity:.7">(tap to replay)</span></p>
-            </div>
-          </div>
-        </div>
+    <!-- ============ ABOUT ============ -->
+<section id="about" class="about">
+  <div class="container">
+    <p class="section-eyebrow">About</p>
+
+    <div class="about-grid">
+
+      <div class="about-text">
+        <p>
+          I'm an <strong>HCI researcher</strong> studying how humans interact with
+          <span class="kw" data-el="av" role="button" tabindex="0">autonomous vehicles</span>,
+          <span class="kw" data-el="robot" role="button" tabindex="0">robots</span>, and
+          <span class="kw" data-el="drone" role="button" tabindex="0">intelligent systems</span>
+          — and how these systems can communicate back more clearly. My doctoral work at
+          <a class="kw" data-el="tower" href="https://www.u-tokyo.ac.jp/en/">The University of Tokyo</a>
+          centers on the
+          <span class="kw" data-el="pole" role="button" tabindex="0"><strong>Smart Pole Interaction Unit (SPIU)</strong></span>,
+          an infrastructure-based eHMI I designed to make communication between
+          <span class="kw" data-el="peds" role="button" tabindex="0">pedestrians</span>,
+          <span class="kw" data-el="av" role="button" tabindex="0">autonomous vehicles</span>, and
+          <span class="kw" data-el="robot" role="button" tabindex="0">robots</span>
+          safer and more intuitive in the spaces they share. I build with AI, but I design for
+          <strong>Human Intelligence</strong> — the judgment, context, and care that machines don't have.
+        </p>
+        <p>
+          Along the way, I've been lucky to work alongside inspiring researchers and labs in
+          Japan, Singapore, Canada, Norway, and beyond — collaborations that continue to shape
+          how I think about
+          <span class="kw" data-el="city" role="button" tabindex="0">future cities</span>
+          and the ways humans and machines share them.
+        </p>
+        <p>
+          Before my PhD, I completed my Master at
+          <a class="kw" data-el="tower" href="https://www.u-tokyo.ac.jp/en/">The University of Tokyo</a>
+          and my Bachelor split between
+          <a href="https://www.veltech.edu.in/">Vel Tech University</a> (India) and
+          <a href="https://www.ntu.edu.sg/">Nanyang Technological University</a> (Singapore).
+          I also contribute to
+          <span class="kw" data-el="av" role="button" tabindex="0"><strong>Tier IV's open-source autonomous driving platform</strong></span>,
+          working with their engineering team.
+        </p>
+        <p class="cv-line"><a class="cv-link" href="cv.html">Full CV →</a></p>
+        <p class="now-line">
+          <span class="now-dot" aria-hidden="true"></span>
+          <strong>Now</strong> — exploring human–AV interaction · open to faculty conversations
+          from late 2026 · 16 countries down, with a dream to reach all 195.
+        </p>
       </div>
-    </section>
+
+      <div class="about-visual">
+        <figure class="citysketch" style="margin:0">
+          <div class="citysketch__stage">
+
+            <svg id="citySketch" class="sk" viewBox="0 0 660 440" role="img"
+                 aria-label="Colorful animated illustration of a future Tokyo street: a robotaxi stops at a crossing, the Smart Pole shows a green walk figure, a delivery robot crosses, then the car drives on — under Tokyo Tower, Mt. Fuji, a passing train, a package drone and drifting clouds. In dark mode the scene becomes Tokyo at night.">
+
+              <defs>
+                <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+                  <stop class="sky1" offset="0"/>
+                  <stop class="sky2" offset="1"/>
+                </linearGradient>
+                <mask id="moonM">
+                  <rect x="556" y="70" width="44" height="44" fill="#fff"/>
+                  <circle cx="585.5" cy="87" r="11.5" fill="#000"/>
+                </mask>
+              </defs>
+
+              <!-- sky + ground base -->
+              <rect class="cf" x="0" y="0" width="660" height="333" fill="url(#skyG)"/>
+              <rect class="cf" x="0" y="326" width="660" height="14" fill="var(--walk)"/>
+              <rect class="cf" x="0" y="340" width="660" height="100" fill="var(--road)"/>
+              <line class="softl" x1="0" y1="340" x2="660" y2="340"/>
+              <g id="roaddetail">
+                <line class="softl" x1="330" y1="352" x2="120" y2="440"/>
+                <line class="softl" x1="330" y1="352" x2="540" y2="440"/>
+                <line x1="34" y1="404" x2="626" y2="404" stroke="var(--soft)" stroke-width="3" stroke-dasharray="20 14" opacity=".8"/>
+                <ellipse class="cf" cx="498" cy="392" rx="11" ry="4" fill="var(--walk)" stroke="var(--soft)" stroke-width="1.4"/>
+                <ellipse cx="498" cy="392" rx="6" ry="2" fill="none" stroke="var(--soft)" stroke-width="1.2"/>
+                <!-- Colored Shared Spaces pavement — HCII 2026 -->
+                <g class="csstiles">
+                  <path class="cf tile" d="M92 394 h36 l8 16 h-36 z"  fill="#e6c184"/>
+                  <path class="cf tile" d="M150 376 h34 l7 15 h-34 z" fill="#6f9d86"/>
+                  <path class="cf tile" d="M196 394 h36 l8 16 h-36 z" fill="#7fa3c0"/>
+                  <path class="cf tile" d="M262 376 h34 l7 15 h-34 z" fill="#e6c184"/>
+                  <path class="cf tile" d="M318 394 h36 l8 16 h-36 z" fill="#d99a78"/>
+                  <path class="cf tile" d="M372 376 h34 l7 15 h-34 z" fill="#b99ec0"/>
+                  <path class="cf tile" d="M438 394 h36 l8 16 h-36 z" fill="#6f9d86"/>
+                  <path class="cf tile" d="M540 376 h28 l6 14 h-28 z" fill="#7fa3c0"/>
+                </g>
+              </g>
+
+              <!-- FAR LAYER: parallax -->
+              <g id="lyr-far">
+                <!-- stars + moon (night) / sun (day) -->
+                <g class="stars" fill="#F4EAD0">
+                  <circle class="st tw" cx="64"  cy="58"  r="1.4"/>
+                  <circle class="st"    cx="142" cy="38"  r="1.1"/>
+                  <circle class="st tw" cx="206" cy="86"  r="1.3" style="animation-delay:-1.4s"/>
+                  <circle class="st"    cx="292" cy="52"  r="1.1"/>
+                  <circle class="st tw" cx="382" cy="60"  r="1.4" style="animation-delay:-.7s"/>
+                  <circle class="st"    cx="436" cy="104" r="1.1"/>
+                  <circle class="st tw" cx="518" cy="42"  r="1.3" style="animation-delay:-2s"/>
+                  <circle class="st"    cx="612" cy="66"  r="1.2"/>
+                  <circle class="st"    cx="70"  cy="132" r="1.1"/>
+                  <circle class="st tw" cx="626" cy="148" r="1.2" style="animation-delay:-1s"/>
+                  <circle class="st"    cx="164" cy="18"  r="1"/>
+                  <circle class="st"    cx="486" cy="24"  r="1"/>
+                </g>
+                <g class="only-night">
+                  <circle cx="578" cy="92" r="22" fill="#F2E8CC" opacity=".12"/>
+                  <circle cx="578" cy="92" r="13.5" fill="#F2E8CC" mask="url(#moonM)"/>
+                </g>
+                <g id="sun" class="only-day">
+                  <circle class="cf" cx="578" cy="92" r="34" fill="var(--amber)" opacity=".13"/>
+                  <circle class="cf" cx="578" cy="92" r="24" fill="var(--amber)" opacity=".26"/>
+                  <g class="sun-core"><circle class="cf" cx="578" cy="92" r="15" fill="var(--amber)"/></g>
+                  <g stroke="var(--amber)" stroke-width="2" stroke-linecap="round">
+                    <line class="ray" x1="578" y1="64" x2="578" y2="56"/>
+                    <line class="ray" x1="598" y1="72" x2="604" y2="66"/>
+                    <line class="ray" x1="606" y1="92" x2="614" y2="92"/>
+                    <line class="ray" x1="598" y1="112" x2="604" y2="118"/>
+                    <line class="ray" x1="558" y1="72" x2="552" y2="66"/>
+                    <line class="ray" x1="550" y1="92" x2="542" y2="92"/>
+                    <line class="ray" x1="558" y1="112" x2="552" y2="118"/>
+                    <line class="ray" x1="578" y1="120" x2="578" y2="128"/>
+                  </g>
+                </g>
+
+                <!-- Mt. Fuji -->
+                <path class="cf" d="M106 332 L230 236 q14 -11 28 0 L418 332 Z" fill="var(--fuji)" opacity=".85"/>
+                <path class="cf" d="M202 258 L230 236 q14 -11 28 0 L295 258 l-12 8 -14 -8 -14 8 -14 -8 -14 8 -13 -8 z" fill="var(--snow)" opacity=".92"/>
+
+                <!-- distant rail + Yamanote-style train -->
+                <line x1="24" y1="171" x2="640" y2="171" stroke="var(--soft)" stroke-width="1.6" opacity=".8"/>
+                <g class="mv-train">
+                  <g>
+                    <rect class="cf" x="0"   y="153" width="46" height="16" rx="6" fill="var(--trainB)" stroke="var(--ink)" stroke-width="1.2"/>
+                    <rect class="cf" x="50"  y="153" width="46" height="16" rx="3" fill="var(--trainB)" stroke="var(--ink)" stroke-width="1.2"/>
+                    <rect class="cf" x="100" y="153" width="46" height="16" rx="3" fill="var(--trainB)" stroke="var(--ink)" stroke-width="1.2"/>
+                    <rect class="cf" x="4"   y="156" width="38" height="5" rx="2" fill="var(--trainW)"/>
+                    <rect class="cf" x="54"  y="156" width="38" height="5" rx="2" fill="var(--trainW)"/>
+                    <rect class="cf" x="104" y="156" width="38" height="5" rx="2" fill="var(--trainW)"/>
+                    <rect class="cf" x="2"   y="163" width="43" height="3.5" fill="var(--trainG)"/>
+                    <rect class="cf" x="50"  y="163" width="46" height="3.5" fill="var(--trainG)"/>
+                    <rect class="cf" x="100" y="163" width="44" height="3.5" fill="var(--trainG)"/>
+                  </g>
+                </g>
+
+                <!-- clouds -->
+                <g class="cloud c1" opacity="0">
+                  <path transform="translate(0,14)" class="cf" d="M60 78 q9 -13 24 -8 q7 -11 22 -4 q14 -3 16 8 q-4 7 -14 6 h-38 q-11 -1 -10 -2z" fill="var(--cloud)" stroke="var(--ink)" stroke-width="1.4" opacity=".95"/>
+                </g>
+                <g class="cloud c2" opacity="0">
+                  <path transform="translate(0,-14)" class="cf" d="M120 128 q8 -11 20 -7 q6 -9 18 -3 q12 -2 13 7 q-3 6 -12 5 h-30 q-9 -1 -9 -2z" fill="var(--cloud)" stroke="var(--ink)" stroke-width="1.4" opacity=".95"/>
+                </g>
+
+                <!-- birds -->
+                <g class="mv-birds" opacity="0">
+                  <g transform="translate(0,40)">
+                    <path class="wing" d="M0 0 q5 -6 10 0" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round"/>
+                    <path class="wing" d="M10 0 q5 -6 10 0" fill="none" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round"/>
+                  </g>
+                  <g transform="translate(26,30)">
+                    <path class="wing" d="M0 0 q4 -5 8 0" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
+                    <path class="wing" d="M8 0 q4 -5 8 0" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
+                  </g>
+                </g>
+              </g>
+
+              <!-- MID LAYER: skyline (parallax) -->
+              <g id="lyr-mid">
+                <g id="el-city" class="el">
+                  <ellipse class="halo" cx="360" cy="235" rx="300" ry="120"/>
+                  <!-- b1: slim concrete -->
+                  <rect class="cf" x="96" y="170" width="26" height="162" fill="var(--slab)" stroke="var(--ink)" stroke-width="1.6"/>
+                  <line class="s thin d" x1="109" y1="170" x2="109" y2="142"/>
+                  <circle class="blinker" cx="109" cy="139" r="2.2" fill="var(--redA)"/>
+                  <rect class="cf" x="102" y="190" width="8" height="6" fill="#C7C2B8"/>
+                  <rect class="cf" x="102" y="238" width="8" height="6" fill="#C7C2B8"/>
+                  <rect class="cf" x="102" y="286" width="8" height="6" fill="#C7C2B8"/>
+                  <!-- b2: glass tower + konbini -->
+                  <path class="cf" d="M150 332 V150 h40 v-28 h34 V332 Z" fill="var(--glass)" stroke="var(--ink)" stroke-width="1.6"/>
+                  <g stroke="var(--mull)" stroke-width="1.1" opacity=".55">
+                    <line x1="162" y1="156" x2="162" y2="290"/>
+                    <line x1="174" y1="156" x2="174" y2="290"/>
+                    <line x1="186" y1="156" x2="186" y2="290"/>
+                    <line x1="198" y1="130" x2="198" y2="290"/>
+                    <line x1="210" y1="130" x2="210" y2="290"/>
+                    <line x1="152" y1="176" x2="222" y2="176"/>
+                    <line x1="152" y1="200" x2="222" y2="200"/>
+                    <line x1="152" y1="224" x2="222" y2="224"/>
+                    <line x1="152" y1="248" x2="222" y2="248"/>
+                    <line x1="152" y1="272" x2="222" y2="272"/>
+                  </g>
+                  <line class="s thin d" x1="168" y1="150" x2="168" y2="120"/>
+                  <rect class="cf" x="156" y="132" width="16" height="16" rx="3" fill="#C9B18C" stroke="var(--ink)" stroke-width="1.3"/>
+                  <!-- konbini -->
+                  <rect class="cf glow-n" x="186" y="282" width="14" height="10" rx="1.5" fill="var(--orangeA)" stroke="var(--ink)" stroke-width="1.2"/>
+                  <circle cx="193" cy="287" r="2" fill="#FFF6E8"/>
+                  <g>
+                    <rect class="cf" x="150" y="294" width="12.4" height="9" fill="#D95D39"/>
+                    <rect class="cf" x="162.4" y="294" width="12.4" height="9" fill="#FFF3DD"/>
+                    <rect class="cf" x="174.8" y="294" width="12.4" height="9" fill="#D95D39"/>
+                    <rect class="cf" x="187.2" y="294" width="12.4" height="9" fill="#FFF3DD"/>
+                    <rect class="cf" x="199.6" y="294" width="12.4" height="9" fill="#D95D39"/>
+                    <rect class="cf" x="212"   y="294" width="12"   height="9" fill="#FFF3DD"/>
+                    <rect x="150" y="294" width="74" height="9" fill="none" stroke="var(--ink)" stroke-width="1.3"/>
+                  </g>
+                  <rect class="cf glow-n" x="156" y="307" width="38" height="19" fill="var(--shop)" stroke="var(--ink)" stroke-width="1.3"/>
+                  <line x1="175" y1="307" x2="175" y2="326" stroke="var(--ink)" stroke-width="1"/>
+                  <rect class="cf" x="200" y="305" width="16" height="27" rx="2" fill="#B9704F" stroke="var(--ink)" stroke-width="1.3"/>
+                  <circle cx="212" cy="319" r="1.3" fill="#FFF6E8"/>
+                  <!-- b3: sand -->
+                  <rect class="cf" x="468" y="140" width="44" height="192" fill="var(--sand)" stroke="var(--ink)" stroke-width="1.6"/>
+                  <g fill="var(--sandw)">
+                    <rect class="cf" x="475" y="154" width="8" height="8"/><rect class="cf" x="489" y="154" width="8" height="8"/><rect class="cf" x="500" y="154" width="6" height="8"/>
+                    <rect class="cf" x="475" y="180" width="8" height="8"/><rect class="cf" x="489" y="180" width="8" height="8"/>
+                    <rect class="cf" x="475" y="206" width="8" height="8"/><rect class="cf" x="500" y="206" width="6" height="8"/>
+                    <rect class="cf" x="489" y="232" width="8" height="8"/><rect class="cf" x="475" y="258" width="8" height="8"/>
+                    <rect class="cf" x="489" y="284" width="8" height="8"/><rect class="cf" x="500" y="284" width="6" height="8"/>
+                  </g>
+                  <line class="s thin d" x1="490" y1="140" x2="490" y2="112"/>
+                  <circle class="blinker" cx="490" cy="109" r="2.2" fill="var(--redA)" style="animation-delay:-1.6s"/>
+                  <rect class="cf" x="470" y="128" width="14" height="10" rx="2" fill="#C7C2B8" stroke="var(--ink)" stroke-width="1.2"/>
+                  <!-- b4: sage + vertical sign -->
+                  <rect class="cf" x="556" y="215" width="36" height="117" fill="var(--sage)" stroke="var(--ink)" stroke-width="1.6"/>
+                  <rect class="cf glow-n" x="548" y="232" width="11" height="56" rx="2" fill="var(--orangeA)" stroke="var(--ink)" stroke-width="1.2"/>
+                  <rect x="551" y="238" width="5" height="5" fill="#FFF6E8"/>
+                  <rect x="551" y="252" width="5" height="5" fill="#FFF6E8"/>
+                  <rect x="551" y="266" width="5" height="5" fill="#FFF6E8"/>
+                  <rect class="cf" x="566" y="230" width="7" height="7" fill="#B4C2A8"/>
+                  <rect class="cf" x="578" y="256" width="7" height="7" fill="#B4C2A8"/>
+                  <rect class="cf" x="566" y="282" width="7" height="7" fill="#B4C2A8"/>
+                  <!-- lit windows: some always, more flicker on -->
+                  <rect class="winb win"   x="163" y="178" width="9" height="9"/>
+                  <rect class="winb win"   x="199" y="226" width="9" height="9"/>
+                  <rect class="winb win"   x="489" y="180" width="8" height="8"/>
+                  <rect class="winb win"   x="566" y="256" width="7" height="7"/>
+                  <rect class="winb win-x" x="175" y="250" width="9" height="9"/>
+                  <rect class="winb win-x" x="163" y="202" width="9" height="9"/>
+                  <rect class="winb win-x" x="102" y="214" width="8" height="6"/>
+                  <rect class="winb win-x" x="475" y="232" width="8" height="8"/>
+                  <rect class="winb win-x" x="500" y="258" width="6" height="8"/>
+                  <rect class="winb win-x" x="578" y="282" width="7" height="7"/>
+                </g>
+              </g>
+
+              <!-- Tokyo Tower -->
+              <g id="el-tower" class="el">
+                <ellipse class="halo" cx="330" cy="195" rx="80" ry="128"/>
+                <g class="t-body">
+                  <path class="terra d" d="M330 46 C336 150 360 240 396 332"/>
+                  <path class="terra d" d="M330 46 C324 150 300 240 264 332"/>
+                  <path class="terra d" d="M264 332 Q330 320 396 332"/>
+                  <path class="terra d" d="M284 332 Q330 296 376 332"/>
+                  <line class="terra d" x1="293" y1="222" x2="367" y2="256"/>
+                  <line class="terra d" x1="367" y1="222" x2="293" y2="256"/>
+                  <line class="terra d" x1="287" y1="256" x2="374" y2="292"/>
+                  <line class="terra d" x1="373" y1="256" x2="286" y2="292"/>
+                  <line class="terra d" x1="279" y1="292" x2="384" y2="330"/>
+                  <line class="terra d" x1="383" y1="292" x2="278" y2="330"/>
+                  <line class="terra d" x1="314" y1="146" x2="366" y2="206"/>
+                  <line class="terra d" x1="346" y1="146" x2="294" y2="206"/>
+                  <rect class="terra cf d" x="296" y="208" width="68" height="14" rx="3" fill="var(--deckW)"/>
+                  <circle cx="310" cy="215" r="1.6" fill="var(--amber)"/>
+                  <circle cx="330" cy="215" r="1.6" fill="var(--amber)"/>
+                  <circle cx="350" cy="215" r="1.6" fill="var(--amber)"/>
+                  <rect class="terra cf d" x="314" y="132" width="32" height="10" rx="2" fill="var(--deckW)"/>
+                  <circle cx="324" cy="137" r="1.4" fill="var(--amber)"/>
+                  <circle cx="336" cy="137" r="1.4" fill="var(--amber)"/>
+                  <line class="terra d" x1="322" y1="100" x2="338" y2="100"/>
+                  <line class="terra d" x1="325" y1="76"  x2="335" y2="76"/>
+                  <line class="terra d" x1="330" y1="46"  x2="330" y2="30"/>
+                  <circle class="terra d" cx="330" cy="27" r="2.4" fill="none"/>
+                  <g class="only-night" fill="#FFB25E">
+                    <circle class="t-glow" cx="322" cy="170" r="2.2"/>
+                    <circle class="t-glow" cx="338" cy="170" r="2.2" style="animation-delay:-1.8s"/>
+                    <circle class="t-glow" cx="306" cy="240" r="2.2" style="animation-delay:-.9s"/>
+                    <circle class="t-glow" cx="354" cy="240" r="2.2" style="animation-delay:-2.6s"/>
+                    <circle class="t-glow" cx="292" cy="300" r="2.2" style="animation-delay:-1.3s"/>
+                    <circle class="t-glow" cx="368" cy="300" r="2.2" style="animation-delay:-.4s"/>
+                  </g>
+                </g>
+                <circle class="beacon" cx="330" cy="27" r="3.4" fill="var(--towerO)" stroke="none"/>
+              </g>
+
+              <!-- street props -->
+              <g id="scenery">
+                <!-- ginkgo tree -->
+                <path class="cf" d="M91 267 q3 20 1 41 h6 q-2 -21 1 -41 z" fill="#8A6A4F" stroke="var(--ink)" stroke-width="1.3"/>
+                <circle class="cf d" cx="86"  cy="246" r="16" fill="#E3C94F" stroke="var(--ink)" stroke-width="1.6"/>
+                <circle class="cf d" cx="103" cy="239" r="13" fill="#EBD35E" stroke="var(--ink)" stroke-width="1.6"/>
+                <circle class="cf d" cx="95"  cy="255" r="12" fill="#D9BC3F" stroke="var(--ink)" stroke-width="1.6"/>
+                <circle class="leaf"    cx="100" cy="258" r="1.7" fill="#E3C94F"/>
+                <circle class="leaf l2" cx="88"  cy="252" r="1.5" fill="#D9BC3F"/>
+                <!-- bench -->
+                <rect class="cf" x="118" y="288" width="40" height="4.5" rx="2" fill="var(--wood)" stroke="var(--ink)" stroke-width="1.3"/>
+                <rect class="cf" x="118" y="300" width="40" height="5" rx="2" fill="var(--wood)" stroke="var(--ink)" stroke-width="1.3"/>
+                <line class="s d" x1="122" y1="305" x2="122" y2="320"/>
+                <line class="s d" x1="154" y1="305" x2="154" y2="320"/>
+                <!-- bushes -->
+                <path class="cf" d="M52 332 q4 -12 14 -10 q10 -3 13 10 z" fill="#9DB88A" stroke="var(--ink)" stroke-width="1.3"/>
+                <path class="cf" d="M630 332 q3 -10 11 -8 q8 -2 11 8 z" fill="#9DB88A" stroke="var(--ink)" stroke-width="1.3"/>
+                <!-- zebra -->
+                <rect class="cf d" x="252" y="340" width="14" height="26" rx="3" fill="var(--zebra)" stroke="var(--ink)" stroke-width="1.7"/>
+                <rect class="cf d" x="274" y="340" width="14" height="26" rx="3" fill="var(--zebra)" stroke="var(--ink)" stroke-width="1.7"/>
+                <rect class="cf d" x="296" y="340" width="14" height="26" rx="3" fill="var(--zebra)" stroke="var(--ink)" stroke-width="1.7"/>
+                <rect class="cf d" x="318" y="340" width="14" height="26" rx="3" fill="var(--zebra)" stroke="var(--ink)" stroke-width="1.7"/>
+                <rect class="cf d" x="340" y="340" width="14" height="26" rx="3" fill="var(--zebra)" stroke="var(--ink)" stroke-width="1.7"/>
+                <rect class="cf d" x="362" y="340" width="14" height="26" rx="3" fill="var(--zebra)" stroke="var(--ink)" stroke-width="1.7"/>
+                <rect class="cf d" x="384" y="340" width="14" height="26" rx="3" fill="var(--zebra)" stroke="var(--ink)" stroke-width="1.7"/>
+                <!-- two-lamp signal -->
+                <line class="s d" x1="418" y1="332" x2="418" y2="272"/>
+                <rect class="cf d" x="410" y="242" width="16" height="30" rx="4" fill="#4A443C" stroke="var(--ink)" stroke-width="1.6"/>
+                <circle cx="418" cy="251" r="3.6" fill="#7A4A44"/>
+                <circle class="sig-r lampon" cx="418" cy="251" r="3.6" fill="#FF5F49"/>
+                <circle cx="418" cy="262" r="3.6" fill="#44584C"/>
+                <circle class="sig-g lampon" cx="418" cy="262" r="3.6" fill="#59C46F"/>
+              </g>
+
+              <!-- Smart Pole (SPIU) -->
+              <g id="el-pole" class="el">
+                <ellipse class="halo" cx="222" cy="284" rx="40" ry="60"/>
+                <circle class="ring r1 thin" cx="222" cy="244" r="18" fill="none" stroke-width="1.8"/>
+                <circle class="ring r2 thin" cx="222" cy="244" r="25" fill="none" stroke-width="1.8"/>
+                <line class="s d" x1="222" y1="332" x2="222" y2="260" stroke-width="3"/>
+                <rect class="cf d" x="214" y="326" width="16" height="6" rx="2" fill="#4A443C" stroke="var(--ink)" stroke-width="1.3"/>
+                <rect class="cf" x="230" y="270" width="7" height="9" rx="1.5" fill="#4A443C" stroke="var(--ink)" stroke-width="1.1"/>
+                <circle class="cf d" cx="222" cy="244" r="14" fill="#3A342C" stroke="var(--ink)" stroke-width="1.6"/>
+                <circle class="cf" cx="222" cy="244" r="10" fill="#16232E"/>
+                <g class="pole-walk" stroke="#59C46F" stroke-width="1.7" stroke-linecap="round">
+                  <circle cx="222" cy="239.6" r="1.8" fill="#59C46F" stroke="none"/>
+                  <line x1="222" y1="242" x2="222" y2="246.6"/>
+                  <line x1="222" y1="243.6" x2="218.6" y2="245.4"/>
+                  <line x1="222" y1="243.6" x2="225.4" y2="242.6"/>
+                  <line x1="222" y1="246.6" x2="219" y2="250.4"/>
+                  <line x1="222" y1="246.6" x2="225.2" y2="250.4"/>
+                </g>
+                <g class="pole-stand" stroke="#FF5F49" stroke-width="1.7" stroke-linecap="round">
+                  <circle cx="222" cy="239.6" r="1.8" fill="#FF5F49" stroke="none"/>
+                  <line x1="222" y1="242" x2="222" y2="247.4"/>
+                  <line x1="222" y1="247.4" x2="220.6" y2="250.6"/>
+                  <line x1="222" y1="247.4" x2="223.4" y2="250.6"/>
+                </g>
+              </g>
+
+              <!-- package drone -->
+              <g id="el-drone" class="el">
+                <g class="d-drift">
+                  <ellipse class="halo" cx="248" cy="100" rx="38" ry="26"/>
+                  <ellipse class="shdw dr-shdw" cx="248" cy="333" rx="15" ry="2.6"/>
+                  <g class="d-bob">
+                    <rect class="cf d" x="238" y="92" width="20" height="9" rx="4" fill="#3A342C" stroke="var(--ink)" stroke-width="1.4"/>
+                    <line class="s thin d" x1="230" y1="88" x2="242" y2="93"/>
+                    <line class="s thin d" x1="266" y1="88" x2="254" y2="93"/>
+                    <line class="rotor" x1="221" y1="86" x2="239" y2="86" stroke="var(--orangeA)" stroke-width="2.2" stroke-linecap="round"/>
+                    <line class="rotor" x1="257" y1="86" x2="275" y2="86" stroke="var(--orangeA)" stroke-width="2.2" stroke-linecap="round"/>
+                    <line class="s thin d" x1="243" y1="101" x2="241" y2="107"/>
+                    <line class="s thin d" x1="253" y1="101" x2="255" y2="107"/>
+                    <rect class="cf d" x="240" y="107" width="16" height="11" rx="1.5" fill="#D9A566" stroke="var(--ink)" stroke-width="1.3"/>
+                    <line x1="248" y1="107" x2="248" y2="118" stroke="#B98350" stroke-width="1.4"/>
+                    <line x1="240" y1="112.5" x2="256" y2="112.5" stroke="#B98350" stroke-width="1.4"/>
+                  </g>
+                </g>
+              </g>
+
+              <!-- flying shuttle -->
+              <g id="el-flyer" class="el">
+                <g class="mv-flyer" opacity="0">
+                  <g transform="translate(0,-58)">
+                  <ellipse class="halo" cx="546" cy="118" rx="44" ry="22"/>
+                  <g class="fbob">
+                    <rect class="cf d" x="522" y="112" width="52" height="14" rx="7" fill="#FBFBF8" stroke="var(--ink)" stroke-width="1.8"/>
+                    <rect class="cf" x="530" y="115" width="30" height="5" rx="2.5" fill="#9CC4DA"/>
+                    <path class="cf d" d="M536 112 q10 -9 22 0 z" fill="#DCE8EE" stroke="var(--ink)" stroke-width="1.4"/>
+                    <path class="cf" d="M568 112 l8 -10 v10 z" fill="var(--orangeA)" stroke="var(--ink)" stroke-width="1.2"/>
+                    <line class="s thin d" x1="532" y1="126" x2="532" y2="130"/>
+                    <line class="s thin d" x1="562" y1="126" x2="562" y2="130"/>
+                    <line class="s thin" x1="506" y1="115" x2="515" y2="115" opacity=".55"/>
+                    <line class="s thin" x1="500" y1="121" x2="512" y2="121" opacity=".55"/>
+                  </g>
+                  </g>
+                </g>
+              </g>
+
+              <!-- robotaxi: the story -->
+              <g id="el-av" class="el">
+                <g class="mv-av">
+                  <ellipse class="halo" cx="474" cy="314" rx="56" ry="30"/>
+                  <ellipse class="shdw" cx="475" cy="337" rx="44" ry="4"/>
+                  <g class="av-dash" stroke="var(--ink)" stroke-width="1.7" stroke-linecap="round">
+                    <line x1="520" y1="312" x2="534" y2="312"/>
+                    <line x1="526" y1="320" x2="542" y2="320"/>
+                  </g>
+                  <path class="only-night" d="M438 309 l-30 -7 v22 l30 -7 z" fill="#FFD34D" opacity=".2"/>
+                  <path class="cf d" d="M452 306 q7 -11 19 -11 h14 q11 0 15 11 z" fill="#BFD9E6" stroke="var(--ink)" stroke-width="1.6"/>
+                  <rect class="cf d" x="438" y="306" width="72" height="24" rx="11" fill="#FCFCF9" stroke="var(--ink)" stroke-width="2.2"/>
+                  <rect class="cf" x="441" y="319" width="66" height="4.5" rx="2" fill="var(--teal)"/>
+                  <rect class="sig-g lampon" x="441" y="319" width="26" height="4.5" rx="2" fill="#59C46F"/>
+                  <line x1="474" y1="307" x2="474" y2="318" stroke="var(--ink)" stroke-width="1.2"/>
+                  <circle cx="441.5" cy="313" r="2" fill="#FFD34D" stroke="var(--ink)" stroke-width="1"/>
+                  <circle class="cf d" cx="456" cy="332" r="7" fill="#3A342C" stroke="var(--ink)" stroke-width="1.6"/>
+                  <circle cx="456" cy="332" r="2.5" fill="#D8D2C4"/>
+                  <circle class="cf d" cx="494" cy="332" r="7" fill="#3A342C" stroke="var(--ink)" stroke-width="1.6"/>
+                  <circle cx="494" cy="332" r="2.5" fill="#D8D2C4"/>
+                  <rect class="cf d" x="467" y="288" width="14" height="8" rx="3.5" fill="#3A342C" stroke="var(--ink)" stroke-width="1.4"/>
+                  <circle cx="471" cy="292" r="1.5" fill="var(--lidar)"/>
+                  <path class="lidar" d="M482 288 q7 -7 14 -3" fill="none" stroke="var(--lidar)" stroke-width="1.7" stroke-linecap="round"/>
+                  <path class="lidar" d="M484 284 q9 -9 18 -4" fill="none" stroke="var(--lidar)" stroke-width="1.7" stroke-linecap="round" opacity=".35"/>
+                </g>
+              </g>
+
+              <!-- delivery robots -->
+              <g id="el-robot" class="el">
+                <ellipse class="halo" cx="177" cy="308" rx="24" ry="18"/>
+                <rect class="cf d" x="168" y="300" width="18" height="13" rx="3" fill="#F7F1E4" stroke="var(--ink)" stroke-width="1.6"/>
+                <rect class="cf" x="168" y="300" width="18" height="4" rx="2" fill="var(--teal)"/>
+                <circle class="blink"    cx="173.5" cy="308" r="1.4" fill="var(--ink)" stroke="none"/>
+                <circle class="blink b2" cx="180.5" cy="308" r="1.4" fill="var(--ink)" stroke="none"/>
+                <circle class="cf d" cx="172" cy="315.5" r="3" fill="#3A342C" stroke="var(--ink)" stroke-width="1.2"/>
+                <circle class="cf d" cx="182" cy="315.5" r="3" fill="#3A342C" stroke="var(--ink)" stroke-width="1.2"/>
+                <g class="mv-bot">
+                  <ellipse class="halo" cx="331" cy="352" rx="26" ry="20"/>
+                  <ellipse class="shdw" cx="331" cy="366" rx="15" ry="2.5"/>
+                  <g class="rig-hop">
+                    <rect class="cf d" x="320" y="344" width="22" height="15" rx="3" fill="#F7F1E4" stroke="var(--ink)" stroke-width="1.6"/>
+                    <rect class="cf" x="320" y="344" width="22" height="4.5" rx="2" fill="var(--teal)"/>
+                    <g class="ant-tip">
+                      <line class="s thin d" x1="331" y1="344" x2="331" y2="337"/>
+                      <path class="cf" d="M331 337 l7 2.2 -7 2.2 z" fill="var(--orangeA)" stroke="var(--ink)" stroke-width="1"/>
+                    </g>
+                    <circle class="blink"    cx="326.5" cy="351" r="1.5" fill="var(--ink)" stroke="none"/>
+                    <circle class="blink b2" cx="335.5" cy="351" r="1.5" fill="var(--ink)" stroke="none"/>
+                    <path class="s thin d" d="M327 355 q4 2.6 8 0"/>
+                    <circle class="cf d" cx="326" cy="361" r="3.4" fill="#3A342C" stroke="var(--ink)" stroke-width="1.2"/>
+                    <circle class="cf d" cx="337" cy="361" r="3.4" fill="#3A342C" stroke="var(--ink)" stroke-width="1.2"/>
+                  </g>
+                </g>
+              </g>
+
+              <!-- people -->
+              <g id="el-peds" class="el">
+                <ellipse class="halo" cx="258" cy="298" rx="28" ry="42"/>
+                <ellipse class="halo" cx="176" cy="372" rx="50" ry="32"/>
+                <ellipse class="halo" cx="598" cy="330" rx="36" ry="40"/>
+                <!-- waving researcher by the pole -->
+                <rect class="cf" x="252.5" y="280" width="11" height="22" rx="4.5" fill="#4A90B8" stroke="var(--ink)" stroke-width="1.4"/>
+                <circle class="cf d" cx="258" cy="272" r="7" fill="var(--skin)" stroke="var(--ink)" stroke-width="1.8"/>
+                <path class="cf" d="M251.4 270.2 a7 7 0 0 1 13.2 0 q-3.2 -3.6 -6.6 -3.6 t-6.6 3.6 z" fill="#2E2620"/>
+                <circle cx="255.6" cy="272" r="1" fill="var(--ink)"/>
+                <circle cx="260.4" cy="272" r="1" fill="var(--ink)"/>
+                <path class="s thin" d="M255.5 275.5 q2.5 2 5 0"/>
+                <line class="s d" x1="258" y1="286" x2="246" y2="296"/>
+                <g id="wave-arm"><line class="s d" x1="258" y1="286" x2="272" y2="276"/></g>
+                <line class="s d" x1="256" y1="302" x2="250" y2="326"/>
+                <line class="s d" x1="260" y1="302" x2="266" y2="326"/>
+                <line x1="248" y1="326.5" x2="252.5" y2="326.5" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round"/>
+                <line x1="264" y1="326.5" x2="268.5" y2="326.5" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round"/>
+                <!-- two kids + ball -->
+                <rect class="cf" x="144.5" y="365" width="7" height="13" rx="3" fill="#E07A4F" stroke="var(--ink)" stroke-width="1.2"/>
+                <circle class="cf d" cx="148" cy="360" r="6" fill="var(--skin)" stroke="var(--ink)" stroke-width="1.6"/>
+                <path class="cf" d="M142.6 358.4 a6 6 0 0 1 10.8 0 q-2.7 -3 -5.4 -3 t-5.4 3 z" fill="#4A3A28"/>
+                <line class="s d" x1="148" y1="371" x2="140" y2="378"/>
+                <line class="s d" x1="148" y1="371" x2="157" y2="377"/>
+                <g id="kick1"><line class="s d" x1="148" y1="382" x2="158" y2="392"/></g>
+                <line class="s d" x1="148" y1="382" x2="142" y2="394"/>
+                <g class="ball-x"><g class="ball-y">
+                  <circle class="cf d" cx="176" cy="392" r="6" fill="var(--orangeA)" stroke="var(--ink)" stroke-width="1.6"/>
+                  <path d="M170.5 390 q5.5 4.5 11 0" fill="none" stroke="#FFF6E8" stroke-width="1.5"/>
+                </g></g>
+                <rect class="cf" x="196.5" y="361" width="7" height="14" rx="3" fill="#7FA65A" stroke="var(--ink)" stroke-width="1.2"/>
+                <circle class="cf d" cx="200" cy="356" r="6" fill="var(--skin)" stroke="var(--ink)" stroke-width="1.6"/>
+                <path class="cf" d="M194.6 354.4 a6 6 0 0 1 10.8 0 q-2.7 -3 -5.4 -3 t-5.4 3 z" fill="#2E2620"/>
+                <line class="s d" x1="200" y1="368" x2="190" y2="374"/>
+                <line class="s d" x1="200" y1="368" x2="210" y2="371"/>
+                <g id="kick2"><line class="s d" x1="200" y1="379" x2="193" y2="391"/></g>
+                <line class="s d" x1="200" y1="379" x2="208" y2="391"/>
+                <!-- scooter rider -->
+                <g class="sc-glide">
+                  <rect class="cf" x="599" y="307" width="8" height="14" rx="3.5" fill="#7FA65A" stroke="var(--ink)" stroke-width="1.2"/>
+                  <rect class="cf" x="605.5" y="309" width="6.5" height="11" rx="2.5" fill="#4A90B8" stroke="var(--ink)" stroke-width="1.1"/>
+                  <circle class="cf d" cx="604" cy="300" r="6" fill="var(--skin)" stroke="var(--ink)" stroke-width="1.6"/>
+                  <path class="cf" d="M597.6 299 a6.4 6.4 0 0 1 12.8 0 l-1 1.4 q-5.4 -3.6 -10.8 0 z" fill="var(--redA)" stroke="var(--ink)" stroke-width="1.1"/>
+                  <line class="s d" x1="603" y1="306" x2="600" y2="330"/>
+                  <line class="s d" x1="602" y1="313" x2="588" y2="320"/>
+                  <line class="s d" x1="600" y1="330" x2="592" y2="350"/>
+                  <g id="push-leg"><line class="s d" x1="599" y1="332" x2="604" y2="350"/></g>
+                  <rect class="cf d" x="582" y="349" width="32" height="4.5" rx="2.2" fill="var(--orangeA)" stroke="var(--ink)" stroke-width="1.4"/>
+                  <line class="s d" x1="588" y1="349" x2="584" y2="322"/>
+                  <line class="s d" x1="577" y1="321" x2="591" y2="323"/>
+                  <circle class="cf d" cx="586" cy="356" r="4" fill="#3A342C" stroke="var(--ink)" stroke-width="1.2"/>
+                  <circle class="cf d" cx="610" cy="356" r="4" fill="#3A342C" stroke="var(--ink)" stroke-width="1.2"/>
+                </g>
+              </g>
+            </svg>
+
+          </div>
+          <figcaption class="citysketch__cap">
+            <b>Every idea starts as a simple sketch.</b>
+            <button class="cap-btn" id="capReplay" type="button">(tap to replay)</button>
+            <button class="cap-btn" id="capPause" type="button" aria-pressed="false">⏸ pause</button>
+          </figcaption>
+        </figure>
+        <p class="citysketch__hint" id="skHint">
+          Watch the crossing — that loop is my thesis. And
+          <span class="hint-action">hover</span> the <span class="hint-kw">underlined</span> words: the sketch listens.
+          Dark mode turns it into Tokyo at night.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
     <!-- ============ RECENT NEWS ============ -->
     <section id="recent">
       <div class="container">
@@ -446,306 +1156,155 @@
     })();
   </script>
   <!-- ============ FUTURE TOKYO — interactive About sketch ============ -->
- <!-- ============ FUTURE TOKYO — interactive About sketch ============ -->
 <script>
-(function(){
-  "use strict";
-  const canvas=document.getElementById('citySketch');
-  if(!canvas) return;
-  const ctx=canvas.getContext('2d');
-  const W=500, H=380;
-  function rgba(hex,a){hex=(hex||'').trim();const n=parseInt(hex.slice(1),16);return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
-  function ss(x){x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);}
-  function rnd(s){const x=Math.sin(s*127.1+311.7)*43758.5453;return x-Math.floor(x);}
-  let PAPER='#ffffff', INK='#1a1916', ACCENT='#4a6d5c';
-  function readTokens(){
-    const cs=getComputedStyle(document.documentElement);
-    PAPER=(cs.getPropertyValue('--paper').trim())||PAPER;
-    INK=(cs.getPropertyValue('--ink').trim())||INK;
-    ACCENT=(cs.getPropertyValue('--accent').trim())||ACCENT;
+/* ═════════ ③-JS · paste at the end of assets/site.js (replaces v3 block) ═════════ */
+(function () {
+  var svg = document.getElementById('citySketch');
+  if (!svg || svg.tagName.toLowerCase() !== 'svg') return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var pinned = null;
+
+  /* ---- keyword <-> sketch highlighting ---- */
+  function kwsFor(name){ return document.querySelectorAll('.kw[data-el="'+name+'"]'); }
+  function setLive(name,on){
+    var g = document.getElementById('el-'+name);
+    if (g) g.classList.toggle('is-live', on);
+    kwsFor(name).forEach(function(k){ k.classList.toggle('kw-live', on); });
   }
-  readTokens();
-  new MutationObserver(readTokens).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-  const LAYER={far:{a:0.42,w:1.0}, mid:{a:0.74,w:1.35}, fore:{a:0.95,w:1.8}};
-  const FA=[[40,310],[40,168],[62,168],[62,310]], FB=[[404,310],[404,182],[426,182],[426,310]];
-  const MA=[[74,310],[86,150],[110,150],[122,310]];
-  const MB=[[140,310],[140,176],[158,176],[158,146],[182,146],[182,120],[196,120],[196,310]];
-  const ME=[[342,310],[346,134],[362,134],[366,310]];
-  const AVB=[[325,312],[325,300],[341,288],[379,288],[395,300],[395,312]];
-  const TTRI=[[216,310],[262,110],[308,310]];
-  const CITY=[
-    {l:'mid',t:'line',a:[34,310],b:[466,310]},
-    {l:'far',t:'circle',x:430,y:78,r:21,amp:0.7},
-    {l:'far',t:'poly',pts:FA},{l:'far',t:'poly',pts:FB},
-    {l:'mid',t:'poly',pts:MA},{l:'mid',t:'line',a:[98,150],b:[98,116]},
-    {l:'mid',t:'poly',pts:MB},
-    {l:'mid',t:'poly',pts:ME},{l:'mid',t:'line',a:[354,134],b:[354,106]},
-    // ── Tokyo Tower (detailed) ──
-    {l:'mid',tt:1,t:'curve',a:[216,310],c:[232,252],b:[241,212]},
-    {l:'mid',tt:1,t:'curve',a:[241,212],c:[247,168],b:[253,120]},
-    {l:'mid',tt:1,t:'curve',a:[308,310],c:[292,252],b:[283,212]},
-    {l:'mid',tt:1,t:'curve',a:[283,212],c:[277,168],b:[271,120]},
-    {l:'mid',tt:1,t:'line',a:[226,272],b:[298,272]},
-    {l:'mid',tt:1,t:'line',a:[235,236],b:[289,236]},
-    {l:'mid',tt:1,t:'line',a:[241,212],b:[283,212]},
-    {l:'mid',tt:1,t:'line',a:[248,160],b:[276,160]},
-    {l:'mid',tt:1,t:'line',a:[253,120],b:[271,120]},
-    {l:'mid',tt:1,t:'line',a:[216,310],b:[298,272]},{l:'mid',tt:1,t:'line',a:[308,310],b:[226,272]},
-    {l:'mid',tt:1,t:'line',a:[226,272],b:[289,236]},{l:'mid',tt:1,t:'line',a:[298,272],b:[235,236]},
-    {l:'mid',tt:1,t:'line',a:[235,236],b:[283,212]},{l:'mid',tt:1,t:'line',a:[289,236],b:[241,212]},
-    {l:'mid',tt:1,t:'line',a:[241,212],b:[276,160]},{l:'mid',tt:1,t:'line',a:[283,212],b:[248,160]},
-    {l:'mid',tt:1,t:'line',a:[248,160],b:[271,120]},{l:'mid',tt:1,t:'line',a:[276,160],b:[253,120]},
-    {l:'mid',tt:1,t:'poly',pts:[[229,210],[229,195],[295,195],[295,210],[229,210]]},
-    {l:'mid',tt:1,t:'line',a:[229,203],b:[295,203]},
-    {l:'mid',tt:1,t:'poly',pts:[[248,122],[248,110],[276,110],[276,122],[248,122]]},
-    {l:'mid',tt:1,t:'line',a:[258,110],b:[261,76]},{l:'mid',tt:1,t:'line',a:[266,110],b:[263,76]},
-    {l:'mid',tt:1,t:'line',a:[262,76],b:[262,50]},
-    {l:'mid',tt:1,t:'line',a:[259.5,92],b:[264.5,92]},
-    // tree (far left)
-    {l:'fore',t:'line',a:[52,326],b:[52,286]},
-    {l:'fore',t:'circle',x:52,y:268,r:15,amp:1.5},{l:'fore',t:'circle',x:40,y:278,r:10,amp:1.5},{l:'fore',t:'circle',x:64,y:277,r:10,amp:1.5},
-    // bench
-    {l:'fore',t:'line',a:[88,300],b:[126,300]},
-    {l:'fore',t:'line',a:[90,288],b:[124,288]},
-    {l:'fore',t:'line',a:[92,312],b:[92,288]},
-    {l:'fore',t:'line',a:[122,312],b:[122,300]},
-    {l:'fore',t:'line',a:[107,300],b:[107,288]},
-    // children playing on the plaza (foreground)
-    {l:'fore',t:'circle',x:96,y:340,r:5,amp:0.6},
-    {l:'fore',t:'curve',a:[101,335],c:[105,336],b:[104,340],amp:0.4},
-    {l:'fore',t:'circle',x:70,y:322,r:5.5},
-    {l:'fore',t:'line',a:[70,327],b:[70,340]},
-    {l:'fore',t:'line',a:[70,330],b:[63,323]},{l:'fore',t:'line',a:[70,330],b:[77,323]},
-    {l:'fore',t:'line',a:[70,340],b:[64,351]},{l:'fore',t:'line',a:[70,340],b:[76,351]},
-    {l:'fore',t:'circle',x:68,y:320.5,r:0.7,amp:0.3},{l:'fore',t:'circle',x:72,y:320.5,r:0.7,amp:0.3},
-    {l:'fore',t:'curve',a:[67.5,323],c:[70,325],b:[72.5,323],amp:0.35},
-    {l:'fore',t:'circle',x:122,y:324,r:5.5},
-    {l:'fore',t:'line',a:[122,329],b:[122,341]},
-    {l:'fore',t:'line',a:[122,332],b:[113,336]},{l:'fore',t:'line',a:[122,332],b:[129,330]},
-    {l:'fore',t:'line',a:[122,341],b:[116,352]},{l:'fore',t:'line',a:[122,341],b:[128,352]},
-    {l:'fore',t:'circle',x:120,y:322.5,r:0.7,amp:0.3},{l:'fore',t:'circle',x:124,y:322.5,r:0.7,amp:0.3},
-    {l:'fore',t:'curve',a:[119.5,325],c:[122,327],b:[124.5,325],amp:0.35},
-    // tiny delivery robot waiting at the kerb
-    {l:'fore',t:'poly',pts:[[136,309],[136,300],[138,297],[150,297],[152,300],[152,309],[136,309]],amp:0.7},
-    {l:'fore',t:'circle',x:141,y:311,r:3,amp:0.5},{l:'fore',t:'circle',x:148,y:311,r:3,amp:0.5},
-    {l:'fore',t:'circle',x:143,y:302,r:1,amp:0.5},{l:'fore',t:'circle',x:147,y:302,r:1,amp:0.5},
-    {l:'fore',t:'curve',a:[142.5,303],c:[145,304],b:[147.5,303],amp:0.35},
-    {l:'fore',t:'line',a:[144,297],b:[144,292]},
-    {l:'fore',t:'poly',pts:[[144,291],[150,293],[144,295],[144,291]],amp:0.5},
-    // SPIU smart pole (left kerb)
-    {l:'fore',t:'line',a:[172,326],b:[172,252]},
-    {l:'fore',t:'circle',x:172,y:241,r:12},
-    {l:'fore',t:'circle',x:172,y:241,r:4,amp:0.4},
-    {l:'fore',t:'line',a:[172,229],b:[172,222]},{l:'fore',t:'circle',x:172,y:219,r:2.5,amp:0.6},
-    {l:'fore',t:'poly',pts:[[165,326],[179,326],[177,335],[167,335]]},
-    {l:'fore',t:'circle',x:168,y:337,r:3.4,amp:0.6},{l:'fore',t:'circle',x:176,y:337,r:3.4,amp:0.6},
-    // crosswalk (vertical zebra stripes)
-    {l:'fore',t:'poly',pts:[[189.5,312],[196.5,312],[198.5,335],[187.5,335],[189.5,312]],amp:0.6},
-    {l:'fore',t:'poly',pts:[[204.5,312],[211.5,312],[213.5,335],[202.5,335],[204.5,312]],amp:0.6},
-    {l:'fore',t:'poly',pts:[[219.5,312],[226.5,312],[228.5,335],[217.5,335],[219.5,312]],amp:0.6},
-    {l:'fore',t:'poly',pts:[[234.5,312],[241.5,312],[243.5,335],[232.5,335],[234.5,312]],amp:0.6},
-    {l:'fore',t:'poly',pts:[[249.5,312],[256.5,312],[258.5,335],[247.5,335],[249.5,312]],amp:0.6},
-    {l:'fore',t:'poly',pts:[[264.5,312],[271.5,312],[273.5,335],[262.5,335],[264.5,312]],amp:0.6},
-    {l:'fore',t:'poly',pts:[[279.5,312],[286.5,312],[288.5,335],[277.5,335],[279.5,312]],amp:0.6},
-    {l:'fore',t:'poly',pts:[[294.5,312],[301.5,312],[303.5,335],[292.5,335],[294.5,312]],amp:0.6},
-    // pedestrian (clear of the tower) + friendly face
-    {l:'fore',t:'circle',x:206,y:260,r:8.5},
-    {l:'fore',t:'line',a:[206,269],b:[206,304]},
-    {l:'fore',t:'line',a:[206,304],b:[198,326]},{l:'fore',t:'line',a:[206,304],b:[215,326]},
-    {l:'fore',t:'line',a:[206,280],b:[195,295]},{l:'fore',t:'line',a:[206,280],b:[217,293]},
-    {l:'fore',t:'circle',x:203,y:258,r:1,amp:0.3},{l:'fore',t:'circle',x:209,y:258,r:1,amp:0.3},
-    {l:'fore',t:'curve',a:[202,262.5],c:[206,265.5],b:[210,262.5],amp:0.4},
-    // delivery robot (crossing) + smiley face
-    {l:'fore',t:'poly',pts:[[260,308],[260,298],[263,294],[277,294],[280,298],[280,308],[260,308]],amp:0.8},
-    {l:'fore',t:'circle',x:265,y:310,r:3.5,amp:0.6},{l:'fore',t:'circle',x:275,y:310,r:3.5,amp:0.6},
-    {l:'fore',t:'poly',pts:[[263,298],[277,298],[277,303],[263,303],[263,298]],amp:0.6},
-    {l:'fore',t:'circle',x:268,y:300.5,r:1,amp:0.5},{l:'fore',t:'circle',x:272,y:300.5,r:1,amp:0.5},
-    {l:'fore',t:'curve',a:[266,302],c:[270,303.4],b:[274,302],amp:0.4},
-    {l:'fore',t:'line',a:[270,294],b:[270,288]},
-    {l:'fore',t:'poly',pts:[[270,287],[277,289],[270,291],[270,287]],amp:0.6},
-    // pedestrian signal (right kerb)
-    {l:'fore',t:'line',a:[312,326],b:[312,268]},
-    {l:'fore',t:'poly',pts:[[306,256],[318,256],[318,268],[306,268],[306,256]],amp:0.6},
-    // autonomous vehicle (yielding) + face (headlight eye + eHMI smile)
-    {l:'fore',t:'line',a:[325,312],b:[395,312]},
-    {l:'fore',t:'poly',pts:AVB},
-    {l:'fore',t:'circle',x:341,y:314,r:7,amp:0.6},{l:'fore',t:'circle',x:379,y:314,r:7,amp:0.6},
-    {l:'fore',t:'circle',x:360,y:285,r:4,amp:0.6},
-    {l:'fore',t:'line',a:[360,285],b:[360,281]},
-    {l:'fore',t:'circle',x:335,y:296,r:2.3,amp:0.4},{l:'fore',t:'circle',x:335.6,y:296,r:0.7,amp:0.3},
-    {l:'fore',t:'curve',a:[328,303],c:[334,307.5],b:[341,303],amp:0.4},
-    // e-scooter rider (right) + face
-    {l:'fore',t:'circle',x:458,y:313,r:4,amp:0.6},{l:'fore',t:'circle',x:438,y:313,r:4,amp:0.6},
-    {l:'fore',t:'line',a:[440,312],b:[456,312]},
-    {l:'fore',t:'line',a:[438,311],b:[436,288]},
-    {l:'fore',t:'line',a:[432,288],b:[440,288]},
-    {l:'fore',t:'circle',x:442,y:274,r:6},
-    {l:'fore',t:'circle',x:440,y:272.5,r:0.9,amp:0.3},{l:'fore',t:'circle',x:444,y:272.5,r:0.9,amp:0.3},
-    {l:'fore',t:'curve',a:[439.5,275],c:[442,277],b:[444.5,275],amp:0.35},
-    {l:'fore',t:'line',a:[442,280],b:[448,300]},
-    {l:'fore',t:'line',a:[448,300],b:[446,311]},{l:'fore',t:'line',a:[448,300],b:[452,311]},
-    {l:'fore',t:'line',a:[444,284],b:[436,288]},
-    // delivery drone overhead
-    {l:'fore',t:'poly',pts:[[118,106],[134,106],[134,110],[118,110],[118,106]],amp:0.7},
-    {l:'fore',t:'line',a:[120,107],b:[112,103]},{l:'fore',t:'line',a:[132,107],b:[140,103]},
-    {l:'fore',t:'line',a:[106,102],b:[118,102]},{l:'fore',t:'line',a:[134,102],b:[146,102]},
-    {l:'fore',t:'line',a:[123,110],b:[123,116]},{l:'fore',t:'line',a:[129,110],b:[129,116]},
-    {l:'fore',t:'poly',pts:[[122,116],[130,116],[130,122],[122,122],[122,116]],amp:0.6},
-    // flying car (upper right)
-    {l:'fore',t:'poly',pts:[[360,107],[367,99],[405,99],[412,106],[408,112],[364,112],[360,107]],amp:0.6},
-    {l:'fore',t:'line',a:[368,99],b:[373,107]},
-    {l:'fore',t:'line',a:[373,101],b:[399,101]},
-    {l:'fore',t:'circle',x:364,y:106,r:1.4,amp:0.3},
-    {l:'fore',t:'line',a:[412,106],b:[417,100]},
-    {l:'fore',t:'circle',x:374,y:114,r:2.4,amp:0.4},{l:'fore',t:'circle',x:399,y:114,r:2.4,amp:0.4},
-    {l:'fore',t:'line',a:[419,103],b:[429,103]},{l:'fore',t:'line',a:[418,108],b:[426,108]}
-  ];
-  function genLine(a,b){const n=Math.max(8,(Math.hypot(b[0]-a[0],b[1]-a[1])/6)|0),o=[];for(let i=0;i<=n;i++){const t=i/n;o.push([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]);}return o;}
-  function genCurve(a,c,b){const n=24,o=[];for(let i=0;i<=n;i++){const t=i/n,u=1-t;o.push([u*u*a[0]+2*u*t*c[0]+t*t*b[0],u*u*a[1]+2*u*t*c[1]+t*t*b[1]]);}return o;}
-  function genCircle(x,y,r){const n=46,o=[],s=-0.4,e=Math.PI*2+0.32;for(let i=0;i<=n;i++){const a=s+(e-s)*i/n;o.push([x+Math.cos(a)*r,y+Math.sin(a)*r]);}return o;}
-  function genPoly(P){const o=[];for(let s=0;s<P.length-1;s++){const a=P[s],b=P[s+1],n=Math.max(2,(Math.hypot(b[0]-a[0],b[1]-a[1])/7)|0);for(let i=(s===0?0:1);i<=n;i++){const t=i/n;o.push([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]);}}return o;}
-  function wob(pts,seed,amp){
-    const f1=0.12+0.10*rnd(seed),p1=rnd(seed+1.3)*6.283,f2=0.30+0.18*rnd(seed+2.1),p2=rnd(seed+3.7)*6.283;
-    const f3=0.11+0.09*rnd(seed+5),p3=rnd(seed+6.2)*6.283,f4=0.33+0.16*rnd(seed+7.4),p4=rnd(seed+8.1)*6.283;
-    return pts.map((p,i)=>[ p[0]+(Math.sin(i*f1+p1)*0.7+Math.sin(i*f2+p2)*0.3)*amp, p[1]+(Math.sin(i*f3+p3)*0.7+Math.sin(i*f4+p4)*0.3)*amp ]);
+  function clearPin(){ if (pinned){ setLive(pinned,false); pinned=null; } }
+  function toggle(name){
+    if (pinned===name){ clearPin(); return; }
+    clearPin(); pinned=name; setLive(name,true);
+    if (!canHover){
+      var r = svg.getBoundingClientRect();
+      if (r.top<0 || r.bottom>window.innerHeight)
+        svg.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'});
+    }
   }
-  function build(cseed){
-    return CITY.map((sp,idx)=>{
-      let base = sp.t==='line'?genLine(sp.a,sp.b): sp.t==='curve'?genCurve(sp.a,sp.c,sp.b): sp.t==='poly'?genPoly(sp.pts): genCircle(sp.x,sp.y,sp.r);
-      const pts=wob(base, idx*2.7+cseed, sp.amp||1.05);
-      let len=0; const cum=[0];
-      for(let i=1;i<pts.length;i++){len+=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]); cum.push(len);}
-      return {pts,cum,len,l:sp.l||'mid',tt:!!sp.tt};
+  document.querySelectorAll('.kw[data-el]').forEach(function(kw){
+    var name = kw.dataset.el;
+    if (canHover){
+      kw.addEventListener('mouseenter',function(){ if(!pinned) setLive(name,true); });
+      kw.addEventListener('mouseleave',function(){ if(pinned!==name) setLive(name,false); });
+    }
+    kw.addEventListener('focus',function(){ if(!pinned) setLive(name,true); });
+    kw.addEventListener('blur', function(){ if(pinned!==name) setLive(name,false); });
+    kw.addEventListener('click',function(e){
+      if (kw.tagName==='A') return;
+      e.preventDefault(); e.stopPropagation(); toggle(name);
+    });
+    kw.addEventListener('keydown',function(e){
+      if (e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(name); }
+    });
+  });
+  svg.querySelectorAll('g.el').forEach(function(g){
+    var name = g.id.replace('el-','');
+    if (canHover){
+      g.addEventListener('mouseenter',function(){ if(!pinned) setLive(name,true); });
+      g.addEventListener('mouseleave',function(){ if(pinned!==name) setLive(name,false); });
+    }
+    g.addEventListener('click',function(e){ e.stopPropagation(); toggle(name); });
+  });
+  document.addEventListener('click',function(e){
+    if (!e.target.closest('.kw') && !e.target.closest('#citySketch')) clearPin();
+  });
+
+  /* ---- windows flicker ---- */
+  if (!reduce){
+    var wins = Array.prototype.slice.call(svg.querySelectorAll('.win-x'));
+    setInterval(function(){
+      if (!wins.length || svg.classList.contains('paused') || svg.classList.contains('offscreen')) return;
+      var w = wins[Math.floor(Math.random()*wins.length)];
+      w.classList.toggle('on');
+      var on = wins.filter(function(x){return x.classList.contains('on');});
+      if (on.length>3) on[0].classList.remove('on');
+    }, 2100);
+  }
+
+  /* ---- subtle pointer parallax (desktop only) ---- */
+  var far=document.getElementById('lyr-far'), mid=document.getElementById('lyr-mid');
+  if (far && mid && canHover && !reduce){
+    var raf=0, host=svg.closest('.citysketch') || svg;
+    host.addEventListener('pointermove',function(e){
+      if (raf) return;
+      raf=requestAnimationFrame(function(){
+        raf=0;
+        var r=svg.getBoundingClientRect();
+        var dx=((e.clientX-r.left)/Math.max(r.width,1))-.5;
+        far.style.transform='translateX('+(dx*10).toFixed(1)+'px)';
+        mid.style.transform='translateX('+(dx*5).toFixed(1)+'px)';
+      });
+    });
+    host.addEventListener('pointerleave',function(){
+      far.style.transition=mid.style.transition='transform .5s ease';
+      far.style.transform=mid.style.transform='';
+      setTimeout(function(){ far.style.transition=mid.style.transition=''; },520);
     });
   }
-  const st={strokes:[],si:0,frac:0,phase:'draw',A:1,ct:0,hold:0};
-  function start(){ st.strokes=build(Math.random()*20); st.si=0; st.frac=0; st.phase='draw'; st.A=1; st.ct=0; st.hold=0; }
-  function update(dt){
-    if(st.phase==='draw'){ const s=st.strokes[st.si]; if(!s){ st.phase='color'; st.ct=0; return; }
-      st.frac += dt*460/Math.max(1,s.len);
-      if(st.frac>=1){ st.frac=0; st.si++; if(st.si>=st.strokes.length){ st.phase='color'; st.ct=0; } }
-    } else if(st.phase==='color'){ st.ct+=dt/0.95; if(st.ct>=1){st.ct=1;st.phase='hold';st.hold=0;} }
-    else if(st.phase==='hold'){ /* hold the finished drawing until tapped */ }
-    else { st.A-=dt/0.7; if(st.A<=0) start(); }
+
+  /* ---- draw-on replay (restarts the story in sync) ---- */
+  var drawables = Array.prototype.slice.call(svg.querySelectorAll('.d'));
+  function restartLoop(){
+    svg.classList.add('anim-reset');
+    void svg.getBoundingClientRect();
+    svg.classList.remove('anim-reset');
   }
-  function fillPoly(P,col,a){ if(a<=0)return; ctx.fillStyle=rgba(col,a); ctx.beginPath(); ctx.moveTo(P[0][0],P[0][1]); for(let i=1;i<P.length;i++)ctx.lineTo(P[i][0],P[i][1]); ctx.closePath(); ctx.fill(); }
-  function fillDisc(x,y,r,col,a){ if(a<=0)return; ctx.fillStyle=rgba(col,a); ctx.beginPath(); ctx.arc(x,y,r,0,6.2832); ctx.fill(); }
-  function shadeBld(P,col,aTop,aBot){
-    if(aBot<=0&&aTop<=0)return;
-    let y0=1e9,y1=-1e9; for(const p of P){if(p[1]<y0)y0=p[1];if(p[1]>y1)y1=p[1];}
-    ctx.save(); ctx.beginPath(); ctx.moveTo(P[0][0],P[0][1]); for(let i=1;i<P.length;i++)ctx.lineTo(P[i][0],P[i][1]); ctx.closePath(); ctx.clip();
-    const g=ctx.createLinearGradient(0,y0,0,y1); g.addColorStop(0,rgba(col,aTop)); g.addColorStop(1,rgba(col,aBot));
-    ctx.fillStyle=g; ctx.fillRect(0,y0,W,y1-y0); ctx.restore();
+  function replay(){
+    if (reduce) return;
+    restartLoop();
+    svg.classList.add('predraw');
+    drawables.forEach(function(el){
+      var L=0; try{ L=el.getTotalLength(); }catch(err){ L=0; }
+      if (!L) return;
+      el.style.transition='none';
+      el.style.strokeDasharray=L;
+      el.style.strokeDashoffset=L;
+      el.dataset.len=L;
+    });
+    void svg.getBoundingClientRect();
+    drawables.forEach(function(el,i){
+      if (!el.dataset.len) return;
+      el.style.transition='stroke-dashoffset .65s ease '+(i*12)+'ms';
+      el.style.strokeDashoffset='0';
+    });
+    setTimeout(function(){ svg.classList.remove('predraw'); }, drawables.length*12*0.55);
+    setTimeout(function(){
+      drawables.forEach(function(el){
+        el.style.transition=el.style.strokeDasharray=el.style.strokeDashoffset='';
+      });
+    }, drawables.length*12+900);
   }
-  function drawColor(ct,A){
-    const al=(d,b)=>ss((ct-d)/0.5)*b*A;
-    let a=al(0,0.13); if(a>0){const g=ctx.createLinearGradient(0,0,0,215); g.addColorStop(0,rgba('#7e95b0',a)); g.addColorStop(1,rgba('#7e95b0',0)); ctx.fillStyle=g; ctx.fillRect(0,0,W,215);}
-    a=al(0.03,0.11); if(a>0){const g=ctx.createLinearGradient(0,255,0,312); g.addColorStop(0,rgba('#e8b66a',0)); g.addColorStop(1,rgba('#e8b66a',a)); ctx.fillStyle=g; ctx.fillRect(0,255,W,57);}
-    // colored shared-space road surface — smart-pavement perspective grid
-    { const ra=al(0.10,1); if(ra>0){
-        ctx.save(); ctx.beginPath(); ctx.rect(30,309,440,71); ctx.clip();
-        const VPx=250, VPy=301, baseY=380; const RC=['#6f9d86','#7fa3c0','#e6c184','#d99a78','#b99ec0'];
-        const rows=[]; let yy=baseY; for(let k=0;k<7;k++){ rows.push(yy); yy=VPy+(yy-VPy)*0.72; }
-        const colsX=[]; for(let x=-260;x<=760;x+=72) colsX.push(x);
-        const pt=(xB,h)=>{ const t=(baseY-h)/(baseY-VPy); return [xB+(VPx-xB)*t, h]; };
-        let ci=0;
-        for(let r=0;r<rows.length-1;r++) for(let c=0;c<colsX.length-1;c++){
-          ci++; if(rnd(c*1.7+r*3.1)<0.5) continue;
-          const a1=pt(colsX[c],rows[r]), b1=pt(colsX[c+1],rows[r]), b2=pt(colsX[c+1],rows[r+1]), a2=pt(colsX[c],rows[r+1]);
-          ctx.fillStyle=rgba(RC[ci%RC.length], 0.17*ra);
-          ctx.beginPath(); ctx.moveTo(a1[0],a1[1]); ctx.lineTo(b1[0],b1[1]); ctx.lineTo(b2[0],b2[1]); ctx.lineTo(a2[0],a2[1]); ctx.closePath(); ctx.fill();
-        }
-        ctx.strokeStyle=rgba(INK,0.13*ra); ctx.lineWidth=0.7;
-        for(const x of colsX){ ctx.beginPath(); ctx.moveTo(x,baseY); ctx.lineTo(VPx,VPy); ctx.stroke(); }
-        for(const h of rows){ const L=pt(colsX[0],h), R=pt(colsX[colsX.length-1],h); ctx.beginPath(); ctx.moveTo(L[0],h); ctx.lineTo(R[0],h); ctx.stroke(); }
-        ctx.restore();
-    } }
-    // crosswalk paint (light vertical bars on the colored surface)
-    { const cw=al(0.30,0.55); if(cw>0){ const C=[193,208,223,238,253,268,283,298]; for(const cx of C) fillPoly([[cx-3.5,312],[cx+3.5,312],[cx+5.5,335],[cx-5.5,335]],'#eceae3',cw); } }
-    a=al(0.05,1); if(a>0){const g=ctx.createRadialGradient(430,78,2,430,78,44); g.addColorStop(0,rgba('#f3c06a',0.5*a)); g.addColorStop(1,rgba('#f3c06a',0)); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(430,78,44,0,6.2832); ctx.fill();}
-    fillDisc(430,78,12,'#f3c06a',al(0.07,0.45));
-    fillPoly(FA,'#7e95b0',al(0.05,0.12)); fillPoly(FB,'#7e95b0',al(0.06,0.12));
-    shadeBld(MA,'#6c86a6',al(0.10,0.09),al(0.10,0.18));
-    shadeBld(MB,'#6c86a6',al(0.14,0.09),al(0.14,0.18));
-    shadeBld(ME,'#6c86a6',al(0.18,0.09),al(0.18,0.18));
-    fillPoly(TTRI,'#e8542a',al(0.16,0.08));
-    a=al(0.4,0.8); if(a>0){ctx.fillStyle=rgba('#f3c06a',a); for(const w of [[146,158],[166,196],[350,152],[358,182],[350,212]]) ctx.fillRect(w[0],w[1],5,6);}
-    fillDisc(52,268,15,ACCENT,al(0.22,0.30)); fillDisc(40,278,10,ACCENT,al(0.24,0.28)); fillDisc(64,277,10,ACCENT,al(0.24,0.28));
-    fillPoly([[136,309],[136,300],[138,297],[150,297],[152,300],[152,309]],ACCENT,al(0.30,0.32));
-    a=al(0.40,1); if(a>0){const g=ctx.createRadialGradient(172,241,2,172,241,24); g.addColorStop(0,rgba(ACCENT,0.5*a)); g.addColorStop(1,rgba(ACCENT,0)); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(172,241,24,0,6.2832); ctx.fill();}
-    fillDisc(172,241,11,ACCENT,al(0.42,0.34));
-    { const sg=al(0.46,0.7); if(sg>0){ ctx.strokeStyle=rgba(ACCENT,sg); ctx.lineWidth=1.6; ctx.lineCap='round'; for(const rr of [16,21,26]){ ctx.beginPath(); ctx.arc(172,241,rr,-0.6,0.6); ctx.stroke(); } } }
-    fillPoly(AVB,ACCENT,al(0.44,0.34));
-    a=al(0.52,1); if(a>0){const g=ctx.createRadialGradient(334,304,1,334,304,13); g.addColorStop(0,rgba('#6fae8e',0.8*a)); g.addColorStop(1,rgba('#6fae8e',0)); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(334,304,13,0,6.2832); ctx.fill();}
-    { const e=al(0.52,0.95); if(e>0){ ctx.strokeStyle=rgba('#6fae8e',e); ctx.lineWidth=2; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(328,303); ctx.quadraticCurveTo(334,307.8,341,303); ctx.stroke(); } }
-    fillPoly([[260,308],[260,298],[263,294],[277,294],[280,298],[280,308]],ACCENT,al(0.48,0.32));
-    fillPoly([[306,256],[318,256],[318,268],[306,268]],INK,al(0.50,0.18));
-    fillPoly([[118,106],[134,106],[134,110],[118,110]],ACCENT,al(0.50,0.34));
-    fillPoly([[122,116],[130,116],[130,122],[122,122]],ACCENT,al(0.50,0.28));
-    fillPoly([[360,107],[367,99],[405,99],[412,106],[408,112],[364,112]],ACCENT,al(0.62,0.32));
-    { const tg=al(0.66,0.9); if(tg>0){ for(const tx of [374,399]){ const g=ctx.createRadialGradient(tx,116,1,tx,116,7); g.addColorStop(0,rgba('#6fae8e',0.7*tg)); g.addColorStop(1,rgba('#6fae8e',0)); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(tx,116,7,0,6.2832); ctx.fill(); } } }
-    { const wl=al(0.56,0.95); if(wl>0){
-        ctx.fillStyle=rgba('#6fae8e',wl); ctx.beginPath(); ctx.arc(312,262,2.6,0,6.2832); ctx.fill();
-        ctx.fillStyle=rgba('#f3c06a',wl);
-        ctx.fillRect(267,299.6,1.8,1.8); ctx.fillRect(271,299.6,1.8,1.8);
-        ctx.fillRect(142.2,301.6,1.6,1.6); ctx.fillRect(146.2,301.6,1.6,1.6);
-        ctx.fillRect(124,106.2,2,2);
-    } }
+  var cap = document.getElementById('capReplay');
+  if (cap) cap.addEventListener('click',function(e){ e.stopPropagation(); replay(); });
+
+  /* ---- pause + offscreen ---- */
+  var pauseBtn = document.getElementById('capPause');
+  if (pauseBtn){
+    if (reduce){ pauseBtn.style.display='none'; }
+    pauseBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var p = svg.classList.toggle('paused');
+      pauseBtn.textContent = p ? '▶ play' : '⏸ pause';
+      pauseBtn.setAttribute('aria-pressed', p ? 'true' : 'false');
+    });
   }
-  function smoothInk(p,off){
-    if(p.length<3){ ctx.moveTo(p[0][0]+off,p[0][1]+off); for(let i=1;i<p.length;i++)ctx.lineTo(p[i][0]+off,p[i][1]+off); return; }
-    ctx.moveTo(p[0][0]+off,p[0][1]+off);
-    for(let i=1;i<p.length-1;i++){const mx=(p[i][0]+p[i+1][0])/2+off,my=(p[i][1]+p[i+1][1])/2+off; ctx.quadraticCurveTo(p[i][0]+off,p[i][1]+off,mx,my);}
-    ctx.lineTo(p[p.length-1][0]+off,p[p.length-1][1]+off);
+  if ('IntersectionObserver' in window){
+    var seen=false;
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        svg.classList.toggle('offscreen', !en.isIntersecting);
+        if (en.isIntersecting && !seen && !reduce){ seen=true; replay(); }
+      });
+    },{threshold:0.25}).observe(svg);
   }
-  function strokeUpto(s,frac,A){
-    if(s.len<=0) return s.pts[0];
-    const target=Math.min(frac,1)*s.len;
-    const vis=[s.pts[0]]; let pen=s.pts[0];
-    for(let i=1;i<s.pts.length;i++){
-      if(s.cum[i]<=target){ vis.push(s.pts[i]); pen=s.pts[i]; }
-      else{ const seg=s.cum[i]-s.cum[i-1], tt=seg>0?(target-s.cum[i-1])/seg:0;
-        pen=[s.pts[i-1][0]+(s.pts[i][0]-s.pts[i-1][0])*tt, s.pts[i-1][1]+(s.pts[i][1]-s.pts[i-1][1])*tt];
-        vis.push(pen); break; }
-    }
-    const L=LAYER[s.l]||LAYER.mid;
-    ctx.strokeStyle=rgba(INK,A*L.a); ctx.lineWidth=L.w; ctx.lineJoin='round'; ctx.lineCap='round';
-    ctx.beginPath(); smoothInk(vis,0); ctx.stroke();
-    ctx.strokeStyle=rgba(INK,A*L.a*0.16); ctx.lineWidth=L.w*0.8;
-    ctx.beginPath(); smoothInk(vis,0.8); ctx.stroke();
-    return pen;
-  }
-  function strokeTint(s,A,col,alpha){
-    if(s.len<=0)return; const L=LAYER[s.l]||LAYER.mid;
-    ctx.strokeStyle=rgba(col,alpha*A); ctx.lineWidth=L.w*1.15; ctx.lineJoin='round'; ctx.lineCap='round';
-    ctx.beginPath(); smoothInk(s.pts,0); ctx.stroke();
-  }
-  function draw(){
-    ctx.fillStyle=PAPER; ctx.fillRect(0,0,W,H);
-    const A=st.A;
-    if(st.ct>0) drawColor(st.ct,A);
-    const drawn=(st.phase==='draw')?st.si:st.strokes.length;
-    for(let i=0;i<drawn;i++) strokeUpto(st.strokes[i],1,A);
-    let pen=null;
-    if(st.phase==='draw' && st.strokes[st.si]) pen=strokeUpto(st.strokes[st.si],st.frac,A);
-    if(st.ct>0){ const oa=ss(st.ct)*0.95; for(const s of st.strokes){ if(s.tt) strokeTint(s,A,'#e8542a',oa); } }
-    if(pen){
-      ctx.fillStyle=rgba(INK,A); ctx.beginPath(); ctx.arc(pen[0],pen[1],2.1,0,6.2832); ctx.fill();
-      ctx.strokeStyle=rgba(ACCENT,A*0.85); ctx.lineWidth=2.2; ctx.lineCap='round';
-      ctx.beginPath(); ctx.moveTo(pen[0],pen[1]); ctx.lineTo(pen[0]+7,pen[1]-10); ctx.stroke();
-    }
-  }
-  canvas.addEventListener('pointerdown',start);
-  function resize(){
-    const stage=canvas.parentElement;
-    const cw=Math.min(stage.clientWidth||W,500), scale=cw/W, ch=H*scale, dpr=Math.min(window.devicePixelRatio||1,2);
-    canvas.width=Math.round(cw*dpr); canvas.height=Math.round(ch*dpr);
-    canvas.style.height=ch+'px';
-    ctx.setTransform(dpr*scale,0,0,dpr*scale,0,0);
-  }
-  window.addEventListener('resize',resize);
-  let last=performance.now();
-  function loop(now){const dt=Math.min((now-last)/1000,0.05);last=now;update(dt);draw();requestAnimationFrame(loop);}
-  resize(); start(); requestAnimationFrame(loop);
-})();
+
+  /* ---- touch wording ---- */
+  var hint = document.querySelector('#skHint .hint-action');
+  if (hint && !canHover) hint.textContent='tap';
+}());
+/* ═════════ end ③-JS ═════════ */
 </script>
+</body>
+</html>
