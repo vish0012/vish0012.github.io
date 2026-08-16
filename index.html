@@ -289,6 +289,14 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
 @media (prefers-reduced-motion:reduce){.now-dot{animation:none !important}}
 
 /* ═════════ end ②-CSS ═════════ */
+    /* Keep About copy on the same type scale as the hero introduction. */
+    #about .about-text .lead {
+      font-family: var(--serif);
+      font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+      line-height: 1.55;
+      font-weight: 400;
+      font-style: normal;
+    }
     /* Find-me social icons — inherit link colour, adapt to light/dark */
     .console-body .findme a{ display:inline-flex; align-items:center; }
     .console-body .findme a svg{ width:1em; height:1em; margin-right:.42em; fill:currentColor; flex:none; }
