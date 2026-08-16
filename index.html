@@ -48,11 +48,13 @@
     /* Find-me social icons — inherit link colour, adapt to light/dark */
     .console-body .findme a{ display:inline-flex; align-items:center; }
     .console-body .findme a svg{ width:1em; height:1em; margin-right:.42em; fill:currentColor; flex:none; }
-    /* Affiliation links — tansei */
-    .affil a { text-decoration: none; color: #1F7FB8;
-      background: linear-gradient(#1F7FB8, #1F7FB8) no-repeat left bottom / 0% 1.5px;
-      transition: background-size .3s ease; padding-bottom: 2px; }
-    .affil a:hover { background-size: 100% 1.5px; }
+    /* Affiliation chips — soft tansei highlight */
+    .affil a { text-decoration: none; color: #16648F;
+      background: rgba(31,127,184,.12); border-radius: 6px;
+      padding: .05em .4em; transition: background .2s ease; }
+    .affil a:hover { background: rgba(31,127,184,.22); }
+    [data-theme="dark"] .affil a { color: #8FC7E8; background: rgba(143,199,232,.14); }
+    [data-theme="dark"] .affil a:hover { background: rgba(143,199,232,.24); }
   </style>
   <!-- JSON-LD Person schema -->
   <script type="application/ld+json">
