@@ -955,294 +955,351 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
       <div class="container">
         <style>
           #research{
-            --rs1:#4A6D5C;
-            --rs2:#348C8A;
-            --rs3:#2F78A5;
-            --rs4:#C77B43;
+            --rs-green:#547963;
+            --rs-teal:#318d8a;
+            --rs-blue:#397fa9;
+            --rs-orange:#cf7d40;
           }
           #research .rs-intro{
             display:grid;
-            grid-template-columns:minmax(0,1fr) auto;
-            gap:clamp(1.5rem,4vw,4rem);
+            grid-template-columns:minmax(0,1fr) minmax(220px,.36fr);
+            gap:clamp(2rem,6vw,5.5rem);
             align-items:end;
-            margin-bottom:clamp(2rem,4vw,3.2rem);
+            margin-bottom:clamp(3rem,6vw,4.6rem);
           }
-          #research .rs-intro .lead{margin-bottom:0;max-width:60ch}
+          #research .rs-intro h2{
+            max-width:20ch;
+            margin-bottom:1rem;
+          }
+          #research .rs-intro .lead{
+            max-width:68ch;
+            margin-bottom:0;
+          }
           #research .rs-principle{
-            display:flex;
-            align-items:center;
-            gap:.7rem;
-            width:max-content;
-            padding:.65rem .85rem;
-            border:1px solid color-mix(in srgb,var(--accent) 28%,var(--rule));
-            border-radius:999px;
-            background:color-mix(in srgb,var(--accent) 7%,var(--paper));
+            padding-left:1rem;
+            border-left:2px solid var(--rs-green);
             color:var(--ink-soft);
             font-family:var(--sans);
             font-size:.82rem;
-            white-space:nowrap;
+            line-height:1.55;
           }
           #research .rs-principle strong{
-            color:var(--accent);
+            display:block;
+            margin-bottom:.3rem;
+            color:var(--ink);
             font-family:var(--mono);
-            font-size:.72rem;
-            letter-spacing:.08em;
-            text-transform:uppercase;
-          }
-          #research .research-map{
-            display:grid;
-            grid-template-columns:minmax(330px,.9fr) minmax(440px,1.1fr);
-            gap:clamp(2rem,5vw,4.5rem);
-            align-items:center;
-          }
-          #research .rs-visual{
-            position:relative;
-            padding:clamp(1rem,2.5vw,1.5rem);
-            border:1px solid var(--rule);
-            border-radius:22px;
-            overflow:hidden;
-            background:
-              radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--accent) 8%,transparent),transparent 58%),
-              linear-gradient(145deg,color-mix(in srgb,var(--paper) 94%,white),var(--paper));
-            box-shadow:0 18px 45px -38px rgba(25,35,30,.55);
-          }
-          #research .rs-visual::before{
-            content:"";
-            position:absolute;
-            inset:0;
-            pointer-events:none;
-            opacity:.35;
-            background-image:radial-gradient(circle,var(--rule) 1px,transparent 1px);
-            background-size:18px 18px;
-            mask-image:linear-gradient(to bottom,black,transparent 75%);
-          }
-          #research .rs-svg{position:relative;display:block;width:100%;height:auto}
-          #research .rs-ring .rs-fill,
-          #research .rs-ring .rs-stroke,
-          #research .rs-node circle{
-            transition:fill .28s ease,stroke .28s ease,stroke-width .28s ease,opacity .28s ease,filter .28s ease;
-          }
-          #research .rs-ring .rs-stroke{fill:none;stroke-width:1.7}
-          #research .rs-ring-1 .rs-fill{fill:color-mix(in srgb,var(--rs1) 17%,var(--paper))}
-          #research .rs-ring-1 .rs-stroke{stroke:var(--rs1)}
-          #research .rs-ring-2 .rs-fill{fill:color-mix(in srgb,var(--rs2) 10%,var(--paper))}
-          #research .rs-ring-2 .rs-stroke{stroke:var(--rs2);opacity:.82}
-          #research .rs-ring-3 .rs-fill{fill:color-mix(in srgb,var(--rs3) 8%,var(--paper))}
-          #research .rs-ring-3 .rs-stroke{stroke:var(--rs3);opacity:.68}
-          #research .rs-ring-4 .rs-fill{fill:color-mix(in srgb,var(--rs4) 7%,var(--paper))}
-          #research .rs-ring-4 .rs-stroke{stroke:var(--rs4);opacity:.58}
-          #research .rs-node circle{fill:var(--paper);stroke-width:2}
-          #research .rs-node-1 circle{stroke:var(--rs1)}
-          #research .rs-node-2 circle{stroke:var(--rs2)}
-          #research .rs-node-3 circle{stroke:var(--rs3)}
-          #research .rs-node-4 circle{stroke:var(--rs4)}
-          #research .rs-node text,
-          #research .rs-center-label,
-          #research .rs-flow{
-            font-family:var(--mono,"JetBrains Mono",ui-monospace,monospace);
-          }
-          #research .rs-node text{fill:var(--ink);font-size:13px;font-weight:500}
-          #research .rs-person{fill:none;stroke:var(--rs1);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-          #research .rs-center-label{fill:var(--ink);font-size:12px;letter-spacing:.13em}
-          #research .rs-flow{
-            position:relative;
-            display:flex;
-            justify-content:center;
-            gap:.55rem;
-            margin:.6rem 0 .1rem;
-            color:var(--ink-faint);
-            font-size:.69rem;
-            letter-spacing:.07em;
-            text-transform:uppercase;
-          }
-          #research .rs-flow b{color:var(--accent);font-weight:500}
-          #research .rs-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-          #research .rs-card{
-            --rs-card-color:var(--accent);
-            position:relative;
-            min-height:166px;
-            padding:1.15rem 1.15rem 1rem;
-            border:1px solid var(--rule);
-            border-radius:16px;
-            background:color-mix(in srgb,var(--paper) 96%,var(--rs-card-color));
-            box-shadow:0 10px 28px -28px rgba(25,35,30,.7);
-            outline:none;
-            overflow:hidden;
-            transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease,background .25s ease;
-          }
-          #research .rs-card::after{
-            content:"";
-            position:absolute;
-            left:0;right:0;bottom:0;
-            height:3px;
-            background:var(--rs-card-color);
-            opacity:.65;
-          }
-          #research .rs-card-1{--rs-card-color:var(--rs1)}
-          #research .rs-card-2{--rs-card-color:var(--rs2)}
-          #research .rs-card-3{--rs-card-color:var(--rs3)}
-          #research .rs-card-4{--rs-card-color:var(--rs4)}
-          #research .rs-card:hover,
-          #research .rs-card:focus-visible{
-            transform:translateY(-4px);
-            border-color:color-mix(in srgb,var(--rs-card-color) 58%,var(--rule));
-            background:color-mix(in srgb,var(--rs-card-color) 7%,var(--paper));
-            box-shadow:0 18px 35px -28px color-mix(in srgb,var(--rs-card-color) 70%,transparent);
-          }
-          #research .rs-card-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.8rem}
-          #research .rs-number{
-            display:inline-grid;
-            place-items:center;
-            width:34px;height:34px;
-            border-radius:50%;
-            color:white;
-            background:var(--rs-card-color);
-            font-family:var(--mono);
-            font-size:.72rem;
+            font-size:.67rem;
             font-weight:500;
-          }
-          #research .rs-scope{
-            color:var(--ink-faint);
-            font-family:var(--mono);
-            font-size:.65rem;
             letter-spacing:.1em;
             text-transform:uppercase;
           }
-          #research .rs-card h3{margin:0 0 .35rem;font-size:1.08rem;font-style:normal}
-          #research .rs-card p{margin:0;color:var(--ink-soft);font-size:.91rem;line-height:1.5}
-          #research .rs-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:.8rem}
-          #research .rs-tags span{
-            padding:.18rem .45rem;
-            border-radius:999px;
-            color:color-mix(in srgb,var(--rs-card-color) 80%,var(--ink));
-            background:color-mix(in srgb,var(--rs-card-color) 10%,transparent);
+          #research .rs-signal-path{
+            position:relative;
+            display:grid;
+            grid-template-columns:repeat(3,minmax(0,1fr));
+            gap:clamp(1.3rem,3vw,2.5rem);
+          }
+          #research .rs-signal-path::before{
+            content:"";
+            position:absolute;
+            top:75px;
+            left:15%;
+            right:15%;
+            height:1px;
+            background:linear-gradient(90deg,var(--rs-green),var(--rs-teal),var(--rs-blue));
+            opacity:.5;
+          }
+          #research .rs-signal-pulse{
+            position:absolute;
+            z-index:3;
+            top:70px;
+            left:15%;
+            width:11px;
+            height:11px;
+            border-radius:50%;
+            background:var(--rs-orange);
+            box-shadow:0 0 0 5px color-mix(in srgb,var(--rs-orange) 18%,transparent);
+            animation:rs-travel 7s ease-in-out infinite;
+          }
+          @keyframes rs-travel{
+            0%,8%{left:15%;opacity:0}
+            14%{opacity:1}
+            86%{opacity:1}
+            92%,100%{left:84%;opacity:0}
+          }
+          #research .rs-domain{
+            --rs-domain:var(--rs-green);
+            position:relative;
+            min-width:0;
+          }
+          #research .rs-domain:nth-of-type(2){--rs-domain:var(--rs-teal)}
+          #research .rs-domain:nth-of-type(3){--rs-domain:var(--rs-blue)}
+          #research .rs-scene{
+            position:relative;
+            z-index:2;
+            display:grid;
+            place-items:center;
+            width:150px;
+            height:150px;
+            margin:0 auto 1.6rem;
+            border:1px solid color-mix(in srgb,var(--rs-domain) 28%,var(--rule));
+            border-radius:50%;
+            background:color-mix(in srgb,var(--rs-domain) 7%,var(--paper));
+            color:var(--rs-domain);
+            box-shadow:0 18px 42px -36px var(--rs-domain);
+            transition:transform .25s ease,background .25s ease,border-color .25s ease;
+          }
+          #research .rs-domain:hover .rs-scene{
+            transform:translateY(-5px);
+            border-color:color-mix(in srgb,var(--rs-domain) 60%,var(--rule));
+            background:color-mix(in srgb,var(--rs-domain) 12%,var(--paper));
+          }
+          #research .rs-scene svg{
+            width:92px;
+            height:70px;
+            overflow:visible;
+          }
+          #research .rs-scene svg *{vector-effect:non-scaling-stroke}
+          #research .rs-domain-number{
+            position:absolute;
+            z-index:4;
+            top:0;
+            left:50%;
+            display:grid;
+            place-items:center;
+            width:28px;
+            height:28px;
+            margin-left:47px;
+            border-radius:50%;
+            background:var(--rs-domain);
+            color:#fff;
             font-family:var(--mono);
-            font-size:.63rem;
-            letter-spacing:.03em;
+            font-size:.66rem;
           }
-          #research .research-map:has(.rs-card-1:is(:hover,:focus-visible)) .rs-ring-1 .rs-stroke,
-          #research .research-map:has(.rs-card-2:is(:hover,:focus-visible)) .rs-ring-2 .rs-stroke,
-          #research .research-map:has(.rs-card-3:is(:hover,:focus-visible)) .rs-ring-3 .rs-stroke,
-          #research .research-map:has(.rs-card-4:is(:hover,:focus-visible)) .rs-ring-4 .rs-stroke{
-            stroke-width:4;
-            opacity:1;
-            filter:drop-shadow(0 4px 6px color-mix(in srgb,currentColor 28%,transparent));
+          #research .rs-scope{
+            margin:0 0 .45rem;
+            color:var(--rs-domain);
+            font-family:var(--mono);
+            font-size:.64rem;
+            letter-spacing:.1em;
+            text-transform:uppercase;
           }
-          #research .research-map:has(.rs-card-1:is(:hover,:focus-visible)) .rs-ring-1 .rs-fill{fill:color-mix(in srgb,var(--rs1) 27%,var(--paper))}
-          #research .research-map:has(.rs-card-2:is(:hover,:focus-visible)) .rs-ring-2 .rs-fill{fill:color-mix(in srgb,var(--rs2) 20%,var(--paper))}
-          #research .research-map:has(.rs-card-3:is(:hover,:focus-visible)) .rs-ring-3 .rs-fill{fill:color-mix(in srgb,var(--rs3) 17%,var(--paper))}
-          #research .research-map:has(.rs-card-4:is(:hover,:focus-visible)) .rs-ring-4 .rs-fill{fill:color-mix(in srgb,var(--rs4) 15%,var(--paper))}
-          @media (max-width:920px){
-            #research .rs-intro{grid-template-columns:1fr;align-items:start}
-            #research .research-map{grid-template-columns:1fr}
-            #research .rs-visual{max-width:540px;margin-inline:auto}
+          #research .rs-domain h3{
+            margin:0 0 .65rem;
+            font-size:clamp(1.22rem,2vw,1.55rem);
+            font-style:normal;
+            line-height:1.15;
           }
-          @media (max-width:600px){
-            #research .rs-cards{grid-template-columns:1fr}
-            #research .rs-card{min-height:0}
-            #research .rs-principle{white-space:normal;width:auto;max-width:max-content}
+          #research .rs-domain-copy{
+            min-height:4.7em;
+            margin:0;
+            color:var(--ink-soft);
+            font-family:var(--sans);
+            font-size:.91rem;
+            line-height:1.55;
+          }
+          #research .rs-tags{
+            display:flex;
+            flex-wrap:wrap;
+            gap:.4rem;
+            margin-top:1rem;
+          }
+          #research .rs-tags span{
+            padding:.2rem .45rem;
+            border:1px solid color-mix(in srgb,var(--rs-domain) 24%,var(--rule));
+            border-radius:999px;
+            color:color-mix(in srgb,var(--rs-domain) 82%,var(--ink));
+            background:color-mix(in srgb,var(--rs-domain) 7%,transparent);
+            font-family:var(--mono);
+            font-size:.6rem;
+          }
+          #research .rs-methods{
+            display:grid;
+            grid-template-columns:210px 1fr;
+            gap:1.4rem 2rem;
+            align-items:center;
+            margin-top:clamp(3rem,6vw,4.6rem);
+            padding:1.15rem 0;
+            border-top:1px solid var(--rule);
+            border-bottom:1px solid var(--rule);
+          }
+          #research .rs-methods-title{
+            margin:0;
+            color:var(--ink);
+            font-family:var(--mono);
+            font-size:.66rem;
+            letter-spacing:.1em;
+            text-transform:uppercase;
+          }
+          #research .rs-methods-title span{
+            display:block;
+            margin-top:.3rem;
+            color:var(--ink-faint);
+            font-size:.58rem;
+            letter-spacing:.04em;
+            text-transform:none;
+          }
+          #research .rs-method-list{
+            display:flex;
+            flex-wrap:wrap;
+            gap:.55rem .7rem;
+            color:var(--ink-soft);
+            font-family:var(--sans);
+            font-size:.8rem;
+          }
+          #research .rs-method-list span{
+            display:flex;
+            align-items:center;
+            gap:.7rem;
+          }
+          #research .rs-method-list span:not(:last-child)::after{
+            content:"→";
+            color:var(--ink-faint);
+            font-family:var(--mono);
+          }
+          #research .rs-bottom-line{
+            display:flex;
+            justify-content:space-between;
+            gap:1rem;
+            margin-top:1rem;
+            color:var(--ink-faint);
+            font-family:var(--mono);
+            font-size:.62rem;
+            letter-spacing:.07em;
+            text-transform:uppercase;
+          }
+          #research .rs-bottom-line b{
+            color:var(--accent);
+            font-weight:500;
+          }
+          @media (max-width:880px){
+            #research .rs-intro{grid-template-columns:1fr}
+            #research .rs-principle{max-width:520px}
+            #research .rs-signal-path{grid-template-columns:1fr;gap:2.5rem}
+            #research .rs-signal-path::before{
+              top:72px;
+              bottom:72px;
+              left:74px;
+              right:auto;
+              width:1px;
+              height:auto;
+              background:linear-gradient(var(--rs-green),var(--rs-teal),var(--rs-blue));
+            }
+            #research .rs-signal-pulse{display:none}
+            #research .rs-domain{
+              display:grid;
+              grid-template-columns:150px 1fr;
+              gap:1.25rem 1.5rem;
+              align-items:center;
+            }
+            #research .rs-scene{margin:0}
+            #research .rs-domain-number{left:102px;margin-left:0}
+            #research .rs-domain-copy{min-height:0}
+            #research .rs-methods{grid-template-columns:1fr}
+          }
+          @media (max-width:560px){
+            #research .rs-domain{grid-template-columns:92px 1fr;gap:1rem}
+            #research .rs-scene{width:92px;height:92px}
+            #research .rs-scene svg{width:64px;height:50px}
+            #research .rs-domain-number{left:65px;width:25px;height:25px}
+            #research .rs-signal-path::before{left:45px;top:44px;bottom:44px}
+            #research .rs-bottom-line{display:block;line-height:1.7}
           }
           @media (prefers-reduced-motion:reduce){
-            #research .rs-card,
-            #research .rs-ring .rs-fill,
-            #research .rs-ring .rs-stroke{transition:none}
-            #research .rs-card:hover{transform:none}
+            #research .rs-signal-pulse{display:none}
+            #research .rs-scene{transition:none}
           }
         </style>
 
         <p class="section-eyebrow">Research agenda</p>
         <div class="rs-intro">
           <div>
-            <h2>From human to city.</h2>
-            <p class="lead">
-              How should humans interact with autonomous vehicles, robots, and the
-              infrastructure connecting them? I study four nested scales—each one
-              shaping the next, from individual perception to shared urban life.
-            </p>
+            <h2>Human intelligence for an autonomous world.</h2>
+            <p class="lead">I design how people understand, trust, and collaborate with autonomous vehicles, robots, and connected urban environments—using emerging technologies to create safer and more meaningful everyday interactions.</p>
           </div>
-          <div class="rs-principle" aria-label="Core research principle">
-            <strong>HI first</strong>
-            <span>AI as the tool</span>
+          <aside class="rs-principle">
+            <strong>One human-centred approach</strong>
+            Machine capability should support—not replace—human judgment.
+          </aside>
+        </div>
+
+        <div class="rs-signal-path" aria-label="Three connected research areas">
+          <span class="rs-signal-pulse" aria-hidden="true"></span>
+
+          <article class="rs-domain">
+            <span class="rs-domain-number">01</span>
+            <div class="rs-scene" aria-hidden="true">
+              <svg viewBox="0 0 100 70" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 57h88M16 53l8-18h36l12 18M29 35l7-11h17l7 11"/>
+                <circle cx="30" cy="55" r="7" fill="var(--paper)"/><circle cx="67" cy="55" r="7" fill="var(--paper)"/>
+                <circle cx="84" cy="18" r="5"/><path d="M84 23v15m-8-5 8-6 8 6m-8 5-7 11m7-11 7 11"/>
+                <path d="M8 64h8m5 0h8m5 0h8m5 0h8m5 0h8" opacity=".55"/>
+              </svg>
+            </div>
+            <div>
+              <p class="rs-scope">Moving intelligence</p>
+              <h3>Autonomous mobility</h3>
+              <p class="rs-domain-copy">How pedestrians and passengers understand and respond to vehicle intent.</p>
+              <div class="rs-tags"><span>eHMI</span><span>in-cabin HMI</span><span>shared spaces</span><span>trust</span></div>
+            </div>
+          </article>
+
+          <article class="rs-domain">
+            <span class="rs-domain-number">02</span>
+            <div class="rs-scene" aria-hidden="true">
+              <svg viewBox="0 0 100 70" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="32" y="19" width="36" height="34" rx="9"/>
+                <path d="M42 19V10m16 9V10M38 53l-7 9m31-9 7 9M50 53v10"/>
+                <circle cx="43" cy="34" r="3" fill="currentColor" stroke="none"/><circle cx="57" cy="34" r="3" fill="currentColor" stroke="none"/>
+                <path d="M42 44c5 4 11 4 16 0M23 32h9m36 0h9M16 27l7 5-7 5m68-10-7 5 7 5"/>
+                <path d="M8 64h84" opacity=".55"/>
+              </svg>
+            </div>
+            <div>
+              <p class="rs-scope">Embodied intelligence</p>
+              <h3>Human–robot interaction</h3>
+              <p class="rs-domain-copy">How robots communicate, navigate, and cooperate with people in everyday environments.</p>
+              <div class="rs-tags"><span>delivery robots</span><span>companion robots</span><span>social navigation</span><span>HRI</span></div>
+            </div>
+          </article>
+
+          <article class="rs-domain">
+            <span class="rs-domain-number">03</span>
+            <div class="rs-scene" aria-hidden="true">
+              <svg viewBox="0 0 100 70" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 61h84M14 61V35h18v26M38 61V22h23v39M68 61V31h18v30"/>
+                <path d="M20 43h6m-6 8h6m25-20h7m-7 9h7m-7 9h7m17-10h5m-5 9h5" opacity=".7"/>
+                <path d="M50 61V10m-7 13h14M50 10l-4 5m4-5 4 5"/>
+                <path d="M34 17c8-7 24-7 32 0M28 12c12-12 32-12 44 0" opacity=".65"/>
+              </svg>
+            </div>
+            <div>
+              <p class="rs-scope">Urban intelligence</p>
+              <h3>Intelligent urban environments</h3>
+              <p class="rs-domain-copy">How interactive infrastructure coordinates people and machines across future cities.</p>
+              <div class="rs-tags"><span>SPIU</span><span>V2X</span><span>urban interfaces</span><span>smart mobility</span></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="rs-methods">
+          <p class="rs-methods-title">Emerging technologies <span>The shared research foundation</span></p>
+          <div class="rs-method-list" aria-label="Research methods">
+            <span>AI / LLM &amp; VLM</span>
+            <span>VR / XR prototyping</span>
+            <span>Human studies</span>
+            <span>Real-world deployment</span>
+            <span>Across cultures</span>
           </div>
         </div>
 
-        <div class="research-map">
-          <figure class="rs-visual" style="margin:0">
-            <svg viewBox="0 0 520 520" class="rs-svg" role="img"
-                 aria-label="Four colored nested research scales expanding from the individual human to machines, infrastructure, and society and culture.">
-              <g class="rs-ring rs-ring-4">
-                <circle class="rs-fill" cx="260" cy="260" r="220"/>
-                <circle class="rs-stroke" cx="260" cy="260" r="220"/>
-              </g>
-              <g class="rs-ring rs-ring-3">
-                <circle class="rs-fill" cx="260" cy="260" r="166"/>
-                <circle class="rs-stroke" cx="260" cy="260" r="166"/>
-              </g>
-              <g class="rs-ring rs-ring-2">
-                <circle class="rs-fill" cx="260" cy="260" r="112"/>
-                <circle class="rs-stroke" cx="260" cy="260" r="112"/>
-              </g>
-              <g class="rs-ring rs-ring-1">
-                <circle class="rs-fill" cx="260" cy="260" r="60"/>
-                <circle class="rs-stroke" cx="260" cy="260" r="60"/>
-              </g>
-
-              <g class="rs-node rs-node-4">
-                <circle cx="260" cy="40" r="17"/>
-                <text x="260" y="44.5" text-anchor="middle">04</text>
-              </g>
-              <g class="rs-node rs-node-3">
-                <circle cx="260" cy="94" r="17"/>
-                <text x="260" y="98.5" text-anchor="middle">03</text>
-              </g>
-              <g class="rs-node rs-node-2">
-                <circle cx="260" cy="148" r="17"/>
-                <text x="260" y="152.5" text-anchor="middle">02</text>
-              </g>
-
-              <g aria-hidden="true">
-                <circle class="rs-person" cx="260" cy="238" r="11"/>
-                <path class="rs-person" d="M238 286c3-25 12-37 22-37s19 12 22 37M260 249v28M246 267h28"/>
-              </g>
-              <text class="rs-center-label" x="260" y="310" text-anchor="middle">HUMAN</text>
-            </svg>
-            <figcaption class="rs-flow" aria-hidden="true">
-              <b>Human</b><span>→</span><span>Machine</span><span>→</span><span>Street</span><span>→</span><span>City</span>
-            </figcaption>
-          </figure>
-
-          <div class="rs-cards" aria-label="Four research scales">
-            <article class="rs-card rs-card-1" data-scale="1" tabindex="0">
-              <div class="rs-card-top"><span class="rs-number">01</span><span class="rs-scope">Individual</span></div>
-              <h3>Human</h3>
-              <p>Perception, trust, decision-making, and understanding.</p>
-              <div class="rs-tags"><span>perception</span><span>trust</span></div>
-            </article>
-
-            <article class="rs-card rs-card-2" data-scale="2" tabindex="0">
-              <div class="rs-card-top"><span class="rs-number">02</span><span class="rs-scope">Encounter</span></div>
-              <h3>Vehicle &amp; robot</h3>
-              <p>Interfaces that make machine intent legible and actionable.</p>
-              <div class="rs-tags"><span>eHMI</span><span>intent</span></div>
-            </article>
-
-            <article class="rs-card rs-card-3" data-scale="3" tabindex="0">
-              <div class="rs-card-top"><span class="rs-number">03</span><span class="rs-scope">Network</span></div>
-              <h3>Infrastructure</h3>
-              <p>Roadside intelligence connecting people, vehicles, and robots.</p>
-              <div class="rs-tags"><span>SPIU</span><span>coordination</span></div>
-            </article>
-
-            <article class="rs-card rs-card-4" data-scale="4" tabindex="0">
-              <div class="rs-card-top"><span class="rs-number">04</span><span class="rs-scope">Context</span></div>
-              <h3>Society &amp; culture</h3>
-              <p>Shared spaces that remain understandable across cultures.</p>
-              <div class="rs-tags"><span>culture</span><span>shared space</span></div>
-            </article>
-          </div>
+        <div class="rs-bottom-line">
+          <span>People · machines · environments</span>
+          <span><b>Human judgment</b> in the lead</span>
         </div>
       </div>
     </section>
+
     <!-- ============ TALKS ============ -->
    <!-- ============ SERVICE ============ -->
     <section id="service">
