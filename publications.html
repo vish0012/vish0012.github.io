@@ -6,7 +6,9 @@
   <title>Publications — Vishal Chauhan</title>
   <script>
     (function () {
-      document.documentElement.setAttribute('data-theme', 'light');
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('theme'); } catch (e) {}
+      document.documentElement.setAttribute('data-theme', savedTheme === 'dark' ? 'dark' : 'light');
     })();
   </script>
   <meta name="description" content="Publications by Vishal Chauhan on infrastructure-based eHMI, pedestrian–AV interaction, and HCI methods." />
@@ -26,133 +28,368 @@
        the old .pub* rules there if anything ever conflicts.
        ============================================================ -->
   <style>
-    :root { --pub-accent: var(--accent, #4A6D5C); }
+    :root {
+      --pub-accent: var(--accent, #4a6d5c);
+      --pub-card: var(--surface, #fbfbf8);
+      --pub-soft: #f1f4f0;
+      --pub-gold: #9a7100;
+    }
 
-    .year-group { margin-top: 3.25rem; }
-    .year-group > h2 {
+    .pub-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(260px, .65fr);
+      gap: 3rem;
+      align-items: end;
+      margin-bottom: 2.2rem;
+    }
+    .pub-intro h1 {
       font-family: 'Source Serif 4', Georgia, serif;
+      font-size: clamp(2.7rem, 7vw, 5.6rem);
+      font-weight: 500;
+      font-style: italic;
+      letter-spacing: -.045em;
+      line-height: .98;
+      margin: .3rem 0 1rem;
+    }
+    .pub-intro .lead {
+      max-width: 650px;
+      color: var(--ink-soft, #55554f);
+      font-size: clamp(1.05rem, 2vw, 1.22rem);
+      line-height: 1.62;
+      margin: 0;
+    }
+    .pub-intro .scholar-note {
+      color: var(--ink-soft, #55554f);
+      line-height: 1.65;
+      margin: 0 0 .2rem;
+    }
+
+    .pub-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--rule, #e8e7e1);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--pub-card);
+      margin: 0 0 1.2rem;
+    }
+    .pub-stat {
+      padding: 1rem 1.2rem;
+      border-right: 1px solid var(--rule, #e8e7e1);
+    }
+    .pub-stat:last-child { border-right: 0; }
+    .pub-stat strong {
+      display: block;
+      font-family: 'Source Serif 4', Georgia, serif;
+      color: var(--pub-accent);
+      font-size: 1.45rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .pub-stat span {
+      display: block;
+      color: var(--ink-soft, #55554f);
+      font-size: .88rem;
+      margin-top: .15rem;
+    }
+
+    .year-jump {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      align-items: center;
+      margin: 1.1rem 0 3.8rem;
+    }
+    .year-jump > span {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      color: var(--ink-faint, #8b8b83);
+      font-size: .72rem;
+      letter-spacing: .08em;
+      margin-right: .25rem;
+      text-transform: uppercase;
+    }
+    .year-jump a {
+      border: 1px solid var(--rule, #deded7);
+      border-radius: 999px;
+      color: var(--ink-soft, #55554f);
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: .76rem;
+      padding: .42rem .75rem;
+      text-decoration: none;
+      transition: border-color .2s ease, color .2s ease, background .2s ease;
+    }
+    .year-jump a:hover,
+    .year-jump a:focus-visible {
+      background: var(--pub-soft);
+      border-color: var(--pub-accent);
+      color: var(--pub-accent);
+    }
+
+    .year-group {
+      margin-top: 4.2rem;
+      scroll-margin-top: 6rem;
+    }
+    .year-group > h2 {
+      align-items: baseline;
+      border-bottom: 1px solid var(--rule, #e8e7e1);
+      color: var(--pub-accent);
+      display: flex;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: clamp(1.85rem, 3vw, 2.35rem);
       font-style: italic;
       font-weight: 500;
-      font-size: clamp(1.6rem, 3vw, 2rem);
-      color: var(--pub-accent);
-      margin: 0 0 1.75rem;
-      padding-bottom: .6rem;
-      border-bottom: 1px solid var(--rule, #e8e7e1);
+      justify-content: space-between;
+      margin: 0 0 1.2rem;
+      padding-bottom: .65rem;
+    }
+    .year-group > h2 span {
+      color: var(--ink-faint, #8b8b83);
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: .7rem;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: .08em;
+      text-transform: uppercase;
     }
 
-    /* Every entry: text on the left at a fixed width, optional figure on the right.
-       This keeps ALL titles starting at the same left edge with the same wrapping. */
     .year-group .pub {
-      display: flex;
-      gap: 2.5rem;
-      align-items: flex-start;
-      padding: 2.25rem 0;
-      border-bottom: 1px solid var(--rule, #e8e7e1);
-    }
-    .year-group .pub:last-child { border-bottom: 0; }
-
-    .year-group .pub-body {
-      flex: 1 1 0;
-      max-width: 62ch;
-      min-width: 0;
-      order: 1;
-    }
-    .year-group .pub-thumb {
-      order: 2;
-      align-self: flex-start !important;   /* never stretch to the text height */
-      flex: 1 1 400px;
-      max-width: 540px;
-      width: auto;
-      aspect-ratio: 2 / 1 !important;      /* uniform frame for every figure */
-      height: auto !important;
-      margin: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(310px, .92fr);
+      gap: clamp(1.5rem, 4vw, 3.2rem);
+      align-items: center;
+      margin: 0 0 1.15rem;
+      padding: clamp(1.2rem, 3vw, 2rem);
       border: 1px solid var(--rule, #e8e7e1);
-      border-radius: 6px;
+      border-radius: 16px;
+      background: var(--pub-card);
+      scroll-margin-top: 6rem;
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+    .year-group .pub:hover {
+      border-color: #c9d4cd;
+      border-color: color-mix(in srgb, var(--pub-accent) 32%, var(--rule, #e8e7e1));
+      box-shadow: 0 16px 40px rgba(37, 50, 43, .07);
+      transform: translateY(-2px);
+    }
+    .year-group .pub:target {
+      border-color: var(--pub-accent);
+      box-shadow: 0 0 0 4px rgba(74, 109, 92, .12);
+    }
+
+    .year-group .pub-body { min-width: 0; order: 1; }
+    .year-group .pub-thumb {
+      align-self: center;
+      aspect-ratio: 16 / 9;
+      background: var(--pub-soft);
+      border: 1px solid var(--rule, #e8e7e1);
+      border-radius: 11px;
+      display: block;
+      margin: 0;
+      min-width: 0;
+      order: 2;
       overflow: hidden;
-      background: var(--surface, #f6f6f2);
+      position: relative;
+      text-decoration: none;
     }
     .year-group .pub-thumb img {
-      display: block !important;
-      width: 100% !important;
-      height: 100% !important;             /* fill the box... */
-      object-fit: contain !important;      /* ...whole image visible, never cropped */
+      display: block;
+      height: 100%;
+      object-fit: contain;
+      transition: transform .38s ease, filter .38s ease;
+      width: 100%;
+    }
+    .year-group .pub:hover .pub-thumb img { transform: scale(1.018); }
+    .pub-thumb-label {
+      align-items: center;
+      background: rgba(25, 29, 27, .82);
+      border-radius: 999px;
+      bottom: .75rem;
+      color: #fff;
+      display: inline-flex;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: .68rem;
+      letter-spacing: .03em;
+      opacity: 0;
+      padding: .38rem .65rem;
+      pointer-events: none;
+      position: absolute;
+      right: .75rem;
+      transform: translateY(4px);
+      transition: opacity .22s ease, transform .22s ease;
+    }
+    .pub-thumb:hover .pub-thumb-label,
+    .pub-thumb:focus-visible .pub-thumb-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .pub-kicker {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      margin: 0 0 .72rem;
+    }
+    .venue-tag,
+    .type-tag,
+    .award {
+      align-items: center;
+      border-radius: 999px;
+      display: inline-flex;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: .66rem;
+      letter-spacing: .055em;
+      padding: .34rem .62rem;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .venue-tag {
+      background: var(--pub-soft);
+      border: 1px solid #ccd8d0;
+      color: var(--pub-accent);
+      font-weight: 500;
+    }
+    .type-tag {
+      border: 1px solid var(--rule, #e1e1da);
+      color: var(--ink-faint, #77776f);
+    }
+    .award {
+      background: #fff8df;
+      border: 1px solid #ead48f;
+      color: var(--pub-gold);
+      font-weight: 500;
     }
 
     .year-group .pub h3 {
-      font-family: 'Source Serif 4', Georgia, serif;
-      font-weight: 600;
-      font-size: 1.25rem;
-      line-height: 1.3;
-      letter-spacing: -0.005em;
-      margin: 0 0 .55rem;
       color: var(--ink, #1b1b1a);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: clamp(1.28rem, 2.3vw, 1.58rem);
+      font-weight: 600;
+      letter-spacing: -.018em;
+      line-height: 1.28;
+      margin: 0 0 .68rem;
     }
-
-    .year-group .pub-award { margin: 0 0 .7rem; }
-    .year-group .award {
-      display: inline-flex;
-      align-items: center;
-      gap: .4em;
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: .7rem;
-      letter-spacing: .05em;
-      text-transform: uppercase;
+    .year-group .pub h3 a {
+      color: inherit;
+      text-decoration: none;
+      text-decoration-color: transparent;
+      text-decoration-thickness: 1px;
+      text-underline-offset: .15em;
+      transition: color .18s ease, text-decoration-color .18s ease;
+    }
+    .year-group .pub h3 a:hover,
+    .year-group .pub h3 a:focus-visible {
       color: var(--pub-accent);
-      background: #eef2ef;
-      background: color-mix(in srgb, var(--pub-accent) 10%, transparent);
-      border: 1px solid #cdd8d1;
-      border: 1px solid color-mix(in srgb, var(--pub-accent) 28%, transparent);
-      padding: .3em .65em;
-      border-radius: 999px;
-      white-space: nowrap;
+      text-decoration: underline;
+      text-decoration-color: currentColor;
     }
-
     .year-group .pub-authors {
-      font-family: 'Source Sans 3', system-ui, sans-serif;
-      font-size: .96rem;
-      line-height: 1.55;
       color: var(--ink-soft, #55554f);
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      font-size: .94rem;
+      line-height: 1.52;
       margin: 0 0 .45rem;
     }
-    .year-group .pub-authors .me { font-weight: 600; color: var(--pub-accent); }
-
+    .year-group .pub-authors .me { color: var(--pub-accent); font-weight: 600; }
     .year-group .pub-venue {
-      font-family: 'Source Serif 4', Georgia, serif;
-      font-style: italic;
-      font-size: .98rem;
-      line-height: 1.45;
       color: var(--ink-soft, #55554f);
-      margin: 0 0 .8rem;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: .92rem;
+      font-style: italic;
+      line-height: 1.45;
+      margin: 0 0 1rem;
     }
-
+    .contribution-label {
+      color: var(--ink-faint, #77776f);
+      display: block;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: .65rem;
+      letter-spacing: .08em;
+      margin-bottom: .28rem;
+      text-transform: uppercase;
+    }
     .year-group .pub-blurb {
-      font-family: 'Source Sans 3', system-ui, sans-serif;
-      font-size: 1rem;
-      line-height: 1.62;
       color: var(--ink, #2a2a27);
-      margin: 0 0 .9rem;
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      font-size: .98rem;
+      line-height: 1.58;
+      margin: 0 0 1.05rem;
       max-width: 62ch;
     }
 
-    .year-group .pub-links {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: .82rem;
+    .pub-actions {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
       margin: 0;
     }
-    .year-group .pub-links a {
-      color: var(--pub-accent);
+    .action-link,
+    .cite-copy {
+      align-items: center;
+      background: transparent;
+      border: 1px solid var(--rule, #dadad3);
+      border-radius: 999px;
+      color: var(--ink-soft, #4f4f49);
+      cursor: pointer;
+      display: inline-flex;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: .72rem;
+      line-height: 1;
+      min-height: 2rem;
+      padding: .48rem .72rem;
       text-decoration: none;
-      border-bottom: 1px solid #bcc9c1;
-      border-bottom: 1px solid color-mix(in srgb, var(--pub-accent) 35%, transparent);
-      padding-bottom: 1px;
+      transition: background .18s ease, border-color .18s ease, color .18s ease;
     }
-    .year-group .pub-links a:hover { border-bottom-color: var(--pub-accent); }
-    .year-group .pub-links .sep { color: var(--ink-faint, #a6a69e); margin: 0 .5rem; }
+    .action-link.primary {
+      background: var(--pub-accent);
+      border-color: var(--pub-accent);
+      color: #fff;
+    }
+    .action-link:hover,
+    .action-link:focus-visible,
+    .cite-copy:hover,
+    .cite-copy:focus-visible {
+      background: var(--pub-soft);
+      border-color: var(--pub-accent);
+      color: var(--pub-accent);
+    }
+    .action-link.primary:hover,
+    .action-link.primary:focus-visible {
+      background: #385546;
+      color: #fff;
+    }
+    .cite-copy.is-copied {
+      background: var(--pub-soft);
+      border-color: var(--pub-accent);
+      color: var(--pub-accent);
+    }
+    .publication-details {
+      color: var(--ink-faint, #85857e);
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: .66rem;
+      line-height: 1.5;
+      margin: .8rem 0 0;
+    }
 
-    @media (max-width: 860px) {
-      .year-group .pub { flex-direction: column; gap: 1.1rem; }
-      .year-group .pub-thumb { order: -1; flex-basis: auto; width: 100%; max-width: 460px; }
-      .year-group .pub-body { max-width: 100%; }
+    @media (max-width: 900px) {
+      .pub-intro { grid-template-columns: 1fr; gap: 1.2rem; }
+      .year-group .pub { grid-template-columns: 1fr; }
+      .year-group .pub-thumb { max-width: 620px; order: -1; width: 100%; }
+    }
+    @media (max-width: 620px) {
+      .pub-summary { grid-template-columns: 1fr; }
+      .pub-stat { border-bottom: 1px solid var(--rule, #e8e7e1); border-right: 0; }
+      .pub-stat:last-child { border-bottom: 0; }
+      .year-jump { margin-bottom: 3rem; }
+      .year-group .pub { border-radius: 12px; padding: 1rem; }
+      .pub-thumb-label { opacity: 1; transform: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .year-group .pub,
+      .year-group .pub-thumb img,
+      .pub-thumb-label { transition: none; }
+      .year-group .pub:hover { transform: none; }
     }
   </style>
 </head>
@@ -189,48 +426,74 @@
     </div>
   </header>
   <main id="main">
-    <section>
+    <section class="pub-page">
       <div class="container">
-        <p class="section-eyebrow">Publications</p>
-        <h1 style="font-size: clamp(2rem, 4vw, 2.8rem);">Publications.</h1>
-        <p style="max-width:55ch; color:var(--ink-soft); font-size:1.05rem;">
-          Full citation metrics on
-          <a href="https://scholar.google.com/citations?user=SHkxvc4AAAAJ">Google Scholar</a>.
-        </p>
+        <div class="pub-intro">
+          <div>
+            <p class="section-eyebrow">Research archive</p>
+            <h1>Publications.</h1>
+            <p class="lead">Peer-reviewed work on how people understand, negotiate, and share space with autonomous vehicles, robots, and intelligent infrastructure.</p>
+          </div>
+          <p class="scholar-note">A chronological record of conference and journal publications. For citation counts and the complete index, visit <a href="https://scholar.google.com/citations?user=SHkxvc4AAAAJ" target="_blank" rel="noopener">Google Scholar ↗</a>.</p>
+        </div>
+
+        <div class="pub-summary" aria-label="Publication summary">
+          <div class="pub-stat"><strong>9</strong><span>peer-reviewed works</span></div>
+          <div class="pub-stat"><strong>2</strong><span>CHI Honourable Mentions</span></div>
+          <div class="pub-stat"><strong>2023—26</strong><span>research trajectory</span></div>
+        </div>
+
+        <nav class="year-jump" aria-label="Jump to publication year">
+          <span>Jump to</span>
+          <a href="#year-2026">2026</a>
+          <a href="#year-2025">2025</a>
+          <a href="#year-2024">2024</a>
+          <a href="#year-2023">2023</a>
+        </nav>
+
         <!-- ========== 2026 ========== -->
-        <div class="year-group">
-          <h2>2026</h2>
+        <div class="year-group" id="year-2026">
+          <h2>2026 <span>3 publications</span></h2>
           <article class="pub" id="hcii-2026-css">
-            <figure class="pub-thumb">
+            <a class="pub-thumb" href="https://doi.org/10.1007/978-3-032-30798-9_10" target="_blank" rel="noopener" aria-label="Open Colored Shared Spaces paper">
               <img src="assets/images/thumb-css.png" alt="Two annotated street photos of a pedestrian-priority shared space, marking a protected pedestrian comfort zone, shared zone, on-street restaurant seating, tactile non-slip paving, and a vehicle approaching a crosswalk" onerror="this.closest('.pub-thumb').style.display='none'" />
-            </figure>
+              <span class="pub-thumb-label">View paper ↗</span>
+            </a>
             <div class="pub-body">
-              <h3>Colored Shared Spaces (CSS): How Visual Design Transforms Pedestrian Experiences</h3>
+              <div class="pub-kicker">
+                <span class="venue-tag">HCII 2026</span>
+                <span class="type-tag">Conference paper</span>
+              </div>
+              <h3><a class="paper-link" href="https://doi.org/10.1007/978-3-032-30798-9_10" target="_blank" rel="noopener">Colored Shared Spaces (CSS): How Visual Design Transforms Pedestrian Experiences</a></h3>
               <p class="pub-authors">
                 <span class="me">Vishal Chauhan</span>, Anubhav, Chia-Ming Chang,
                 Ehsan Javanmardi, Takeo Igarashi, Alex Orsholits,
                 Kantaro Fujiwara, Manabu Tsukada
               </p>
-              <p class="pub-venue">28th International Conference on Human–Computer Interaction (HCII 2026) · Montréal, Canada · LNCS 16742 · pp. 150–168</p>
+              <p class="pub-venue">HCI in Mobility, Transport, and Automotive Systems · Montréal, Canada</p>
               <p class="pub-blurb">
-                How visual design choices in shared spaces transform pedestrian
-                experience in pedestrian–AV interaction. Complements SPIU work by
-                studying the surrounding environment, not just the signaling unit.
+                <span class="contribution-label">Contribution</span>
+                A two-stage study (N=224) showing how colored ground patterns shape visibility, safety, trust, and confidence in pedestrian–AV shared spaces—and why visual appeal must not compromise legibility.
               </p>
-              <p class="pub-links">
-                <a href="https://doi.org/10.1007/978-3-032-30798-9_10" target="_blank" rel="noopener">DOI</a>
-                <span class="sep">·</span>
-                <span style="color:var(--ink-faint);">Published 3 July 2026 · Springer</span>
-              </p>
+              <div class="pub-actions">
+                <a class="action-link primary" href="https://doi.org/10.1007/978-3-032-30798-9_10" target="_blank" rel="noopener">Paper ↗</a>
+                <button class="cite-copy" type="button">Copy citation</button>
+              </div>
+              <p class="publication-details">LNCS 16742 · pp. 150–168 · Published 3 July 2026 · Springer</p>
             </div>
           </article>
           <article class="pub" id="chi-2026-spiu">
-            <figure class="pub-thumb">
+            <a class="pub-thumb" href="https://doi.org/10.1145/3772318.3790882" target="_blank" rel="noopener" aria-label="Open mobile SPIU CHI paper">
               <img src="assets/images/thumb-chi.png" alt="Mobile SPIU prototype with cameras and LED displays delivering WALK and STOP cues" />
-            </figure>
+              <span class="pub-thumb-label">View paper ↗</span>
+            </a>
             <div class="pub-body">
-              <h3>Don't Worry, Just Follow Me: Prototyping and In-the-Wild Evaluation of Smart Pole Interaction Unit with Mobility</h3>
-              <p class="pub-award"><span class="award">🏆 Honourable Mention</span></p>
+              <div class="pub-kicker">
+                <span class="venue-tag">CHI 2026</span>
+                <span class="type-tag">Conference paper</span>
+                <span class="award">🏆 Honourable Mention</span>
+              </div>
+              <h3><a class="paper-link" href="https://doi.org/10.1145/3772318.3790882" target="_blank" rel="noopener">Don't Worry, Just Follow Me: Prototyping and In-the-Wild Evaluation of Smart Pole Interaction Unit with Mobility</a></h3>
               <p class="pub-authors">
                 <span class="me">Vishal Chauhan</span>, Anubhav, Mark Colley,
                 Chia-Ming Chang, Xinyue Gui, Ding Xia, Ehsan Javanmardi,
@@ -238,26 +501,28 @@
               </p>
               <p class="pub-venue">ACM CHI 2026 · Barcelona, Spain</p>
               <p class="pub-blurb">
-                In-the-wild evaluation (N=21) of a mobile SPIU with integrated
-                cameras and LED displays delivering explicit "WALK"/"STOP" cues.
-                Four-factor design (CarBehavior × Mobility × eHMI × SPIU) shows
-                improvements in understandability, trust, and perceived safety;
-                strongest results with SPIU + vehicle eHMI combined.
+                <span class="contribution-label">Contribution</span>
+                An in-the-wild study (N=21) of a mobile roadside interface delivering explicit WALK/STOP guidance. Combining SPIU with vehicle eHMI produced the clearest, safest, and most trusted experience.
               </p>
-              <p class="pub-links">
-                <a href="https://doi.org/10.1145/3772318.3790882">DOI</a>
-                <span class="sep">·</span>
-                <a href="https://www.youtube.com/watch?v=PLmCgmTwsHQ">Video</a>
-              </p>
+              <div class="pub-actions">
+                <a class="action-link primary" href="https://doi.org/10.1145/3772318.3790882" target="_blank" rel="noopener">Paper ↗</a>
+                <a class="action-link" href="https://www.youtube.com/watch?v=PLmCgmTwsHQ" target="_blank" rel="noopener">Video ↗</a>
+                <button class="cite-copy" type="button">Copy citation</button>
+              </div>
             </div>
           </article>
           <article class="pub" id="chi-2026-vlm">
-            <figure class="pub-thumb">
+            <a class="pub-thumb" href="https://doi.org/10.1145/3772318.3790537" target="_blank" rel="noopener" aria-label="Open VLM personas CHI paper">
               <img src="assets/images/thumb-vlm.png" alt="Three-step study diagram: a field study with 20 real people and a video study with 20 VLM personas, their pose-tracked crossing behaviour compared for similarity and difference, then an interview with five embodied-interaction researchers" onerror="this.closest('.pub-thumb').style.display='none'" />
-            </figure>
+              <span class="pub-thumb-label">View paper ↗</span>
+            </a>
             <div class="pub-body">
-              <h3>Peeking Ahead of the Field Study: Exploring VLM Personas as Support Tools for Embodied Studies in HCI</h3>
-              <p class="pub-award"><span class="award">🏆 Honourable Mention</span></p>
+              <div class="pub-kicker">
+                <span class="venue-tag">CHI 2026</span>
+                <span class="type-tag">Conference paper</span>
+                <span class="award">🏆 Honourable Mention</span>
+              </div>
+              <h3><a class="paper-link" href="https://doi.org/10.1145/3772318.3790537" target="_blank" rel="noopener">Peeking Ahead of the Field Study: Exploring VLM Personas as Support Tools for Embodied Studies in HCI</a></h3>
               <p class="pub-authors">
                 Xinyue Gui, Ding Xia, Mark Colley, Yuan Li, <span class="me">Vishal Chauhan</span>,
                 Anubhav, Zhongyi Zhou, Ehsan Javanmardi, Stela Hanbyeol Seo,
@@ -265,28 +530,31 @@
               </p>
               <p class="pub-venue">ACM CHI 2026 · Barcelona, Spain</p>
               <p class="pub-blurb">
-                Parallel field study (N=20 humans vs. N=20 VLM personas) on
-                street-crossing decisions with autonomous vehicles. Maps where
-                VLM personas can substitute for human participants — and where they
-                cannot.
+                <span class="contribution-label">Contribution</span>
+                Compares real pedestrians with VLM personas during autonomous-vehicle encounters, showing where simulated personas can support early embodied-study design—and where human participants remain essential.
               </p>
-              <p class="pub-links">
-                <a href="https://arxiv.org/abs/2602.16157">arXiv</a>
-                <span class="sep">·</span>
-                <a href="https://doi.org/10.1145/3772318.3790537">DOI</a>
-              </p>
+              <div class="pub-actions">
+                <a class="action-link primary" href="https://doi.org/10.1145/3772318.3790537" target="_blank" rel="noopener">Paper ↗</a>
+                <a class="action-link" href="https://arxiv.org/abs/2602.16157" target="_blank" rel="noopener">arXiv ↗</a>
+                <button class="cite-copy" type="button">Copy citation</button>
+              </div>
             </div>
           </article>
         </div>
         <!-- ========== 2025 ========== -->
-        <div class="year-group">
-          <h2>2025</h2>
+        <div class="year-group" id="year-2025">
+          <h2>2025 <span>2 publications</span></h2>
           <article class="pub" id="vrst-2025">
-            <figure class="pub-thumb">
+            <a class="pub-thumb" href="https://doi.org/10.1145/3756884.3765991" target="_blank" rel="noopener" aria-label="Open cross-cultural SPIU VRST paper">
               <img src="assets/images/thumb-vrst.png" alt="VR scene of SPIU deployed at a crosswalk for cross-cultural evaluation" />
-            </figure>
+              <span class="pub-thumb-label">View paper ↗</span>
+            </a>
             <div class="pub-body">
-              <h3>A Silent Negotiator? Cross-cultural VR Evaluation of Smart Pole Interaction Units in Dynamic Shared Spaces</h3>
+              <div class="pub-kicker">
+                <span class="venue-tag">VRST 2025</span>
+                <span class="type-tag">Conference paper</span>
+              </div>
+              <h3><a class="paper-link" href="https://doi.org/10.1145/3756884.3765991" target="_blank" rel="noopener">A Silent Negotiator? Cross-cultural VR Evaluation of Smart Pole Interaction Units in Dynamic Shared Spaces</a></h3>
               <p class="pub-authors">
                 <span class="me">Vishal Chauhan</span>, Anubhav, Robin Sidhu,
                 Yu Asabe, Kanta Tanaka, Chia-Ming Chang, Xiang Su, Ehsan Javanmardi,
@@ -294,25 +562,27 @@
               </p>
               <p class="pub-venue">ACM Symposium on Virtual Reality Software and Technology (VRST 2025) · Montréal, Canada</p>
               <p class="pub-blurb">
-                Parallel VR study (N=40 across Japan and Norway, 32 trials each)
-                across four high-risk scenarios: four-way intersections, mixed
-                traffic with delivery robots, blindspots, and nighttime crossings.
-                SPIU reduces pedestrian decision time 40–80% depending on scenario
-                and cultural context. Open-source Smartpole-VR-AWSIM framework released.
+                <span class="contribution-label">Contribution</span>
+                A cross-cultural VR study (N=40) across Japan and Norway examining four high-risk shared-space scenarios. SPIU shortened decisions while revealing scenario- and culture-dependent effects.
               </p>
-              <p class="pub-links">
-                <a href="https://doi.org/10.1145/3756884.3765991">DOI</a>
-                <span class="sep">·</span>
-                <a href="https://github.com/tlab-wide/Smartpole-VR-AWSIM">Code</a>
-              </p>
+              <div class="pub-actions">
+                <a class="action-link primary" href="https://doi.org/10.1145/3756884.3765991" target="_blank" rel="noopener">Paper ↗</a>
+                <a class="action-link" href="https://github.com/tlab-wide/Smartpole-VR-AWSIM" target="_blank" rel="noopener">Code ↗</a>
+                <button class="cite-copy" type="button">Copy citation</button>
+              </div>
             </div>
           </article>
           <article class="pub" id="ijhcs-2025">
-            <figure class="pub-thumb">
+            <a class="pub-thumb" href="https://doi.org/10.1016/j.ijhcs.2025.103628" target="_blank" rel="noopener" aria-label="Open human perception and LLM insights journal paper">
               <img src="assets/images/thumb-ijhcs-v2.png" alt="Comparison of human and LLM responses on SPIU design questions" />
-            </figure>
+              <span class="pub-thumb-label">View paper ↗</span>
+            </a>
             <div class="pub-body">
-              <h3>Towards the Future of Pedestrian–AV Interaction: Human Perception vs. LLM Insights on Smart Pole Interaction Unit in Shared Spaces</h3>
+              <div class="pub-kicker">
+                <span class="venue-tag">IJHCS 2025</span>
+                <span class="type-tag">Journal article</span>
+              </div>
+              <h3><a class="paper-link" href="https://doi.org/10.1016/j.ijhcs.2025.103628" target="_blank" rel="noopener">Towards the Future of Pedestrian–AV Interaction: Human Perception vs. LLM Insights on Smart Pole Interaction Unit in Shared Spaces</a></h3>
               <p class="pub-authors">
                 <span class="me">Vishal Chauhan</span>, Anubhav, Chia-Ming Chang,
                 Xiang Su, Jin Nakazato, Ehsan Javanmardi, Alex Orsholits,
@@ -320,28 +590,30 @@
               </p>
               <p class="pub-venue">International Journal of Human–Computer Studies, vol. 205, p. 103628, 2025</p>
               <p class="pub-blurb">
-                Group design study (N=25, ages 18–40) compared against three
-                multimodal LLMs (ChatGPT-4, Gemini-Pro, Claude 3.5 Sonnet) as
-                "experts". 90% of participants preferred SPIU-mediated multi-AV
-                interaction over conventional eHMI. LLMs used safety-related
-                keywords 30% more than humans, suggesting a more structured but
-                less nuanced perspective.
+                <span class="contribution-label">Contribution</span>
+                A design study with 25 people and three multimodal LLMs comparing human and AI perspectives on roadside AV communication. Participants strongly favored SPIU for coordinating multi-vehicle encounters.
               </p>
-              <p class="pub-links">
-                <a href="https://doi.org/10.1016/j.ijhcs.2025.103628">DOI</a>
-              </p>
+              <div class="pub-actions">
+                <a class="action-link primary" href="https://doi.org/10.1016/j.ijhcs.2025.103628" target="_blank" rel="noopener">Paper ↗</a>
+                <button class="cite-copy" type="button">Copy citation</button>
+              </div>
             </div>
           </article>
         </div>
         <!-- ========== 2024 ========== -->
-        <div class="year-group">
-          <h2>2024</h2>
+        <div class="year-group" id="year-2024">
+          <h2>2024 <span>2 publications</span></h2>
           <article class="pub" id="icea-2024">
-            <figure class="pub-thumb">
+            <a class="pub-thumb" href="https://doi.org/10.1145/3732437.3732752" target="_blank" rel="noopener" aria-label="Open Connected Shared Spaces paper">
               <img src="assets/images/thumb-icea.png" alt="Conceptual diagram of four overlapping domains — pedestrians, AVs, SPIU, and eHMI — connected by eye contact, directional intent, smart signals, and trust and learning" onerror="this.closest('.pub-thumb').style.display='none'" />
-            </figure>
+              <span class="pub-thumb-label">View paper ↗</span>
+            </a>
             <div class="pub-body">
-              <h3>Connected Shared Spaces: Expert Insights into the Impact of eHMI and SPIU for Next-Generation Pedestrian-AV Communication</h3>
+              <div class="pub-kicker">
+                <span class="venue-tag">ICEA 2024</span>
+                <span class="type-tag">Conference paper</span>
+              </div>
+              <h3><a class="paper-link" href="https://doi.org/10.1145/3732437.3732752" target="_blank" rel="noopener">Connected Shared Spaces: Expert Insights into the Impact of eHMI and SPIU for Next-Generation Pedestrian–AV Communication</a></h3>
               <p class="pub-authors">
                 <span class="me">Vishal Chauhan</span>, Anubhav, Chia-Ming Chang,
                 Jin Nakazato, Ehsan Javanmardi, Alex Orsholits, Takeo Igarashi,
@@ -349,22 +621,26 @@
               </p>
               <p class="pub-venue">International Conference on Intelligent Computing and Emerging Applications (ICEA 2024) · Tokyo, Japan</p>
               <p class="pub-blurb">
-                Expert survey (N=12 automotive UI designers) on eHMI, SPIU, and
-                their combination across five parameters: safety, seamlessness,
-                adaptability, accessibility, and trust. SPIU rated highest on four;
-                combined eHMI+SPIU rated above either alone.
+                <span class="contribution-label">Contribution</span>
+                Twelve automotive-interface experts evaluated eHMI, SPIU, and their combination across safety, seamlessness, adaptability, accessibility, and trust—clarifying when infrastructure and vehicle interfaces should work together.
               </p>
-              <p class="pub-links">
-                <a href="https://doi.org/10.1145/3732437.3732752">DOI</a>
-              </p>
+              <div class="pub-actions">
+                <a class="action-link primary" href="https://doi.org/10.1145/3732437.3732752" target="_blank" rel="noopener">Paper ↗</a>
+                <button class="cite-copy" type="button">Copy citation</button>
+              </div>
             </div>
           </article>
           <article class="pub" id="autoui-2024">
-            <figure class="pub-thumb">
+            <a class="pub-thumb" href="https://doi.org/10.1145/3641308.3685037" target="_blank" rel="noopener" aria-label="Open AutomotiveUI think-tank paper">
               <img src="assets/images/thumb-autoui.png" alt="Three-panel co-design figure: a participant group discussion, hand-drawn participant sketches of vehicles at crossings, and proposed SPIU pole designs annotated with risk level, camera, LED display, and accessibility controls" onerror="this.closest('.pub-thumb').style.display='none'" />
-            </figure>
+              <span class="pub-thumb-label">View paper ↗</span>
+            </a>
             <div class="pub-body">
-              <h3>Transforming Pedestrian and Autonomous Vehicles Interactions in Shared Spaces: A Think-Tank Study on Exploring Human-Centric Designs</h3>
+              <div class="pub-kicker">
+                <span class="venue-tag">AutomotiveUI 2024</span>
+                <span class="type-tag">Work in progress</span>
+              </div>
+              <h3><a class="paper-link" href="https://doi.org/10.1145/3641308.3685037" target="_blank" rel="noopener">Transforming Pedestrian and Autonomous Vehicles Interactions in Shared Spaces: A Think-Tank Study on Exploring Human-Centric Designs</a></h3>
               <p class="pub-authors">
                 <span class="me">Vishal Chauhan</span>, Anubhav, Chia-Ming Chang,
                 Jin Nakazato, Ehsan Javanmardi, Alex Orsholits, Takeo Igarashi,
@@ -372,26 +648,30 @@
               </p>
               <p class="pub-venue">ACM AutomotiveUI 2024 (Adjunct, Work in Progress) · Stanford, USA</p>
               <p class="pub-blurb">
-                Think-tank study with 25 participants brainstorming design solutions
-                for pedestrian–AV interaction emphasising effectiveness, simplicity,
-                visibility, and clarity. Establishes design principles for the
-                integrated SPIU + vehicle eHMI prototypes.
+                <span class="contribution-label">Contribution</span>
+                A 25-person think-tank study establishing human-centered design principles for integrated SPIU and vehicle eHMI concepts: effectiveness, simplicity, visibility, and clarity.
               </p>
-              <p class="pub-links">
-                <a href="https://doi.org/10.1145/3641308.3685037">DOI</a>
-              </p>
+              <div class="pub-actions">
+                <a class="action-link primary" href="https://doi.org/10.1145/3641308.3685037" target="_blank" rel="noopener">Paper ↗</a>
+                <button class="cite-copy" type="button">Copy citation</button>
+              </div>
             </div>
           </article>
         </div>
         <!-- ========== 2023 ========== -->
-        <div class="year-group">
-          <h2>2023</h2>
+        <div class="year-group" id="year-2023">
+          <h2>2023 <span>2 publications</span></h2>
           <article class="pub" id="electronics-2023">
-            <figure class="pub-thumb">
+            <a class="pub-thumb" href="https://doi.org/10.3390/electronics12204207" target="_blank" rel="noopener" aria-label="Open fuzzy-logic SPIU journal paper">
               <img src="assets/images/thumb-electronics.png" alt="A participant in a VR headset running a simulated street-crossing trial, surrounded by the study's measures — decision time, confidence, cognitive load, and a stop-or-pass choice" onerror="this.closest('.pub-thumb').style.display='none'" />
-            </figure>
+              <span class="pub-thumb-label">View paper ↗</span>
+            </a>
             <div class="pub-body">
-              <h3>Fostering Fuzzy Logic in Enhancing Pedestrian Safety: Harnessing Smart Pole Interaction Unit for Autonomous Vehicle-to-Pedestrian Communication and Decision Optimization</h3>
+              <div class="pub-kicker">
+                <span class="venue-tag">Electronics 2023</span>
+                <span class="type-tag">Journal article</span>
+              </div>
+              <h3><a class="paper-link" href="https://doi.org/10.3390/electronics12204207" target="_blank" rel="noopener">Fostering Fuzzy Logic in Enhancing Pedestrian Safety: Harnessing Smart Pole Interaction Unit for Autonomous Vehicle-to-Pedestrian Communication and Decision Optimization</a></h3>
               <p class="pub-authors">
                 <span class="me">Vishal Chauhan</span>, Chia-Ming Chang,
                 Ehsan Javanmardi, Jin Nakazato, Pengfei Lin, Takeo Igarashi,
@@ -399,22 +679,26 @@
               </p>
               <p class="pub-venue">Electronics, vol. 12, no. 20, p. 4207, 2023</p>
               <p class="pub-blurb">
-                Formal concept validation through immersive VR experiments. SPIU
-                combined with vehicle eHMI yields a 21% improvement in pedestrian
-                response time. Significant in both one-way and two-way crossing
-                scenarios (p = 0.001).
+                <span class="contribution-label">Contribution</span>
+                Immersive-VR validation of SPIU and vehicle eHMI, showing faster pedestrian responses across one-way and two-way crossing scenarios.
               </p>
-              <p class="pub-links">
-                <a href="https://doi.org/10.3390/electronics12204207">DOI</a>
-              </p>
+              <div class="pub-actions">
+                <a class="action-link primary" href="https://doi.org/10.3390/electronics12204207" target="_blank" rel="noopener">Paper ↗</a>
+                <button class="cite-copy" type="button">Copy citation</button>
+              </div>
             </div>
           </article>
           <article class="pub" id="wfiot-2023">
-            <figure class="pub-thumb">
+            <a class="pub-thumb" href="https://doi.org/10.1109/WF-IoT58464.2023.10539511" target="_blank" rel="noopener" aria-label="Open foundational SPIU paper">
               <img src="assets/images/thumb-wfiot.png" alt="Figure from the foundational Smart Pole Interaction Unit concept" onerror="this.closest('.pub-thumb').style.display='none'" />
-            </figure>
+              <span class="pub-thumb-label">View paper ↗</span>
+            </a>
             <div class="pub-body">
-              <h3>Keep Calm and Cross: Smart Pole Interaction Unit for Easing Pedestrian Cognitive Load</h3>
+              <div class="pub-kicker">
+                <span class="venue-tag">IEEE WF-IoT 2023</span>
+                <span class="type-tag">Conference paper</span>
+              </div>
+              <h3><a class="paper-link" href="https://doi.org/10.1109/WF-IoT58464.2023.10539511" target="_blank" rel="noopener">Keep Calm and Cross: Smart Pole Interaction Unit for Easing Pedestrian Cognitive Load</a></h3>
               <p class="pub-authors">
                 <span class="me">Vishal Chauhan</span>, Chia-Ming Chang,
                 Ehsan Javanmardi, Jin Nakazato, Koki Toda, Pengfei Lin,
@@ -422,14 +706,13 @@
               </p>
               <p class="pub-venue">IEEE 9th World Forum on Internet of Things (WF-IoT 2023) · Aveiro, Portugal</p>
               <p class="pub-blurb">
-                The foundational SPIU paper. Introduces the idea of an
-                infrastructure-side mediator to reduce pedestrian cognitive load
-                in shared spaces. VR-based proof of concept showing faster and
-                safer decision-making in both single-AV and multi-AV scenarios.
+                <span class="contribution-label">Contribution</span>
+                The foundational SPIU paper: an infrastructure-side mediator designed to reduce pedestrian cognitive load during single- and multi-vehicle encounters.
               </p>
-              <p class="pub-links">
-                <a href="https://doi.org/10.1109/WF-IoT58464.2023.10539511">DOI</a>
-              </p>
+              <div class="pub-actions">
+                <a class="action-link primary" href="https://doi.org/10.1109/WF-IoT58464.2023.10539511" target="_blank" rel="noopener">Paper ↗</a>
+                <button class="cite-copy" type="button">Copy citation</button>
+              </div>
             </div>
           </article>
         </div>
@@ -447,11 +730,56 @@
   <script>
     (function () {
       var btn = document.getElementById('themeToggle');
-      if (!btn) return;
-      btn.addEventListener('click', function () {
-        var current = document.documentElement.getAttribute('data-theme') || 'light';
-        var next = current === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', next);
+      if (btn) {
+        btn.addEventListener('click', function () {
+          var current = document.documentElement.getAttribute('data-theme') || 'light';
+          var next = current === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          try { localStorage.setItem('theme', next); } catch (e) {}
+        });
+      }
+
+      function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          return navigator.clipboard.writeText(text);
+        }
+        return new Promise(function (resolve, reject) {
+          var area = document.createElement('textarea');
+          area.value = text;
+          area.setAttribute('readonly', '');
+          area.style.position = 'fixed';
+          area.style.opacity = '0';
+          document.body.appendChild(area);
+          area.select();
+          try {
+            document.execCommand('copy') ? resolve() : reject();
+          } catch (error) {
+            reject(error);
+          }
+          document.body.removeChild(area);
+        });
+      }
+
+      document.querySelectorAll('.cite-copy').forEach(function (copyButton) {
+        var publication = copyButton.closest('.pub');
+        var title = publication.querySelector('h3').textContent.trim();
+        copyButton.setAttribute('aria-label', 'Copy citation for ' + title);
+        copyButton.addEventListener('click', function () {
+          var authors = publication.querySelector('.pub-authors').textContent.replace(/\s+/g, ' ').trim();
+          var venue = publication.querySelector('.pub-venue').textContent.replace(/\s+/g, ' ').trim();
+          var paperUrl = publication.querySelector('.paper-link').href;
+          var citation = authors + '. “' + title + '.” ' + venue + '. ' + paperUrl;
+
+          copyText(citation).then(function () {
+            var original = copyButton.textContent;
+            copyButton.textContent = 'Copied ✓';
+            copyButton.classList.add('is-copied');
+            window.setTimeout(function () {
+              copyButton.textContent = original;
+              copyButton.classList.remove('is-copied');
+            }, 1800);
+          });
+        });
       });
     })();
   </script>
