@@ -319,7 +319,7 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
     [data-theme="dark"] .keyword-row li { background: rgba(110,143,128,.14);
       border-color: rgba(110,143,128,.35); }
 
-    /* Hero background — an India-to-Japan research bridge, drawn entirely in SVG. */
+    /* Hero background — one woven signal texture, inspired by jaali and sashiko geometry. */
     #top.hero{
       position:relative;
       overflow:hidden;
@@ -353,182 +353,54 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
       height:100%;
       overflow:visible;
     }
-    #top .hero-map-line{
-      fill:none;
-      stroke:color-mix(in srgb,var(--accent) 14%,transparent);
-      stroke-width:1;
-      vector-effect:non-scaling-stroke;
-    }
-    #top .hero-map-line.hero-map-soft{
-      stroke:color-mix(in srgb,var(--ink-faint) 10%,transparent);
-      stroke-dasharray:2 11;
-    }
-    #top .hero-route-base,
-    #top .hero-route-specks,
-    #top .hero-route-flow{
-      fill:none;
-      vector-effect:non-scaling-stroke;
-    }
-    #top .hero-route-base{
-      stroke:color-mix(in srgb,var(--accent) 24%,transparent);
-      stroke-width:1.15;
-    }
-    #top .hero-route-specks{
-      stroke:color-mix(in srgb,var(--accent) 44%,transparent);
-      stroke-width:2;
-      stroke-linecap:round;
-      stroke-dasharray:1 19;
-      animation:hero-specks-move 22s linear infinite;
-    }
-    #top .hero-route-flow{
-      stroke:url(#heroSignalGradient);
-      stroke-width:2.2;
-      stroke-linecap:round;
-      stroke-dasharray:92 2000;
-      animation:hero-signal-travel 12s cubic-bezier(.45,.02,.55,.98) infinite;
-      filter:url(#heroSignalGlow);
-    }
-    #top .hero-node{
-      color:var(--accent);
-      opacity:.5;
-      transition:opacity .25s ease,filter .25s ease;
-    }
-    #top .hero-node-1{color:#c17a42}
-    #top .hero-node-4{color:#58758f}
-    #top .hero-node-ring,
-    #top .hero-node-wave,
-    #top .hero-node-core{
+    #top .hero-woven-layer{
       transform-box:fill-box;
       transform-origin:center;
+      animation:hero-weave-drift 20s ease-in-out infinite alternate;
     }
-    #top .hero-node-ring{
-      fill:var(--paper);
-      stroke:currentColor;
-      stroke-width:1.15;
-      vector-effect:non-scaling-stroke;
+    #top .hero-woven-texture{
+      fill:url(#heroWovenPattern);
+      opacity:.34;
     }
-    #top .hero-node-core{fill:currentColor}
-    #top .hero-node-wave{
+    #top .hero-woven-texture-focus{
+      opacity:.12;
+      transition:opacity .35s ease;
+    }
+    #top .hero-signal-field.is-interacting .hero-woven-texture-focus{opacity:.52}
+    #top .hero-weave-line{
       fill:none;
-      stroke:currentColor;
-      stroke-width:1;
-      opacity:0;
+      stroke:color-mix(in srgb,var(--accent) 32%,transparent);
+      stroke-width:.9;
       vector-effect:non-scaling-stroke;
-      animation:hero-node-wave 12s ease-out infinite;
     }
-    #top .hero-node-2 .hero-node-wave{animation-delay:3s}
-    #top .hero-node-3 .hero-node-wave{animation-delay:6s}
-    #top .hero-node-4 .hero-node-wave{animation-delay:9s}
-    #top .hero-node-label{
-      fill:var(--ink-faint);
-      font-family:var(--mono);
-      font-size:10px;
-      letter-spacing:.12em;
-      opacity:.55;
-      transition:fill .25s ease,opacity .25s ease;
+    #top .hero-weave-stitch{
+      fill:none;
+      stroke:color-mix(in srgb,var(--accent) 58%,transparent);
+      stroke-width:1.35;
+      stroke-linecap:round;
+      stroke-dasharray:1 10;
+      vector-effect:non-scaling-stroke;
+      animation:hero-weave-signal 9s linear infinite;
     }
-    #top .hero-signal-field[data-active-node="1"] .hero-node-1,
-    #top .hero-signal-field[data-active-node="2"] .hero-node-2,
-    #top .hero-signal-field[data-active-node="3"] .hero-node-3,
-    #top .hero-signal-field[data-active-node="4"] .hero-node-4{
-      opacity:1;
-      filter:drop-shadow(0 0 8px color-mix(in srgb,var(--accent) 45%,transparent));
-    }
-    #top .hero-signal-field[data-active-node="1"] .hero-node-1 .hero-node-wave,
-    #top .hero-signal-field[data-active-node="2"] .hero-node-2 .hero-node-wave,
-    #top .hero-signal-field[data-active-node="3"] .hero-node-3 .hero-node-wave,
-    #top .hero-signal-field[data-active-node="4"] .hero-node-4 .hero-node-wave{
-      animation-duration:1.5s;
-      animation-delay:0s;
-    }
-    #top .hero-signal-field[data-active-node="1"] .hero-node-1 .hero-node-label,
-    #top .hero-signal-field[data-active-node="2"] .hero-node-2 .hero-node-label,
-    #top .hero-signal-field[data-active-node="3"] .hero-node-3 .hero-node-label,
-    #top .hero-signal-field[data-active-node="4"] .hero-node-4 .hero-node-label{
-      fill:currentColor;
-      opacity:1;
-    }
-    #top .hero-coordinate{
-      fill:var(--ink-faint);
-      font-family:var(--mono);
-      font-size:9px;
-      letter-spacing:.14em;
-      opacity:.28;
-    }
-    #top .hero-atmosphere{
-      fill:color-mix(in srgb,var(--accent) 5%,transparent);
+    #top .hero-weave-knot{
+      fill:color-mix(in srgb,var(--accent) 58%,transparent);
       transform-box:fill-box;
       transform-origin:center;
-      animation:hero-atmosphere-breathe 9s ease-in-out infinite alternate;
-    }
-    #top .hero-atmosphere-india{fill:color-mix(in srgb,#c98245 9%,transparent)}
-    #top .hero-atmosphere-japan{fill:color-mix(in srgb,#58758f 8%,transparent)}
-    #top .hero-cultural-motif{
-      fill:none;
-      stroke:currentColor;
-      stroke-width:1;
-      vector-effect:non-scaling-stroke;
-      opacity:.22;
-    }
-    #top .hero-cultural-motif-india{color:#c17a42}
-    #top .hero-cultural-motif-japan{color:#58758f}
-    #top .hero-cultural-motif .hero-motif-orbit{
-      stroke-dasharray:1 9;
-      stroke-linecap:round;
-      animation:hero-cultural-orbit 30s linear infinite;
-    }
-    #top .hero-cultural-motif .hero-motif-draw{
-      stroke-dasharray:180 34;
-      animation:hero-cultural-draw 16s ease-in-out infinite alternate;
-    }
-    #top .hero-cultural-motif-japan .hero-motif-orbit{animation-direction:reverse}
-    #top .hero-cultural-caption{
-      fill:currentColor;
-      font-family:var(--mono);
-      font-size:8px;
-      font-weight:600;
-      letter-spacing:.2em;
-      opacity:.48;
-    }
-    #top .hero-bridge-mark{
-      fill:none;
-      stroke:color-mix(in srgb,var(--accent) 28%,transparent);
-      stroke-width:1;
-      stroke-linecap:round;
-      stroke-dasharray:1 7;
-      vector-effect:non-scaling-stroke;
-      animation:hero-bridge-breathe 5s ease-in-out infinite alternate;
+      animation:hero-weave-knot 4.5s ease-in-out infinite alternate;
     }
     #top .hero-signal-field.is-paused *{animation-play-state:paused!important}
     [data-theme="dark"] #top .hero-signal-field{opacity:.54}
     [data-theme="dark"] #top .hero-signal-field.is-interacting{opacity:.68}
-    @keyframes hero-signal-travel{
-      from{stroke-dashoffset:92}
-      to{stroke-dashoffset:-2000}
+    @keyframes hero-weave-drift{
+      from{transform:translate3d(-10px,-7px,0)}
+      to{transform:translate3d(10px,7px,0)}
     }
-    @keyframes hero-specks-move{
-      from{stroke-dashoffset:0}
-      to{stroke-dashoffset:-380}
+    @keyframes hero-weave-signal{
+      to{stroke-dashoffset:-88}
     }
-    @keyframes hero-node-wave{
-      0%,70%,100%{opacity:0;transform:scale(.55)}
-      76%{opacity:.58}
-      86%{opacity:0;transform:scale(1.8)}
-    }
-    @keyframes hero-atmosphere-breathe{
-      from{opacity:.3;transform:scale(.92)}
-      to{opacity:.8;transform:scale(1.08)}
-    }
-    @keyframes hero-cultural-orbit{
-      to{stroke-dashoffset:-100}
-    }
-    @keyframes hero-cultural-draw{
-      from{stroke-dashoffset:0;opacity:.46}
-      to{stroke-dashoffset:-76;opacity:.9}
-    }
-    @keyframes hero-bridge-breathe{
-      from{opacity:.2}
-      to{opacity:.7}
+    @keyframes hero-weave-knot{
+      from{opacity:.18;transform:scale(.7)}
+      to{opacity:.72;transform:scale(1.35)}
     }
     @media (max-width:760px){
       #top .hero-signal-field{display:none}
@@ -539,13 +411,9 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
         transition:none;
         opacity:.44;
       }
-      #top .hero-route-flow,
-      #top .hero-route-specks,
-      #top .hero-node-wave,
-      #top .hero-atmosphere,
-      #top .hero-motif-orbit,
-      #top .hero-motif-draw,
-      #top .hero-bridge-mark{animation:none!important}
+      #top .hero-woven-layer,
+      #top .hero-weave-stitch,
+      #top .hero-weave-knot{animation:none!important}
     }
     
   </style>
@@ -617,17 +485,21 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
       <div class="hero-signal-field" data-hero-signal aria-hidden="true">
         <svg viewBox="0 0 1600 620" preserveAspectRatio="xMidYMid slice">
           <defs>
-            <linearGradient id="heroSignalGradient" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#c98245" stop-opacity="0"/>
-              <stop offset=".18" stop-color="#c98245" stop-opacity=".92"/>
-              <stop offset=".5" style="stop-color:var(--accent);stop-opacity:.9"/>
-              <stop offset=".82" stop-color="#58758f" stop-opacity=".92"/>
-              <stop offset="1" stop-color="#58758f" stop-opacity="0"/>
-            </linearGradient>
-            <filter id="heroSignalGlow" x="-30%" y="-30%" width="160%" height="160%">
-              <feGaussianBlur stdDeviation="2.2" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
+            <pattern id="heroWovenPattern" width="96" height="96" patternUnits="userSpaceOnUse">
+              <path class="hero-weave-line"
+                    d="M48 0 60 36 96 48 60 60 48 96 36 60 0 48 36 36ZM0 0 36 36M96 0 60 36M96 96 60 60M0 96 36 60"/>
+              <path class="hero-weave-stitch" d="M0 48H96M48 0V96M0 0 96 96M96 0 0 96"/>
+              <circle class="hero-weave-knot" cx="48" cy="48" r="1.8"/>
+            </pattern>
+            <radialGradient id="heroWeaveFocusGradient">
+              <stop offset="0" stop-color="white" stop-opacity="1"/>
+              <stop offset=".55" stop-color="white" stop-opacity=".72"/>
+              <stop offset="1" stop-color="black" stop-opacity="0"/>
+            </radialGradient>
+            <mask id="heroWeaveFocusMask" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="620">
+              <rect width="1600" height="620" fill="black"/>
+              <circle id="heroWeaveFocus" cx="800" cy="310" r="235" fill="url(#heroWeaveFocusGradient)"/>
+            </mask>
             <filter id="heroContentBlur" x="-20%" y="-30%" width="140%" height="160%">
               <feGaussianBlur stdDeviation="38"/>
             </filter>
@@ -636,81 +508,14 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
               <rect x="330" y="82" width="1040" height="448" rx="76" fill="black"
                     filter="url(#heroContentBlur)"/>
             </mask>
-            <path id="heroSignalRoute"
-                  d="M98 455C135 330 170 180 265 110C492 18 1050 18 1320 74C1454 102 1484 188 1518 262"/>
           </defs>
 
           <g mask="url(#heroContentSafeMask)">
-            <circle class="hero-atmosphere hero-atmosphere-india" cx="180" cy="420" r="175"/>
-            <circle class="hero-atmosphere hero-atmosphere-japan" cx="1460" cy="260" r="160" style="animation-delay:-4s"/>
-
-            <!-- India: an abstract eight-point jaali rosette. -->
-            <g class="hero-cultural-motif hero-cultural-motif-india" transform="translate(98 455)">
-              <circle class="hero-motif-orbit" r="72"/>
-              <g class="hero-motif-draw">
-                <rect x="-38" y="-38" width="76" height="76" rx="4"/>
-                <rect x="-38" y="-38" width="76" height="76" rx="4" transform="rotate(45)"/>
-                <circle r="29"/>
-                <path d="M0-54V54M-54 0H54M-38-38 38 38M38-38-38 38"/>
-              </g>
-              <text class="hero-cultural-caption" x="0" y="94" text-anchor="middle">INDIA · ORIGIN</text>
+            <g class="hero-woven-layer">
+              <rect class="hero-woven-texture" x="-120" y="-120" width="1840" height="860"/>
+              <rect class="hero-woven-texture hero-woven-texture-focus" x="-120" y="-120" width="1840" height="860"
+                    mask="url(#heroWeaveFocusMask)"/>
             </g>
-
-            <!-- Japan: an abstract asanoha-inspired hemp-leaf geometry. -->
-            <g class="hero-cultural-motif hero-cultural-motif-japan" transform="translate(1518 262)">
-              <circle class="hero-motif-orbit" r="72"/>
-              <g class="hero-motif-draw">
-                <path d="M0-58 50-29 50 29 0 58-50 29-50-29Z"/>
-                <path d="M0 0 0-58M0 0 50-29M0 0 50 29M0 0 0 58M0 0-50 29M0 0-50-29"/>
-                <path d="M0-58 0 0 25-43M50-29 0 0 50 0M50 29 0 0 25 43M0 58 0 0-25 43M-50 29 0 0-50 0M-50-29 0 0-25-43"/>
-                <circle r="10"/>
-              </g>
-              <text class="hero-cultural-caption" x="0" y="94" text-anchor="middle">TOKYO · JAPAN</text>
-            </g>
-
-            <g aria-hidden="true">
-              <path class="hero-map-line" d="M-90 92C175 20 370 135 634 80S1095 30 1335 104s298 46 390-8"/>
-              <path class="hero-map-line hero-map-soft" d="M-80 180C220 108 354 242 618 190s431-86 670-8 301 72 430 11"/>
-              <path class="hero-map-line" d="M-60 546c237-92 431 11 626-62s335-22 510 32 378 18 608-56"/>
-              <path class="hero-map-line hero-map-soft" d="M10 600c222-111 403-36 578-106s386-71 560-9 337 51 496-22"/>
-              <path class="hero-map-line hero-map-soft" d="M255-60c-25 155 44 244 6 389s-39 218 38 366"/>
-              <path class="hero-map-line" d="M690-70c24 139-58 244-9 372s51 209-14 385"/>
-              <path class="hero-map-line hero-map-soft" d="M1168-30c-64 153 11 246-20 373s2 210 66 333"/>
-              <path class="hero-map-line" d="M1480-20c-14 127 47 217 12 347s-29 221 38 346"/>
-            </g>
-
-            <use href="#heroSignalRoute" class="hero-route-base"/>
-            <use href="#heroSignalRoute" class="hero-route-specks"/>
-            <use href="#heroSignalRoute" class="hero-route-flow" stroke="url(#heroSignalGradient)"/>
-            <path class="hero-bridge-mark" d="M660 49h32m12 0h18m12 0h32"/>
-
-            <g class="hero-node hero-node-1" transform="translate(98 455)">
-              <circle class="hero-node-wave" r="14"/>
-              <circle class="hero-node-ring" r="8"/>
-              <circle class="hero-node-core" r="2.4"/>
-              <text class="hero-node-label" x="15" y="4">INDIA</text>
-            </g>
-            <g class="hero-node hero-node-2" transform="translate(265 110)">
-              <circle class="hero-node-wave" r="14"/>
-              <circle class="hero-node-ring" r="8"/>
-              <circle class="hero-node-core" r="2.4"/>
-              <text class="hero-node-label" x="15" y="4">HUMAN + MOBILITY</text>
-            </g>
-            <g class="hero-node hero-node-3" transform="translate(1320 74)">
-              <circle class="hero-node-wave" r="14"/>
-              <circle class="hero-node-ring" r="8"/>
-              <circle class="hero-node-core" r="2.4"/>
-              <text class="hero-node-label" x="-15" y="-14" text-anchor="end">ROBOTICS + CITIES</text>
-            </g>
-            <g class="hero-node hero-node-4" transform="translate(1518 262)">
-              <circle class="hero-node-wave" r="14"/>
-              <circle class="hero-node-ring" r="8"/>
-              <circle class="hero-node-core" r="2.4"/>
-              <text class="hero-node-label" x="-15" y="-14" text-anchor="end">JAPAN</text>
-            </g>
-
-            <text class="hero-coordinate" x="72" y="60">INDIA → HUMAN INTELLIGENCE → JAPAN</text>
-            <text class="hero-coordinate" x="1240" y="574">PEOPLE · MACHINES · CITIES · ACROSS CULTURES</text>
           </g>
         </svg>
       </div>
@@ -747,17 +552,19 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
 
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
         const compactScreen = window.matchMedia('(max-width: 760px)');
+        const focus = field.querySelector('#heroWeaveFocus');
         let frame = 0;
         let targetX = 0;
         let targetY = 0;
-        let activeNode = '';
+        let focusX = 800;
+        let focusY = 310;
 
         const paint = () => {
           frame = 0;
           field.style.setProperty('--hero-x', `${targetX}px`);
           field.style.setProperty('--hero-y', `${targetY}px`);
-          if (activeNode) field.dataset.activeNode = activeNode;
-          else field.removeAttribute('data-active-node');
+          focus?.setAttribute('cx', focusX.toFixed(1));
+          focus?.setAttribute('cy', focusY.toFixed(1));
         };
 
         const requestPaint = () => {
@@ -772,7 +579,8 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
 
           targetX = (x - .5) * -16;
           targetY = (y - .5) * -10;
-          activeNode = String(Math.min(4, Math.floor(x * 4) + 1));
+          focusX = x * 1600;
+          focusY = y * 620;
           field.classList.add('is-interacting');
           requestPaint();
         });
@@ -780,7 +588,8 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
         hero.addEventListener('pointerleave', () => {
           targetX = 0;
           targetY = 0;
-          activeNode = '';
+          focusX = 800;
+          focusY = 310;
           field.classList.remove('is-interacting');
           requestPaint();
         });
@@ -799,7 +608,8 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
         reducedMotion.addEventListener?.('change', () => {
           targetX = 0;
           targetY = 0;
-          activeNode = '';
+          focusX = 800;
+          focusY = 310;
           field.classList.remove('is-interacting');
           requestPaint();
         });
