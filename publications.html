@@ -35,6 +35,28 @@
       --pub-gold: #9a7100;
     }
 
+    .scholar-link {
+      background: #edf3ef;
+      background: color-mix(in srgb, var(--pub-accent) 11%, transparent);
+      border-radius: 5px;
+      color: var(--pub-accent);
+      display: inline-block;
+      font-weight: 600;
+      padding: .05em .34em .12em;
+      text-decoration: none;
+      transition: background .18s ease, color .18s ease;
+    }
+    .scholar-link::after {
+      content: " ↗";
+      font-size: .72em;
+    }
+    .scholar-link:hover,
+    .scholar-link:focus-visible {
+      background: #dfeae3;
+      background: color-mix(in srgb, var(--pub-accent) 19%, transparent);
+      color: var(--pub-accent);
+    }
+
     .pub-intro {
       display: grid;
       grid-template-columns: minmax(0, 1.35fr) minmax(260px, .65fr);
@@ -432,7 +454,7 @@
         <h1 style="font-size: clamp(2rem, 4vw, 2.8rem);">Publications.</h1>
         <p style="max-width:55ch; color:var(--ink-soft); font-size:1.05rem;">
           Full citation metrics on
-          <a href="https://scholar.google.com/citations?user=SHkxvc4AAAAJ" target="_blank" rel="noopener">Google Scholar</a>.
+          <a class="scholar-link" href="https://scholar.google.com/citations?user=SHkxvc4AAAAJ" target="_blank" rel="noopener">Google Scholar</a>.
         </p>
 
         <!-- ========== 2026 ========== -->
