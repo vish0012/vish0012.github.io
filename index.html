@@ -319,7 +319,7 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
     [data-theme="dark"] .keyword-row li { background: rgba(110,143,128,.14);
       border-color: rgba(110,143,128,.35); }
 
-    /* Hero background — a living Tokyo signal field, drawn entirely in SVG. */
+    /* Hero background — an India-to-Japan research bridge, drawn entirely in SVG. */
     #top.hero{
       position:relative;
       overflow:hidden;
@@ -393,6 +393,8 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
       opacity:.5;
       transition:opacity .25s ease,filter .25s ease;
     }
+    #top .hero-node-1{color:#c17a42}
+    #top .hero-node-4{color:#58758f}
     #top .hero-node-ring,
     #top .hero-node-wave,
     #top .hero-node-core{
@@ -443,7 +445,7 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
     #top .hero-signal-field[data-active-node="2"] .hero-node-2 .hero-node-label,
     #top .hero-signal-field[data-active-node="3"] .hero-node-3 .hero-node-label,
     #top .hero-signal-field[data-active-node="4"] .hero-node-4 .hero-node-label{
-      fill:var(--accent);
+      fill:currentColor;
       opacity:1;
     }
     #top .hero-coordinate{
@@ -458,6 +460,44 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
       transform-box:fill-box;
       transform-origin:center;
       animation:hero-atmosphere-breathe 9s ease-in-out infinite alternate;
+    }
+    #top .hero-atmosphere-india{fill:color-mix(in srgb,#c98245 9%,transparent)}
+    #top .hero-atmosphere-japan{fill:color-mix(in srgb,#58758f 8%,transparent)}
+    #top .hero-cultural-motif{
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1;
+      vector-effect:non-scaling-stroke;
+      opacity:.22;
+    }
+    #top .hero-cultural-motif-india{color:#c17a42}
+    #top .hero-cultural-motif-japan{color:#58758f}
+    #top .hero-cultural-motif .hero-motif-orbit{
+      stroke-dasharray:1 9;
+      stroke-linecap:round;
+      animation:hero-cultural-orbit 30s linear infinite;
+    }
+    #top .hero-cultural-motif .hero-motif-draw{
+      stroke-dasharray:180 34;
+      animation:hero-cultural-draw 16s ease-in-out infinite alternate;
+    }
+    #top .hero-cultural-motif-japan .hero-motif-orbit{animation-direction:reverse}
+    #top .hero-cultural-caption{
+      fill:currentColor;
+      font-family:var(--mono);
+      font-size:8px;
+      font-weight:600;
+      letter-spacing:.2em;
+      opacity:.48;
+    }
+    #top .hero-bridge-mark{
+      fill:none;
+      stroke:color-mix(in srgb,var(--accent) 28%,transparent);
+      stroke-width:1;
+      stroke-linecap:round;
+      stroke-dasharray:1 7;
+      vector-effect:non-scaling-stroke;
+      animation:hero-bridge-breathe 5s ease-in-out infinite alternate;
     }
     #top .hero-signal-field.is-paused *{animation-play-state:paused!important}
     [data-theme="dark"] #top .hero-signal-field{opacity:.54}
@@ -479,6 +519,17 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
       from{opacity:.3;transform:scale(.92)}
       to{opacity:.8;transform:scale(1.08)}
     }
+    @keyframes hero-cultural-orbit{
+      to{stroke-dashoffset:-100}
+    }
+    @keyframes hero-cultural-draw{
+      from{stroke-dashoffset:0;opacity:.46}
+      to{stroke-dashoffset:-76;opacity:.9}
+    }
+    @keyframes hero-bridge-breathe{
+      from{opacity:.2}
+      to{opacity:.7}
+    }
     @media (max-width:760px){
       #top .hero-signal-field{display:none}
     }
@@ -491,7 +542,10 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
       #top .hero-route-flow,
       #top .hero-route-specks,
       #top .hero-node-wave,
-      #top .hero-atmosphere{animation:none!important}
+      #top .hero-atmosphere,
+      #top .hero-motif-orbit,
+      #top .hero-motif-draw,
+      #top .hero-bridge-mark{animation:none!important}
     }
     
   </style>
@@ -564,10 +618,11 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
         <svg viewBox="0 0 1600 620" preserveAspectRatio="xMidYMid slice">
           <defs>
             <linearGradient id="heroSignalGradient" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" style="stop-color:var(--accent);stop-opacity:0"/>
-              <stop offset=".42" style="stop-color:var(--accent);stop-opacity:.9"/>
-              <stop offset=".64" stop-color="#cf7d40" stop-opacity=".92"/>
-              <stop offset="1" style="stop-color:var(--accent);stop-opacity:0"/>
+              <stop offset="0" stop-color="#c98245" stop-opacity="0"/>
+              <stop offset=".18" stop-color="#c98245" stop-opacity=".92"/>
+              <stop offset=".5" style="stop-color:var(--accent);stop-opacity:.9"/>
+              <stop offset=".82" stop-color="#58758f" stop-opacity=".92"/>
+              <stop offset="1" stop-color="#58758f" stop-opacity="0"/>
             </linearGradient>
             <filter id="heroSignalGlow" x="-30%" y="-30%" width="160%" height="160%">
               <feGaussianBlur stdDeviation="2.2" result="blur"/>
@@ -586,8 +641,32 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
           </defs>
 
           <g mask="url(#heroContentSafeMask)">
-            <circle class="hero-atmosphere" cx="250" cy="115" r="170"/>
-            <circle class="hero-atmosphere" cx="1420" cy="525" r="145" style="animation-delay:-4s"/>
+            <circle class="hero-atmosphere hero-atmosphere-india" cx="180" cy="420" r="175"/>
+            <circle class="hero-atmosphere hero-atmosphere-japan" cx="1460" cy="260" r="160" style="animation-delay:-4s"/>
+
+            <!-- India: an abstract eight-point jaali rosette. -->
+            <g class="hero-cultural-motif hero-cultural-motif-india" transform="translate(98 455)">
+              <circle class="hero-motif-orbit" r="72"/>
+              <g class="hero-motif-draw">
+                <rect x="-38" y="-38" width="76" height="76" rx="4"/>
+                <rect x="-38" y="-38" width="76" height="76" rx="4" transform="rotate(45)"/>
+                <circle r="29"/>
+                <path d="M0-54V54M-54 0H54M-38-38 38 38M38-38-38 38"/>
+              </g>
+              <text class="hero-cultural-caption" x="0" y="94" text-anchor="middle">INDIA · ORIGIN</text>
+            </g>
+
+            <!-- Japan: an abstract asanoha-inspired hemp-leaf geometry. -->
+            <g class="hero-cultural-motif hero-cultural-motif-japan" transform="translate(1518 262)">
+              <circle class="hero-motif-orbit" r="72"/>
+              <g class="hero-motif-draw">
+                <path d="M0-58 50-29 50 29 0 58-50 29-50-29Z"/>
+                <path d="M0 0 0-58M0 0 50-29M0 0 50 29M0 0 0 58M0 0-50 29M0 0-50-29"/>
+                <path d="M0-58 0 0 25-43M50-29 0 0 50 0M50 29 0 0 25 43M0 58 0 0-25 43M-50 29 0 0-50 0M-50-29 0 0-25-43"/>
+                <circle r="10"/>
+              </g>
+              <text class="hero-cultural-caption" x="0" y="94" text-anchor="middle">TOKYO · JAPAN</text>
+            </g>
 
             <g aria-hidden="true">
               <path class="hero-map-line" d="M-90 92C175 20 370 135 634 80S1095 30 1335 104s298 46 390-8"/>
@@ -603,34 +682,35 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
             <use href="#heroSignalRoute" class="hero-route-base"/>
             <use href="#heroSignalRoute" class="hero-route-specks"/>
             <use href="#heroSignalRoute" class="hero-route-flow" stroke="url(#heroSignalGradient)"/>
+            <path class="hero-bridge-mark" d="M660 49h32m12 0h18m12 0h32"/>
 
             <g class="hero-node hero-node-1" transform="translate(98 455)">
               <circle class="hero-node-wave" r="14"/>
               <circle class="hero-node-ring" r="8"/>
               <circle class="hero-node-core" r="2.4"/>
-              <text class="hero-node-label" x="15" y="4">HUMAN</text>
+              <text class="hero-node-label" x="15" y="4">INDIA</text>
             </g>
             <g class="hero-node hero-node-2" transform="translate(265 110)">
               <circle class="hero-node-wave" r="14"/>
               <circle class="hero-node-ring" r="8"/>
               <circle class="hero-node-core" r="2.4"/>
-              <text class="hero-node-label" x="15" y="4">MOBILITY</text>
+              <text class="hero-node-label" x="15" y="4">HUMAN + MOBILITY</text>
             </g>
             <g class="hero-node hero-node-3" transform="translate(1320 74)">
               <circle class="hero-node-wave" r="14"/>
               <circle class="hero-node-ring" r="8"/>
               <circle class="hero-node-core" r="2.4"/>
-              <text class="hero-node-label" x="-15" y="-14" text-anchor="end">ROBOT</text>
+              <text class="hero-node-label" x="-15" y="-14" text-anchor="end">ROBOTICS + CITIES</text>
             </g>
             <g class="hero-node hero-node-4" transform="translate(1518 262)">
               <circle class="hero-node-wave" r="14"/>
               <circle class="hero-node-ring" r="8"/>
               <circle class="hero-node-core" r="2.4"/>
-              <text class="hero-node-label" x="-15" y="-14" text-anchor="end">CITY</text>
+              <text class="hero-node-label" x="-15" y="-14" text-anchor="end">JAPAN</text>
             </g>
 
-            <text class="hero-coordinate" x="72" y="60">35.6762° N · 139.6503° E · TOKYO</text>
-            <text class="hero-coordinate" x="1315" y="574">HUMAN → SYSTEM → CITY</text>
+            <text class="hero-coordinate" x="72" y="60">INDIA → HUMAN INTELLIGENCE → JAPAN</text>
+            <text class="hero-coordinate" x="1240" y="574">PEOPLE · MACHINES · CITIES · ACROSS CULTURES</text>
           </g>
         </svg>
       </div>
