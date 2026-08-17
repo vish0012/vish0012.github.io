@@ -573,55 +573,65 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
               <feGaussianBlur stdDeviation="2.2" result="blur"/>
               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
+            <filter id="heroContentBlur" x="-20%" y="-30%" width="140%" height="160%">
+              <feGaussianBlur stdDeviation="38"/>
+            </filter>
+            <mask id="heroContentSafeMask" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="620">
+              <rect width="1600" height="620" fill="white"/>
+              <rect x="330" y="82" width="1040" height="448" rx="76" fill="black"
+                    filter="url(#heroContentBlur)"/>
+            </mask>
             <path id="heroSignalRoute"
-                  d="M110 435C244 351 369 378 500 290S748 194 880 300s226 128 340 0 205-112 290-70"/>
+                  d="M98 455C135 330 170 180 265 110C492 18 1050 18 1320 74C1454 102 1484 188 1518 262"/>
           </defs>
 
-          <circle class="hero-atmosphere" cx="250" cy="115" r="170"/>
-          <circle class="hero-atmosphere" cx="1420" cy="525" r="145" style="animation-delay:-4s"/>
+          <g mask="url(#heroContentSafeMask)">
+            <circle class="hero-atmosphere" cx="250" cy="115" r="170"/>
+            <circle class="hero-atmosphere" cx="1420" cy="525" r="145" style="animation-delay:-4s"/>
 
-          <g aria-hidden="true">
-            <path class="hero-map-line" d="M-90 92C175 20 370 135 634 80S1095 30 1335 104s298 46 390-8"/>
-            <path class="hero-map-line hero-map-soft" d="M-80 180C220 108 354 242 618 190s431-86 670-8 301 72 430 11"/>
-            <path class="hero-map-line" d="M-60 546c237-92 431 11 626-62s335-22 510 32 378 18 608-56"/>
-            <path class="hero-map-line hero-map-soft" d="M10 600c222-111 403-36 578-106s386-71 560-9 337 51 496-22"/>
-            <path class="hero-map-line hero-map-soft" d="M255-60c-25 155 44 244 6 389s-39 218 38 366"/>
-            <path class="hero-map-line" d="M690-70c24 139-58 244-9 372s51 209-14 385"/>
-            <path class="hero-map-line hero-map-soft" d="M1168-30c-64 153 11 246-20 373s2 210 66 333"/>
-            <path class="hero-map-line" d="M1480-20c-14 127 47 217 12 347s-29 221 38 346"/>
-          </g>
+            <g aria-hidden="true">
+              <path class="hero-map-line" d="M-90 92C175 20 370 135 634 80S1095 30 1335 104s298 46 390-8"/>
+              <path class="hero-map-line hero-map-soft" d="M-80 180C220 108 354 242 618 190s431-86 670-8 301 72 430 11"/>
+              <path class="hero-map-line" d="M-60 546c237-92 431 11 626-62s335-22 510 32 378 18 608-56"/>
+              <path class="hero-map-line hero-map-soft" d="M10 600c222-111 403-36 578-106s386-71 560-9 337 51 496-22"/>
+              <path class="hero-map-line hero-map-soft" d="M255-60c-25 155 44 244 6 389s-39 218 38 366"/>
+              <path class="hero-map-line" d="M690-70c24 139-58 244-9 372s51 209-14 385"/>
+              <path class="hero-map-line hero-map-soft" d="M1168-30c-64 153 11 246-20 373s2 210 66 333"/>
+              <path class="hero-map-line" d="M1480-20c-14 127 47 217 12 347s-29 221 38 346"/>
+            </g>
 
-          <use href="#heroSignalRoute" class="hero-route-base"/>
-          <use href="#heroSignalRoute" class="hero-route-specks"/>
-          <use href="#heroSignalRoute" class="hero-route-flow" stroke="url(#heroSignalGradient)"/>
+            <use href="#heroSignalRoute" class="hero-route-base"/>
+            <use href="#heroSignalRoute" class="hero-route-specks"/>
+            <use href="#heroSignalRoute" class="hero-route-flow" stroke="url(#heroSignalGradient)"/>
 
-          <g class="hero-node hero-node-1" transform="translate(120 429)">
-            <circle class="hero-node-wave" r="14"/>
-            <circle class="hero-node-ring" r="8"/>
-            <circle class="hero-node-core" r="2.4"/>
-            <text class="hero-node-label" x="15" y="4">HUMAN</text>
-          </g>
-          <g class="hero-node hero-node-2" transform="translate(500 290)">
-            <circle class="hero-node-wave" r="14"/>
-            <circle class="hero-node-ring" r="8"/>
-            <circle class="hero-node-core" r="2.4"/>
-            <text class="hero-node-label" x="15" y="4">MOBILITY</text>
-          </g>
-          <g class="hero-node hero-node-3" transform="translate(880 300)">
-            <circle class="hero-node-wave" r="14"/>
-            <circle class="hero-node-ring" r="8"/>
-            <circle class="hero-node-core" r="2.4"/>
-            <text class="hero-node-label" x="15" y="4">ROBOT</text>
-          </g>
-          <g class="hero-node hero-node-4" transform="translate(1510 230)">
-            <circle class="hero-node-wave" r="14"/>
-            <circle class="hero-node-ring" r="8"/>
-            <circle class="hero-node-core" r="2.4"/>
-            <text class="hero-node-label" x="-15" y="-14" text-anchor="end">CITY</text>
-          </g>
+            <g class="hero-node hero-node-1" transform="translate(98 455)">
+              <circle class="hero-node-wave" r="14"/>
+              <circle class="hero-node-ring" r="8"/>
+              <circle class="hero-node-core" r="2.4"/>
+              <text class="hero-node-label" x="15" y="4">HUMAN</text>
+            </g>
+            <g class="hero-node hero-node-2" transform="translate(265 110)">
+              <circle class="hero-node-wave" r="14"/>
+              <circle class="hero-node-ring" r="8"/>
+              <circle class="hero-node-core" r="2.4"/>
+              <text class="hero-node-label" x="15" y="4">MOBILITY</text>
+            </g>
+            <g class="hero-node hero-node-3" transform="translate(1320 74)">
+              <circle class="hero-node-wave" r="14"/>
+              <circle class="hero-node-ring" r="8"/>
+              <circle class="hero-node-core" r="2.4"/>
+              <text class="hero-node-label" x="-15" y="-14" text-anchor="end">ROBOT</text>
+            </g>
+            <g class="hero-node hero-node-4" transform="translate(1518 262)">
+              <circle class="hero-node-wave" r="14"/>
+              <circle class="hero-node-ring" r="8"/>
+              <circle class="hero-node-core" r="2.4"/>
+              <text class="hero-node-label" x="-15" y="-14" text-anchor="end">CITY</text>
+            </g>
 
-          <text class="hero-coordinate" x="72" y="92">35.6762° N · 139.6503° E · TOKYO</text>
-          <text class="hero-coordinate" x="1315" y="574">HUMAN → SYSTEM → CITY</text>
+            <text class="hero-coordinate" x="72" y="60">35.6762° N · 139.6503° E · TOKYO</text>
+            <text class="hero-coordinate" x="1315" y="574">HUMAN → SYSTEM → CITY</text>
+          </g>
         </svg>
       </div>
       <div class="container">
