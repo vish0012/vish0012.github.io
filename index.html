@@ -318,6 +318,181 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
     .keyword-row li:hover { background: rgba(74,109,92,.18); }
     [data-theme="dark"] .keyword-row li { background: rgba(110,143,128,.14);
       border-color: rgba(110,143,128,.35); }
+
+    /* Hero background — a living Tokyo signal field, drawn entirely in SVG. */
+    #top.hero{
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+    }
+    #top.hero > .container{
+      position:relative;
+      z-index:2;
+    }
+    #top .hero-signal-field{
+      --hero-x:0px;
+      --hero-y:0px;
+      position:absolute;
+      z-index:0;
+      inset:-5%;
+      pointer-events:none;
+      opacity:.68;
+      transform:translate3d(var(--hero-x),var(--hero-y),0) scale(1.035);
+      transform-origin:center;
+      transition:transform .7s cubic-bezier(.2,.75,.2,1),opacity .3s ease;
+      -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.42) 52%,rgba(0,0,0,.68));
+      mask-image:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.42) 52%,rgba(0,0,0,.68));
+    }
+    #top .hero-signal-field.is-interacting{
+      transition:transform .16s ease-out,opacity .2s ease;
+      opacity:.82;
+    }
+    #top .hero-signal-field svg{
+      display:block;
+      width:100%;
+      height:100%;
+      overflow:visible;
+    }
+    #top .hero-map-line{
+      fill:none;
+      stroke:color-mix(in srgb,var(--accent) 14%,transparent);
+      stroke-width:1;
+      vector-effect:non-scaling-stroke;
+    }
+    #top .hero-map-line.hero-map-soft{
+      stroke:color-mix(in srgb,var(--ink-faint) 10%,transparent);
+      stroke-dasharray:2 11;
+    }
+    #top .hero-route-base,
+    #top .hero-route-specks,
+    #top .hero-route-flow{
+      fill:none;
+      vector-effect:non-scaling-stroke;
+    }
+    #top .hero-route-base{
+      stroke:color-mix(in srgb,var(--accent) 24%,transparent);
+      stroke-width:1.15;
+    }
+    #top .hero-route-specks{
+      stroke:color-mix(in srgb,var(--accent) 44%,transparent);
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-dasharray:1 19;
+      animation:hero-specks-move 22s linear infinite;
+    }
+    #top .hero-route-flow{
+      stroke:url(#heroSignalGradient);
+      stroke-width:2.2;
+      stroke-linecap:round;
+      stroke-dasharray:92 2000;
+      animation:hero-signal-travel 12s cubic-bezier(.45,.02,.55,.98) infinite;
+      filter:url(#heroSignalGlow);
+    }
+    #top .hero-node{
+      color:var(--accent);
+      opacity:.5;
+      transition:opacity .25s ease,filter .25s ease;
+    }
+    #top .hero-node-ring,
+    #top .hero-node-wave,
+    #top .hero-node-core{
+      transform-box:fill-box;
+      transform-origin:center;
+    }
+    #top .hero-node-ring{
+      fill:var(--paper);
+      stroke:currentColor;
+      stroke-width:1.15;
+      vector-effect:non-scaling-stroke;
+    }
+    #top .hero-node-core{fill:currentColor}
+    #top .hero-node-wave{
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1;
+      opacity:0;
+      vector-effect:non-scaling-stroke;
+      animation:hero-node-wave 12s ease-out infinite;
+    }
+    #top .hero-node-2 .hero-node-wave{animation-delay:3s}
+    #top .hero-node-3 .hero-node-wave{animation-delay:6s}
+    #top .hero-node-4 .hero-node-wave{animation-delay:9s}
+    #top .hero-node-label{
+      fill:var(--ink-faint);
+      font-family:var(--mono);
+      font-size:10px;
+      letter-spacing:.12em;
+      opacity:.55;
+      transition:fill .25s ease,opacity .25s ease;
+    }
+    #top .hero-signal-field[data-active-node="1"] .hero-node-1,
+    #top .hero-signal-field[data-active-node="2"] .hero-node-2,
+    #top .hero-signal-field[data-active-node="3"] .hero-node-3,
+    #top .hero-signal-field[data-active-node="4"] .hero-node-4{
+      opacity:1;
+      filter:drop-shadow(0 0 8px color-mix(in srgb,var(--accent) 45%,transparent));
+    }
+    #top .hero-signal-field[data-active-node="1"] .hero-node-1 .hero-node-wave,
+    #top .hero-signal-field[data-active-node="2"] .hero-node-2 .hero-node-wave,
+    #top .hero-signal-field[data-active-node="3"] .hero-node-3 .hero-node-wave,
+    #top .hero-signal-field[data-active-node="4"] .hero-node-4 .hero-node-wave{
+      animation-duration:1.5s;
+      animation-delay:0s;
+    }
+    #top .hero-signal-field[data-active-node="1"] .hero-node-1 .hero-node-label,
+    #top .hero-signal-field[data-active-node="2"] .hero-node-2 .hero-node-label,
+    #top .hero-signal-field[data-active-node="3"] .hero-node-3 .hero-node-label,
+    #top .hero-signal-field[data-active-node="4"] .hero-node-4 .hero-node-label{
+      fill:var(--accent);
+      opacity:1;
+    }
+    #top .hero-coordinate{
+      fill:var(--ink-faint);
+      font-family:var(--mono);
+      font-size:9px;
+      letter-spacing:.14em;
+      opacity:.28;
+    }
+    #top .hero-atmosphere{
+      fill:color-mix(in srgb,var(--accent) 5%,transparent);
+      transform-box:fill-box;
+      transform-origin:center;
+      animation:hero-atmosphere-breathe 9s ease-in-out infinite alternate;
+    }
+    #top .hero-signal-field.is-paused *{animation-play-state:paused!important}
+    [data-theme="dark"] #top .hero-signal-field{opacity:.54}
+    [data-theme="dark"] #top .hero-signal-field.is-interacting{opacity:.68}
+    @keyframes hero-signal-travel{
+      from{stroke-dashoffset:92}
+      to{stroke-dashoffset:-2000}
+    }
+    @keyframes hero-specks-move{
+      from{stroke-dashoffset:0}
+      to{stroke-dashoffset:-380}
+    }
+    @keyframes hero-node-wave{
+      0%,70%,100%{opacity:0;transform:scale(.55)}
+      76%{opacity:.58}
+      86%{opacity:0;transform:scale(1.8)}
+    }
+    @keyframes hero-atmosphere-breathe{
+      from{opacity:.3;transform:scale(.92)}
+      to{opacity:.8;transform:scale(1.08)}
+    }
+    @media (max-width:760px){
+      #top .hero-signal-field{display:none}
+    }
+    @media (prefers-reduced-motion:reduce){
+      #top .hero-signal-field{
+        transform:none!important;
+        transition:none;
+        opacity:.44;
+      }
+      #top .hero-route-flow,
+      #top .hero-route-specks,
+      #top .hero-node-wave,
+      #top .hero-atmosphere{animation:none!important}
+    }
     
   </style>
   <!-- JSON-LD Person schema -->
@@ -385,6 +560,70 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
   <main id="main">
     <!-- ============ HERO ============ -->
     <section class="hero" id="top">
+      <div class="hero-signal-field" data-hero-signal aria-hidden="true">
+        <svg viewBox="0 0 1600 620" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="heroSignalGradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" style="stop-color:var(--accent);stop-opacity:0"/>
+              <stop offset=".42" style="stop-color:var(--accent);stop-opacity:.9"/>
+              <stop offset=".64" stop-color="#cf7d40" stop-opacity=".92"/>
+              <stop offset="1" style="stop-color:var(--accent);stop-opacity:0"/>
+            </linearGradient>
+            <filter id="heroSignalGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="2.2" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <path id="heroSignalRoute"
+                  d="M110 435C244 351 369 378 500 290S748 194 880 300s226 128 340 0 205-112 290-70"/>
+          </defs>
+
+          <circle class="hero-atmosphere" cx="250" cy="115" r="170"/>
+          <circle class="hero-atmosphere" cx="1420" cy="525" r="145" style="animation-delay:-4s"/>
+
+          <g aria-hidden="true">
+            <path class="hero-map-line" d="M-90 92C175 20 370 135 634 80S1095 30 1335 104s298 46 390-8"/>
+            <path class="hero-map-line hero-map-soft" d="M-80 180C220 108 354 242 618 190s431-86 670-8 301 72 430 11"/>
+            <path class="hero-map-line" d="M-60 546c237-92 431 11 626-62s335-22 510 32 378 18 608-56"/>
+            <path class="hero-map-line hero-map-soft" d="M10 600c222-111 403-36 578-106s386-71 560-9 337 51 496-22"/>
+            <path class="hero-map-line hero-map-soft" d="M255-60c-25 155 44 244 6 389s-39 218 38 366"/>
+            <path class="hero-map-line" d="M690-70c24 139-58 244-9 372s51 209-14 385"/>
+            <path class="hero-map-line hero-map-soft" d="M1168-30c-64 153 11 246-20 373s2 210 66 333"/>
+            <path class="hero-map-line" d="M1480-20c-14 127 47 217 12 347s-29 221 38 346"/>
+          </g>
+
+          <use href="#heroSignalRoute" class="hero-route-base"/>
+          <use href="#heroSignalRoute" class="hero-route-specks"/>
+          <use href="#heroSignalRoute" class="hero-route-flow" stroke="url(#heroSignalGradient)"/>
+
+          <g class="hero-node hero-node-1" transform="translate(120 429)">
+            <circle class="hero-node-wave" r="14"/>
+            <circle class="hero-node-ring" r="8"/>
+            <circle class="hero-node-core" r="2.4"/>
+            <text class="hero-node-label" x="15" y="4">HUMAN</text>
+          </g>
+          <g class="hero-node hero-node-2" transform="translate(500 290)">
+            <circle class="hero-node-wave" r="14"/>
+            <circle class="hero-node-ring" r="8"/>
+            <circle class="hero-node-core" r="2.4"/>
+            <text class="hero-node-label" x="15" y="4">MOBILITY</text>
+          </g>
+          <g class="hero-node hero-node-3" transform="translate(880 300)">
+            <circle class="hero-node-wave" r="14"/>
+            <circle class="hero-node-ring" r="8"/>
+            <circle class="hero-node-core" r="2.4"/>
+            <text class="hero-node-label" x="15" y="4">ROBOT</text>
+          </g>
+          <g class="hero-node hero-node-4" transform="translate(1510 230)">
+            <circle class="hero-node-wave" r="14"/>
+            <circle class="hero-node-ring" r="8"/>
+            <circle class="hero-node-core" r="2.4"/>
+            <text class="hero-node-label" x="-15" y="-14" text-anchor="end">CITY</text>
+          </g>
+
+          <text class="hero-coordinate" x="72" y="92">35.6762° N · 139.6503° E · TOKYO</text>
+          <text class="hero-coordinate" x="1315" y="574">HUMAN → SYSTEM → CITY</text>
+        </svg>
+      </div>
       <div class="container">
         <div class="hero-grid">
           <img class="portrait" src="photo.jpg" alt="Portrait of Vishal Chauhan" />
@@ -409,6 +648,73 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
         </div>
       </div>
     </section>
+    <script>
+      (() => {
+        const hero = document.getElementById('top');
+        const field = hero?.querySelector('[data-hero-signal]');
+        if (!hero || !field || field.dataset.ready === 'true') return;
+        field.dataset.ready = 'true';
+
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const compactScreen = window.matchMedia('(max-width: 760px)');
+        let frame = 0;
+        let targetX = 0;
+        let targetY = 0;
+        let activeNode = '';
+
+        const paint = () => {
+          frame = 0;
+          field.style.setProperty('--hero-x', `${targetX}px`);
+          field.style.setProperty('--hero-y', `${targetY}px`);
+          if (activeNode) field.dataset.activeNode = activeNode;
+          else field.removeAttribute('data-active-node');
+        };
+
+        const requestPaint = () => {
+          if (!frame) frame = window.requestAnimationFrame(paint);
+        };
+
+        hero.addEventListener('pointermove', (event) => {
+          if (reducedMotion.matches || compactScreen.matches || (event.pointerType && event.pointerType !== 'mouse')) return;
+          const rect = hero.getBoundingClientRect();
+          const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+          const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+
+          targetX = (x - .5) * -16;
+          targetY = (y - .5) * -10;
+          activeNode = String(Math.min(4, Math.floor(x * 4) + 1));
+          field.classList.add('is-interacting');
+          requestPaint();
+        });
+
+        hero.addEventListener('pointerleave', () => {
+          targetX = 0;
+          targetY = 0;
+          activeNode = '';
+          field.classList.remove('is-interacting');
+          requestPaint();
+        });
+
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries) => {
+            field.classList.toggle('is-paused', !entries[0].isIntersecting);
+          }, { threshold: .08 });
+          observer.observe(hero);
+        }
+
+        document.addEventListener('visibilitychange', () => {
+          field.classList.toggle('is-paused', document.hidden);
+        });
+
+        reducedMotion.addEventListener?.('change', () => {
+          targetX = 0;
+          targetY = 0;
+          activeNode = '';
+          field.classList.remove('is-interacting');
+          requestPaint();
+        });
+      })();
+    </script>
     <!-- ============ ABOUT ============ -->
 <section id="about" class="about">
   <div class="container">
