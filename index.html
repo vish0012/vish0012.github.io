@@ -960,6 +960,12 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
             --rs-blue:#397fa9;
             --rs-orange:#cf7d40;
           }
+          [data-theme="dark"] #research{
+            --rs-green:#81b19a;
+            --rs-teal:#64c5c2;
+            --rs-blue:#74bce8;
+            --rs-orange:#eca66f;
+          }
           #research .rs-intro{
             display:grid;
             grid-template-columns:minmax(0,1fr) minmax(220px,.36fr);
@@ -993,11 +999,69 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
             letter-spacing:.1em;
             text-transform:uppercase;
           }
+          #research .rs-live{
+            display:grid;
+            grid-template-columns:auto minmax(0,1fr) auto;
+            gap:.8rem 1rem;
+            align-items:center;
+            margin:-1.3rem 0 clamp(2.2rem,4vw,3.2rem);
+            padding:.75rem 0;
+            border-top:1px solid var(--rule);
+            border-bottom:1px solid var(--rule);
+          }
+          #research .rs-live-kicker,
+          #research .rs-live-state,
+          #research .rs-live-hint{
+            font-family:var(--mono);
+            font-size:.61rem;
+            letter-spacing:.08em;
+            text-transform:uppercase;
+          }
+          #research .rs-live-kicker{
+            display:flex;
+            align-items:center;
+            gap:.55rem;
+            color:var(--ink-faint);
+          }
+          #research .rs-live-kicker::before{
+            content:"";
+            width:7px;
+            height:7px;
+            border-radius:50%;
+            background:var(--rs-orange);
+            box-shadow:0 0 0 4px color-mix(in srgb,var(--rs-orange) 13%,transparent);
+          }
+          #research .rs-live-question{
+            min-width:0;
+            color:var(--ink);
+            font-family:var(--serif);
+            font-size:clamp(.96rem,1.5vw,1.12rem);
+            font-weight:400;
+            line-height:1.35;
+            transition:opacity .18s ease,transform .18s ease;
+          }
+          #research .rs-live.is-changing .rs-live-question{
+            opacity:0;
+            transform:translateY(4px);
+          }
+          #research .rs-live-state{
+            color:var(--accent);
+            white-space:nowrap;
+          }
+          #research .rs-live-hint{
+            grid-column:2;
+            margin-top:-.35rem;
+            color:var(--ink-faint);
+            font-size:.54rem;
+            letter-spacing:.05em;
+            text-transform:none;
+          }
           #research .rs-signal-path{
             position:relative;
             display:grid;
             grid-template-columns:repeat(3,minmax(0,1fr));
             gap:clamp(1.3rem,3vw,2.5rem);
+            touch-action:pan-y;
           }
           #research .rs-signal-path::before{
             content:"";
@@ -1013,27 +1077,58 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
             position:absolute;
             z-index:3;
             top:70px;
-            left:15%;
+            left:var(--rs-pulse-position,15%);
             width:11px;
             height:11px;
             border-radius:50%;
             background:var(--rs-orange);
             box-shadow:0 0 0 5px color-mix(in srgb,var(--rs-orange) 18%,transparent);
-            animation:rs-travel 7s ease-in-out infinite;
+            pointer-events:none;
+            transform:translateX(-50%);
+            transition:left .72s cubic-bezier(.2,.78,.22,1),box-shadow .25s ease,transform .25s ease;
           }
-          @keyframes rs-travel{
-            0%,8%{left:15%;opacity:0}
-            14%{opacity:1}
-            86%{opacity:1}
-            92%,100%{left:84%;opacity:0}
+          #research .rs-signal-pulse::after{
+            content:"";
+            position:absolute;
+            top:5px;
+            right:8px;
+            width:58px;
+            height:1px;
+            background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--rs-orange) 60%,transparent));
+            transform-origin:right center;
+          }
+          #research .rs-signal-path[data-direction="backward"] .rs-signal-pulse::after{
+            right:auto;
+            left:8px;
+            background:linear-gradient(90deg,color-mix(in srgb,var(--rs-orange) 60%,transparent),transparent);
+            transform-origin:left center;
+          }
+          #research .rs-signal-path.is-pointer-exploring .rs-signal-pulse{
+            transform:translateX(-50%) scale(1.25);
+            box-shadow:
+              0 0 0 6px color-mix(in srgb,var(--rs-orange) 18%,transparent),
+              0 0 16px color-mix(in srgb,var(--rs-orange) 58%,transparent);
+            transition:left .1s linear,box-shadow .2s ease,transform .2s ease;
           }
           #research .rs-domain{
             --rs-domain:var(--rs-green);
             position:relative;
             min-width:0;
+            margin:-.45rem;
+            padding:.45rem;
+            border-radius:18px;
+            cursor:pointer;
+            outline:none;
+            transition:background .25s ease,transform .25s ease;
           }
           #research .rs-domain:nth-of-type(2){--rs-domain:var(--rs-teal)}
           #research .rs-domain:nth-of-type(3){--rs-domain:var(--rs-blue)}
+          #research .rs-domain:is(:hover,:focus-visible,.is-active){
+            background:linear-gradient(180deg,color-mix(in srgb,var(--rs-domain) 5%,transparent),transparent 68%);
+          }
+          #research .rs-domain:focus-visible{
+            box-shadow:0 0 0 2px var(--paper),0 0 0 4px color-mix(in srgb,var(--rs-domain) 62%,transparent);
+          }
           #research .rs-scene{
             position:relative;
             z-index:2;
@@ -1054,12 +1149,79 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
             border-color:color-mix(in srgb,var(--rs-domain) 60%,var(--rule));
             background:color-mix(in srgb,var(--rs-domain) 12%,var(--paper));
           }
+          #research .rs-domain.is-active .rs-scene{
+            transform:translateY(-7px) scale(1.035);
+            border-color:color-mix(in srgb,var(--rs-domain) 72%,var(--rule));
+            background:color-mix(in srgb,var(--rs-domain) 13%,var(--paper));
+            box-shadow:
+              0 0 0 7px color-mix(in srgb,var(--rs-domain) 7%,transparent),
+              0 22px 46px -34px var(--rs-domain);
+          }
           #research .rs-scene svg{
             width:92px;
             height:70px;
             overflow:visible;
           }
           #research .rs-scene svg *{vector-effect:non-scaling-stroke}
+          #research .rs-car,
+          #research .rs-walker,
+          #research .rs-robot-arm,
+          #research .rs-robot-eye,
+          #research .rs-city-wave,
+          #research .rs-window{
+            transform-box:fill-box;
+            transform-origin:center;
+          }
+          #research .rs-ehmi{
+            stroke:var(--rs-orange);
+            stroke-width:3;
+            opacity:.25;
+          }
+          #research .rs-domain.is-active .rs-car{animation:rs-car-arrive 1.45s cubic-bezier(.2,.8,.2,1) both}
+          #research .rs-domain.is-active .rs-walker{animation:rs-walker-decide 1.45s ease-in-out both}
+          #research .rs-domain.is-active .rs-ehmi{animation:rs-ehmi-signal 1.45s ease-in-out infinite}
+          #research .rs-domain.is-active .rs-robot-arm-left{animation:rs-wave-left 1.35s ease-in-out infinite}
+          #research .rs-domain.is-active .rs-robot-arm-right{animation:rs-wave-right 1.35s ease-in-out infinite}
+          #research .rs-domain.is-active .rs-robot-eye{animation:rs-robot-blink 2.2s ease-in-out infinite}
+          #research .rs-domain.is-active .rs-city-wave{animation:rs-city-broadcast 1.8s ease-out infinite}
+          #research .rs-domain.is-active .rs-city-wave-2{animation-delay:.42s}
+          #research .rs-domain.is-active .rs-window{animation:rs-window-light 1.9s ease-in-out infinite alternate}
+          #research .rs-domain.is-active .rs-window-2{animation-delay:.32s}
+          #research .rs-domain.is-active .rs-window-3{animation-delay:.64s}
+          @keyframes rs-car-arrive{
+            0%{transform:translateX(-12px)}
+            62%{transform:translateX(2px)}
+            100%{transform:translateX(0)}
+          }
+          @keyframes rs-walker-decide{
+            0%,32%{transform:translateX(0);opacity:.55}
+            68%,100%{transform:translateX(7px);opacity:1}
+          }
+          @keyframes rs-ehmi-signal{
+            0%,100%{opacity:.22;filter:drop-shadow(0 0 0 transparent)}
+            45%,70%{opacity:1;filter:drop-shadow(0 0 4px var(--rs-orange))}
+          }
+          @keyframes rs-wave-left{
+            0%,100%{transform:rotate(0deg)}
+            45%{transform:rotate(-18deg)}
+          }
+          @keyframes rs-wave-right{
+            0%,100%{transform:rotate(0deg)}
+            45%{transform:rotate(18deg)}
+          }
+          @keyframes rs-robot-blink{
+            0%,43%,50%,100%{transform:scaleY(1)}
+            46%,47%{transform:scaleY(.12)}
+          }
+          @keyframes rs-city-broadcast{
+            0%{opacity:0;transform:scale(.75)}
+            35%{opacity:.9}
+            100%{opacity:0;transform:scale(1.13)}
+          }
+          @keyframes rs-window-light{
+            from{opacity:.24}
+            to{opacity:1;stroke:var(--rs-orange)}
+          }
           #research .rs-domain-number{
             position:absolute;
             z-index:4;
@@ -1089,7 +1251,9 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
             font-size:clamp(1.22rem,2vw,1.55rem);
             font-style:normal;
             line-height:1.15;
+            transition:color .2s ease;
           }
+          #research .rs-domain.is-active h3{color:var(--rs-domain)}
           #research .rs-domain-copy{
             min-height:4.7em;
             margin:0;
@@ -1112,6 +1276,18 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
             background:color-mix(in srgb,var(--rs-domain) 7%,transparent);
             font-family:var(--mono);
             font-size:.6rem;
+            transition:transform .2s ease,background .2s ease;
+          }
+          #research .rs-domain.is-active .rs-tags span{
+            background:color-mix(in srgb,var(--rs-domain) 12%,transparent);
+            animation:rs-tag-rise .4s ease both;
+          }
+          #research .rs-domain.is-active .rs-tags span:nth-child(2){animation-delay:.06s}
+          #research .rs-domain.is-active .rs-tags span:nth-child(3){animation-delay:.12s}
+          #research .rs-domain.is-active .rs-tags span:nth-child(4){animation-delay:.18s}
+          @keyframes rs-tag-rise{
+            from{transform:translateY(4px);opacity:.45}
+            to{transform:translateY(0);opacity:1}
           }
           #research .rs-methods{
             display:grid;
@@ -1175,6 +1351,9 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
           @media (max-width:880px){
             #research .rs-intro{grid-template-columns:1fr}
             #research .rs-principle{max-width:520px}
+            #research .rs-live{grid-template-columns:auto 1fr}
+            #research .rs-live-state{grid-column:1}
+            #research .rs-live-hint{grid-column:2;grid-row:2}
             #research .rs-signal-path{grid-template-columns:1fr;gap:2.5rem}
             #research .rs-signal-path::before{
               top:72px;
@@ -1198,6 +1377,9 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
             #research .rs-methods{grid-template-columns:1fr}
           }
           @media (max-width:560px){
+            #research .rs-live{grid-template-columns:1fr}
+            #research .rs-live-state,
+            #research .rs-live-hint{grid-column:1}
             #research .rs-domain{grid-template-columns:92px 1fr;gap:1rem}
             #research .rs-scene{width:92px;height:92px}
             #research .rs-scene svg{width:64px;height:50px}
@@ -1208,6 +1390,15 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
           @media (prefers-reduced-motion:reduce){
             #research .rs-signal-pulse{display:none}
             #research .rs-scene{transition:none}
+            #research .rs-live-question{transition:none}
+            #research .rs-domain.is-active .rs-car,
+            #research .rs-domain.is-active .rs-walker,
+            #research .rs-domain.is-active .rs-ehmi,
+            #research .rs-domain.is-active .rs-robot-arm,
+            #research .rs-domain.is-active .rs-robot-eye,
+            #research .rs-domain.is-active .rs-city-wave,
+            #research .rs-domain.is-active .rs-window,
+            #research .rs-domain.is-active .rs-tags span{animation:none}
           }
         </style>
 
@@ -1223,16 +1414,28 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
           </aside>
         </div>
 
+        <div class="rs-live" aria-live="polite">
+          <span class="rs-live-kicker">Research signal</span>
+          <strong class="rs-live-question" id="rs-live-question">How can people read a vehicle’s intent?</strong>
+          <span class="rs-live-state" id="rs-live-state">01 / Mobility</span>
+          <span class="rs-live-hint">Move along the signal path · tap or use the arrow keys</span>
+        </div>
+
         <div class="rs-signal-path" aria-label="Three connected research areas">
           <span class="rs-signal-pulse" aria-hidden="true"></span>
 
-          <article class="rs-domain">
+          <article class="rs-domain is-active" data-index="0" data-state="01 / Mobility" data-question="How can people read a vehicle’s intent?" tabindex="0" role="button" aria-pressed="true">
             <span class="rs-domain-number">01</span>
             <div class="rs-scene" aria-hidden="true">
               <svg viewBox="0 0 100 70" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 57h88M16 53l8-18h36l12 18M29 35l7-11h17l7 11"/>
-                <circle cx="30" cy="55" r="7" fill="var(--paper)"/><circle cx="67" cy="55" r="7" fill="var(--paper)"/>
-                <circle cx="84" cy="18" r="5"/><path d="M84 23v15m-8-5 8-6 8 6m-8 5-7 11m7-11 7 11"/>
+                <g class="rs-car">
+                  <path d="M6 57h72M16 53l8-18h36l12 18M29 35l7-11h17l7 11"/>
+                  <path class="rs-ehmi" d="M31 33h27"/>
+                  <circle cx="30" cy="55" r="7" fill="var(--paper)"/><circle cx="67" cy="55" r="7" fill="var(--paper)"/>
+                </g>
+                <g class="rs-walker">
+                  <circle cx="84" cy="18" r="5"/><path d="M84 23v15m-8-5 8-6 8 6m-8 5-7 11m7-11 7 11"/>
+                </g>
                 <path d="M8 64h8m5 0h8m5 0h8m5 0h8m5 0h8" opacity=".55"/>
               </svg>
             </div>
@@ -1244,14 +1447,16 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
             </div>
           </article>
 
-          <article class="rs-domain">
+          <article class="rs-domain" data-index="1" data-state="02 / Robotics" data-question="How can robots share everyday space with us?" tabindex="0" role="button" aria-pressed="false">
             <span class="rs-domain-number">02</span>
             <div class="rs-scene" aria-hidden="true">
               <svg viewBox="0 0 100 70" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="32" y="19" width="36" height="34" rx="9"/>
                 <path d="M42 19V10m16 9V10M38 53l-7 9m31-9 7 9M50 53v10"/>
-                <circle cx="43" cy="34" r="3" fill="currentColor" stroke="none"/><circle cx="57" cy="34" r="3" fill="currentColor" stroke="none"/>
-                <path d="M42 44c5 4 11 4 16 0M23 32h9m36 0h9M16 27l7 5-7 5m68-10-7 5 7 5"/>
+                <circle class="rs-robot-eye" cx="43" cy="34" r="3" fill="currentColor" stroke="none"/><circle class="rs-robot-eye" cx="57" cy="34" r="3" fill="currentColor" stroke="none"/>
+                <path d="M42 44c5 4 11 4 16 0"/>
+                <path class="rs-robot-arm rs-robot-arm-left" d="M32 32h-9m0 0-7-5m7 5-7 5"/>
+                <path class="rs-robot-arm rs-robot-arm-right" d="M68 32h9m0 0 7-5m-7 5 7 5"/>
                 <path d="M8 64h84" opacity=".55"/>
               </svg>
             </div>
@@ -1263,14 +1468,17 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
             </div>
           </article>
 
-          <article class="rs-domain">
+          <article class="rs-domain" data-index="2" data-state="03 / Cities" data-question="How can infrastructure coordinate the encounter?" tabindex="0" role="button" aria-pressed="false">
             <span class="rs-domain-number">03</span>
             <div class="rs-scene" aria-hidden="true">
               <svg viewBox="0 0 100 70" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M8 61h84M14 61V35h18v26M38 61V22h23v39M68 61V31h18v30"/>
-                <path d="M20 43h6m-6 8h6m25-20h7m-7 9h7m-7 9h7m17-10h5m-5 9h5" opacity=".7"/>
-                <path d="M50 61V10m-7 13h14M50 10l-4 5m4-5 4 5"/>
-                <path d="M34 17c8-7 24-7 32 0M28 12c12-12 32-12 44 0" opacity=".65"/>
+                <path class="rs-window rs-window-1" d="M20 43h6m-6 8h6" opacity=".7"/>
+                <path class="rs-window rs-window-2" d="M45 31h7m-7 9h7m-7 9h7" opacity=".7"/>
+                <path class="rs-window rs-window-3" d="M75 39h5m-5 9h5" opacity=".7"/>
+                <path class="rs-spiu" d="M50 61V10m-7 13h14M50 10l-4 5m4-5 4 5"/>
+                <path class="rs-city-wave rs-city-wave-1" d="M34 17c8-7 24-7 32 0" opacity=".65"/>
+                <path class="rs-city-wave rs-city-wave-2" d="M28 12c12-12 32-12 44 0" opacity=".48"/>
               </svg>
             </div>
             <div>
@@ -1299,6 +1507,142 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
         </div>
       </div>
     </section>
+
+    <script>
+      (() => {
+        const section = document.getElementById('research');
+        if (!section || section.dataset.signalReady === 'true') return;
+        section.dataset.signalReady = 'true';
+
+        const path = section.querySelector('.rs-signal-path');
+        const domains = [...section.querySelectorAll('.rs-domain')];
+        const live = section.querySelector('.rs-live');
+        const question = section.querySelector('#rs-live-question');
+        const state = section.querySelector('#rs-live-state');
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const positions = [15, 50, 84];
+
+        let activeIndex = 0;
+        let cycleTimer = null;
+        let resumeTimer = null;
+        let textTimer = null;
+        let isVisible = false;
+
+        const stopCycle = () => {
+          window.clearInterval(cycleTimer);
+          cycleTimer = null;
+        };
+
+        const updateReadout = (domain) => {
+          const nextQuestion = domain.dataset.question || '';
+          const nextState = domain.dataset.state || '';
+          if (question.textContent === nextQuestion && state.textContent === nextState) return;
+
+          window.clearTimeout(textTimer);
+          live.classList.add('is-changing');
+          textTimer = window.setTimeout(() => {
+            question.textContent = nextQuestion;
+            state.textContent = nextState;
+            live.classList.remove('is-changing');
+          }, 150);
+        };
+
+        const activate = (index, movePulse = true) => {
+          const previousIndex = activeIndex;
+          activeIndex = Math.max(0, Math.min(domains.length - 1, index));
+          path.dataset.direction = activeIndex < previousIndex ? 'backward' : 'forward';
+          domains.forEach((domain, domainIndex) => {
+            const selected = domainIndex === activeIndex;
+            domain.classList.toggle('is-active', selected);
+            domain.setAttribute('aria-pressed', String(selected));
+          });
+          if (movePulse) path.style.setProperty('--rs-pulse-position', `${positions[activeIndex]}%`);
+          updateReadout(domains[activeIndex]);
+        };
+
+        const startCycle = () => {
+          stopCycle();
+          if (!isVisible || reducedMotion.matches || document.hidden) return;
+          cycleTimer = window.setInterval(() => activate((activeIndex + 1) % domains.length), 4200);
+        };
+
+        const resumeCycle = (delay = 3200) => {
+          window.clearTimeout(resumeTimer);
+          resumeTimer = window.setTimeout(startCycle, delay);
+        };
+
+        path.addEventListener('pointermove', (event) => {
+          if (event.pointerType && event.pointerType !== 'mouse') return;
+          stopCycle();
+          window.clearTimeout(resumeTimer);
+          path.classList.add('is-pointer-exploring');
+
+          const rect = path.getBoundingClientRect();
+          const ratio = Math.max(.15, Math.min(.84, (event.clientX - rect.left) / rect.width));
+          const nearest = positions.reduce((best, position, index) =>
+            Math.abs(position / 100 - ratio) < Math.abs(positions[best] / 100 - ratio) ? index : best, 0);
+
+          activate(nearest, false);
+          path.style.setProperty('--rs-pulse-position', `${ratio * 100}%`);
+        });
+
+        path.addEventListener('pointerleave', () => {
+          path.classList.remove('is-pointer-exploring');
+          path.style.setProperty('--rs-pulse-position', `${positions[activeIndex]}%`);
+          resumeCycle();
+        });
+
+        domains.forEach((domain, index) => {
+          domain.addEventListener('click', () => {
+            stopCycle();
+            activate(index);
+            resumeCycle(7600);
+          });
+
+          domain.addEventListener('focus', () => {
+            stopCycle();
+            activate(index);
+          });
+
+          domain.addEventListener('blur', () => resumeCycle());
+
+          domain.addEventListener('keydown', (event) => {
+            let nextIndex = index;
+            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % domains.length;
+            else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (index - 1 + domains.length) % domains.length;
+            else if (event.key === 'Home') nextIndex = 0;
+            else if (event.key === 'End') nextIndex = domains.length - 1;
+            else if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              activate(index);
+              resumeCycle(7600);
+              return;
+            } else return;
+
+            event.preventDefault();
+            domains[nextIndex].focus();
+          });
+        });
+
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries) => {
+            isVisible = entries[0].isIntersecting;
+            if (isVisible) {
+              activate(activeIndex);
+              startCycle();
+            } else stopCycle();
+          }, { threshold: .22 });
+          observer.observe(section);
+        } else {
+          isVisible = true;
+          startCycle();
+        }
+
+        reducedMotion.addEventListener?.('change', startCycle);
+        document.addEventListener('visibilitychange', () => document.hidden ? stopCycle() : startCycle());
+        activate(0);
+      })();
+    </script>
 
     <!-- ============ TALKS ============ -->
    <!-- ============ SERVICE ============ -->
