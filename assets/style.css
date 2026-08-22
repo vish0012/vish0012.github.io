@@ -1,17 +1,15 @@
 /* =========================================================
-   Vishal Chauhan — personal site
+   Vishal Chauhan â€” personal site
    Editorial-academic. Real figures, restrained type.
    v2: bigger portrait + dark mode (ball mode) toggle
    ========================================================= */
-
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* ---------- LIGHT THEME (default) ---------- */
 :root {
   --paper:        #FFFFFF;
   --ink:          #1A1916;
   --ink-soft:     #4A4843;
-  --ink-faint:    #8A8780;
+  --ink-faint:    #77736C;
   --rule:         #E2E0DA;
   --rule-soft:    #EFEDE8;
   --accent:       #4A6D5C;        /* muted forest-green; calm, academic */
@@ -42,13 +40,13 @@
 }
 
 /* ---------- DARK THEME (ball mode) ----------
-   Same warm, editorial feel — like the site at dusk.
+   Same warm, editorial feel â€” like the site at dusk.
    Forest-green accent brightens slightly so it still reads. */
 [data-theme="dark"] {
   --paper:        #15120E;
   --ink:          #ECE6D7;
   --ink-soft:     #B5AE9F;
-  --ink-faint:    #7A7466;
+  --ink-faint:    #8A8476;
   --rule:         #2D2920;
   --rule-soft:    #211E17;
   --accent:       #A3C2B0;
@@ -83,6 +81,14 @@ body {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -106,6 +112,11 @@ h1 { font-size: clamp(2.3rem, 5vw, 3.6rem); font-weight: 500; }
 h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); margin-top: 0; }
 h3 { font-size: 1.2rem; font-weight: 600; font-style: normal; letter-spacing: 0.01em; }
 h4 { font-size: 1.02rem; font-weight: 600; font-style: normal; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-soft); }
+
+.page-title {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 500;
+}
 
 p { margin: 0 0 1em; max-width: var(--measure); }
 em, i { font-family: var(--serif); font-style: italic; }
@@ -245,7 +256,7 @@ nav.primary a[aria-current="page"] {
   height: 16px;
   display: block;
 }
-/* show moon in light mode (click → go dark); show sun in dark mode */
+/* show moon in light mode (click â†’ go dark); show sun in dark mode */
 .theme-toggle .icon-sun  { display: none; }
 .theme-toggle .icon-moon { display: block; }
 [data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
@@ -258,7 +269,7 @@ nav.primary a[aria-current="page"] {
 }
 
 /* ---------- hero ----------
-   Portrait was 290px. Now 360px — about 24% bigger.
+   Portrait was 290px. Now 360px â€” about 24% bigger.
    To tune: change BOTH lines below (--portrait-w idea kept inline). */
 .hero {
   padding-top: clamp(3rem, 7vw, 5rem);
@@ -1029,7 +1040,7 @@ nav.primary a[aria-current="page"] {
   padding-top: 4px;
 }
 .console-body dt::before {
-  content: "▸ ";
+  content: "â–¸ ";
   color: var(--accent);
   margin-right: 2px;
 }
@@ -1128,15 +1139,7 @@ hr.thin {
 }
 
 /* ---------- moments page ---------- */
-#moments h1 {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(2.2rem, 4vw, 3rem);
-  letter-spacing: -0.01em;
-  margin: 0.25rem 0 1.25rem;
-  color: var(--ink);
-}
+#moments .page-title { margin-bottom: 0.6em; }
 .featured-block {
   margin: 2.5rem 0 3rem;
   max-width: 65ch;
