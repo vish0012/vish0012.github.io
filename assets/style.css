@@ -1040,7 +1040,7 @@ nav.primary a[aria-current="page"] {
   padding-top: 4px;
 }
 .console-body dt::before {
-  content: "â–¸ ";
+  content: "\25B8\00A0";
   color: var(--accent);
   margin-right: 2px;
 }
