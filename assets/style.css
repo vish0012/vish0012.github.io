@@ -33,7 +33,7 @@
 
   --serif:        "IBM Plex Sans", Roboto, Helvetica, Arial, sans-serif;
   --sans:         "IBM Plex Sans", Roboto, Helvetica, Arial, sans-serif;
-  --mono:         "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --mono:         "IBM Plex Sans", Roboto, Helvetica, Arial, sans-serif;
   --measure:      62ch;
   --max:          1100px;
   --pad-x:        clamp(1.25rem, 4vw, 2.5rem);
@@ -299,14 +299,15 @@ nav.primary a[aria-current="page"] {
 }
 .hero .role {
   font-family: var(--serif);
-  font-style: italic;
+  font-style: normal;
+  font-weight: 500;
   font-size: 1.1rem;
   color: var(--ink-soft);
   margin: 0 0 0.3rem;
 }
 .hero .affil {
   font-family: var(--serif);
-  font-style: italic;
+  font-style: normal;
   font-size: 1.02rem;
   color: var(--ink-soft);
   max-width: 38ch;
@@ -920,7 +921,8 @@ nav.primary a[aria-current="page"] {
 }
 .hero-tagline em {
   color: var(--accent);
-  font-style: italic;
+  font-style: normal;
+  font-weight: 500;
 }
 .now-line {
   font-family: var(--sans);
