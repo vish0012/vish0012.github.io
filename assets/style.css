@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
+
 /* =========================================================
-   Vishal Chauhan â€” personal site
+   Vishal Chauhan Ã¢â‚¬â€ personal site
    Editorial-academic. Real figures, restrained type.
    v2: bigger portrait + dark mode (ball mode) toggle
    ========================================================= */
@@ -30,7 +32,7 @@
   --badge-border: rgba(200, 178, 115, 0.5);
 
   --serif:        "Source Serif 4", Georgia, "Times New Roman", serif;
-  --sans:         "Source Sans 3", -apple-system, system-ui, sans-serif;
+  --sans:         "IBM Plex Sans", Roboto, Helvetica, Arial, sans-serif;
   --mono:         "JetBrains Mono", "SF Mono", Menlo, monospace;
   --measure:      62ch;
   --max:          1100px;
@@ -40,7 +42,7 @@
 }
 
 /* ---------- DARK THEME (ball mode) ----------
-   Same warm, editorial feel â€” like the site at dusk.
+   Same warm, editorial feel Ã¢â‚¬â€ like the site at dusk.
    Forest-green accent brightens slightly so it still reads. */
 [data-theme="dark"] {
   --paper:        #15120E;
@@ -256,7 +258,7 @@ nav.primary a[aria-current="page"] {
   height: 16px;
   display: block;
 }
-/* show moon in light mode (click â†’ go dark); show sun in dark mode */
+/* show moon in light mode (click Ã¢â€ â€™ go dark); show sun in dark mode */
 .theme-toggle .icon-sun  { display: none; }
 .theme-toggle .icon-moon { display: block; }
 [data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
@@ -269,7 +271,7 @@ nav.primary a[aria-current="page"] {
 }
 
 /* ---------- hero ----------
-   Portrait was 290px. Now 360px â€” about 24% bigger.
+   Portrait was 290px. Now 360px Ã¢â‚¬â€ about 24% bigger.
    To tune: change BOTH lines below (--portrait-w idea kept inline). */
 .hero {
   padding-top: clamp(3rem, 7vw, 5rem);
