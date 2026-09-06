@@ -609,39 +609,6 @@ a.kw.kw-live{text-decoration-color:var(--tansei)}
         document.addEventListener('visibilitychange', syncAnimation);
       })();
     </script>
-    <!-- ============ AFFILIATIONS / LOGO STRIP ============
-         To add a logo: put the file in assets/logos/ and copy one <li>.
-         If the image file is missing, the name in alt="" is shown as text instead.
-         ==================================================== -->
-    <section class="affil-strip" aria-label="Affiliations and collaborations">
-      <style>
-        .affil-strip{padding:1.6rem 0 1.9rem;border-bottom:1px solid var(--rule,#e7e2d8)}
-        .affil-strip .strip-label{margin:0 0 1rem;color:var(--ink-faint,#8a857c);font-family:var(--mono,ui-monospace,monospace);
-          font-size:.62rem;letter-spacing:.12em;text-transform:uppercase}
-        .logo-row{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:1.4rem 2.6rem}
-        .logo-row li{display:flex;align-items:center}
-        .logo-row a{display:inline-flex;align-items:center;height:38px;text-decoration:none;color:inherit;
-          opacity:.92;transition:opacity .25s ease,transform .25s ease}
-        .logo-row a:hover,.logo-row a:focus-visible{opacity:1;transform:translateY(-1px)}
-        .logo-row img{height:100%;width:auto;max-width:200px;display:block}
-        .logo-row .logo-text{font-family:var(--sans,system-ui,sans-serif);font-weight:600;font-size:.95rem;letter-spacing:.01em;
-          color:var(--ink,#1a1815);line-height:1.15}
-        .logo-row .logo-text small{display:block;font-weight:400;font-size:.68rem;color:var(--ink-soft,#5f5a52);letter-spacing:.02em}
-        /* dark mode: keep colour, put each logo on a small light card so dark marks stay visible */
-        [data-theme="dark"] .logo-row a:not(.is-text){background:#f4f1ea;border-radius:8px;padding:6px 12px;height:auto}
-        [data-theme="dark"] .logo-row a:not(.is-text) img{height:30px}
-        @media (max-width:640px){.logo-row{gap:1rem 1.6rem}.logo-row a{height:30px}}
-      </style>
-      <div class="container">
-        <p class="strip-label">Industry &amp; research collaborations</p>
-        <ul class="logo-row">
-          <li><a href="https://tier4.jp/en/" title="TIER IV">
-            <img src="assets/logos/tier4.svg" alt="TIER IV" loading="lazy" style="height:22px" onerror="this.parentNode.classList.add('is-text');this.replaceWith(Object.assign(document.createElement('span'),{className:'logo-text',textContent:this.alt}))" /></a></li>
-          <li><a href="https://www.aist.go.jp/index_en.html" title="National Institute of Advanced Industrial Science and Technology">
-            <img src="assets/logos/aist.png" alt="AIST" loading="lazy" style="height:30px" onerror="this.parentNode.classList.add('is-text');this.replaceWith(Object.assign(document.createElement('span'),{className:'logo-text',textContent:this.alt}))" /></a></li>
-        </ul>
-      </div>
-    </section>
     <!-- ============ ABOUT ============ -->
 <section id="about" class="about">
   <div class="container">
