@@ -15,6 +15,51 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
+  <!-- ===== Moments gallery: one tile per event, click to open all photos ===== -->
+  <style>
+    .moment-tile .moment-photo{position:relative;cursor:zoom-in}
+    .moment-tile .moment-photo::after{
+      content:"";position:absolute;inset:0;border-radius:inherit;
+      background:rgba(0,0,0,0);transition:background .2s ease;pointer-events:none}
+    .moment-tile:hover .moment-photo::after{background:rgba(0,0,0,.08)}
+    .moment-tile:focus-visible{outline:2px solid var(--accent,#4a6d5c);outline-offset:4px;border-radius:8px}
+    .tile-count{
+      position:absolute;right:.6rem;bottom:.6rem;z-index:1;
+      padding:.22rem .55rem;border-radius:999px;
+      background:rgba(20,18,14,.72);color:#fff;
+      font-family:var(--mono,ui-monospace,monospace);font-size:.64rem;letter-spacing:.04em;
+      display:inline-flex;align-items:center;gap:.35rem;pointer-events:none}
+    .tile-count svg{width:.85em;height:.85em;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+    .tile-gallery{display:none}
+    /* lightbox */
+    .lb{position:fixed;inset:0;z-index:2147483000;display:none;background:#0f0e0c;
+      color:#fff;font-family:var(--sans,system-ui,sans-serif)}
+    .lb.is-open{display:grid;grid-template-rows:auto 1fr auto}
+    .lb-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem 1.1rem;font-size:.82rem;opacity:.9}
+    .lb-title{font-weight:600;flex:1}
+    .lb-counter{font-family:var(--mono,ui-monospace,monospace);font-size:.72rem;opacity:.75}
+    .lb-stage{position:relative;display:grid;place-items:center;min-height:0;padding:0 3.5rem}
+    .lb-stage img{max-width:100%;max-height:calc(100vh - 9.5rem);object-fit:contain;border-radius:6px;
+      box-shadow:0 20px 60px rgba(0,0,0,.5);opacity:0;transition:opacity .25s ease}
+    .lb-stage img.is-ready{opacity:1}
+    .lb-cap{margin:0 auto;max-width:70ch;width:100%;padding:.8rem 1.1rem 1.1rem;text-align:center;font-size:.9rem;opacity:.9;min-height:2.6rem}
+    .lb-btn{position:absolute;top:50%;transform:translateY(-50%);width:2.6rem;height:2.6rem;border-radius:50%;
+      border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;
+      display:grid;place-items:center;transition:background .2s;padding:0}
+    .lb-btn:hover{background:rgba(255,255,255,.2)}
+    .lb-btn svg{width:1.1rem;height:1.1rem;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .lb-prev{left:.7rem}.lb-next{right:.7rem}
+    .lb-close{position:static;transform:none;width:2.2rem;height:2.2rem}
+    .lb[data-single="true"] .lb-prev,.lb[data-single="true"] .lb-next,.lb[data-single="true"] .lb-counter{display:none}
+    @media (max-width:640px){
+      .lb-stage{padding:0 .5rem}
+      .lb-stage img{max-height:calc(100vh - 12rem)}
+      .lb-btn.lb-prev,.lb-btn.lb-next{top:auto;bottom:-3rem;transform:none;width:2.2rem;height:2.2rem}
+      .lb-prev{left:calc(50% - 3rem)}.lb-next{right:calc(50% - 3rem)}
+      .lb-cap{padding-top:3.4rem}
+    }
+    @media (prefers-reduced-motion:reduce){.lb-stage img{transition:none}}
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -99,115 +144,77 @@
           </ul>
         </div>
         <!-- ============ PHOTO GRID ============
-             HOW TO ADD A NEW PHOTO (newest goes first):
-             1. Upload the photo to assets/images/  (resize to ~1400px wide first)
-             2. Copy one <figure>...</figure> block below and paste it right under
-                <div class="moments-grid">
-             3. Change: src="assets/images/FILENAME.jpg", the alt text,
-                the <strong> title and the <span> place · date.
-             Filenames with spaces must be written with %20, e.g. "CIV%201.jpg".
+             ONE TILE = ONE EVENT. Clicking a tile opens all its photos.
+
+             HOW TO ADD A NEW EVENT (newest goes first):
+             1. Upload the photos to assets/images/ (resize to ~1400px wide first).
+                Avoid spaces in filenames; if a name has a space write it as %20.
+             2. Copy the whole <figure> ... </figure> block of the first event
+                and paste it right under <div class="moments-grid">.
+             3. In the copy, change:
+                  - the cover <img src> and its alt text (this is the thumbnail)
+                  - <strong> = event name, <span> = place · month year
+                  - the <li> lines inside <ol class="tile-gallery">: one line per
+                    photo, data-src = the file, the text = caption shown under it.
+                    Put the cover photo as the first <li>.
+                An event with 1 photo just has 1 <li> (or no <ol> at all).
              ============================================= -->
         <div class="moments-grid">
+
+          <!-- CIV Summer School 2026 · Miyazaki -->
           <figure class="moment-tile">
             <div class="moment-photo">
               <img src="assets/images/CIV%203.jpg"
-                   alt="Giving the talk Who Goes First? at CIV Summer School 2026 in Miyazaki"
+                   alt="CIV Summer School 2026 participants and lecturers, Miyazaki"
                    loading="lazy" />
             </div>
             <figcaption>
-              <strong>CIV Summer School 2026 — talk</strong>
-              <span>"Who Goes First?" · Miyazaki, Japan · September 2026</span>
+              <strong>CIV Summer School 2026 · Lecturer</strong>
+              <span>Miyazaki, Japan · September 2026</span>
             </figcaption>
+            <ol class="tile-gallery">
+              <li data-src="assets/images/CIV%203.jpg">Participants and lecturers of the 6th CIV Summer School, Phoenix Seagaia, Miyazaki</li>
+              <li data-src="assets/images/CIV%201.jpg">Invited talk: "Who Goes First? Reducing Pedestrian Decision-Making Burden with Infrastructure-Side eHMI in Shared Spaces"</li>
+              <li data-src="assets/images/CIV%202.jpg">Opening the talk</li>
+              <li data-src="assets/images/CIV%204.jpg">Certificate of Appointment as Lecturer, presented by Prof. Manabu Tsukada</li>
+            </ol>
           </figure>
+
+          <!-- ACM CHI 2026 · Barcelona -->
           <figure class="moment-tile">
             <div class="moment-photo">
-              <img src="assets/images/CIV%201.jpg"
-                   alt="Receiving the CIV Summer School 2026 Certificate of Appointment as Lecturer from Prof. Manabu Tsukada"
+              <img src="assets/images/chi2026-barcelona.jpg"
+                   alt="ACM CHI 2026 in Barcelona"
                    loading="lazy" />
             </div>
             <figcaption>
-              <strong>CIV 2026 — appointed Lecturer</strong>
-              <span>Certificate from Prof. Tsukada · Miyazaki · September 2026</span>
+              <strong>ACM CHI 2026 · 2× Honourable Mention 🏆</strong>
+              <span>Barcelona, Spain · April 2026</span>
             </figcaption>
+            <ol class="tile-gallery">
+              <li data-src="assets/images/chi2026-barcelona.jpg">Welcome to CHI 2026, Barcelona</li>
+              <li data-src="assets/images/IMG_7886.jpeg">Honourable Mention certificate for "Don't Worry, Just Follow Me"</li>
+            </ol>
           </figure>
-          <figure class="moment-tile">
-            <div class="moment-photo">
-              <img src="assets/images/CIV%202.jpg"
-                   alt="Group photo of CIV Summer School 2026 participants and lecturers, Miyazaki"
-                   loading="lazy" />
-            </div>
-            <figcaption>
-              <strong>CIV Summer School 2026 — group</strong>
-              <span>Participants &amp; lecturers · Miyazaki · September 2026</span>
-            </figcaption>
-          </figure>
-          <figure class="moment-tile">
-            <div class="moment-photo" style="background:var(--paper);">
-              <img src="assets/images/IMG_7886.jpeg"
-                   alt="CHI 2026 Honourable Mention certificate — Don't Worry, Just Follow Me"
-                   loading="lazy"
-                   style="object-fit:contain;" />
-            </div>
-            <figcaption>
-              <strong>CHI 2026 — Honourable Mention 🏆</strong>
-              <span>"Don't Worry, Just Follow Me" · Barcelona</span>
-            </figcaption>
-          </figure>
+
+          <!-- ACM VRST 2025 · Montréal -->
           <figure class="moment-tile">
             <div class="moment-photo">
               <img src="https://tlab.hongo.wide.ad.jp/wp-content/uploads/2025/11/IMG_5020-1200x565.jpeg"
-                   alt="ACM VRST 2025 in Montréal — presenting the Smart Pole Interaction Unit"
+                   alt="ACM VRST 2025 in Montréal"
                    loading="lazy" />
             </div>
             <figcaption>
               <strong>ACM VRST 2025</strong>
               <span>Montréal, Canada · November 2025</span>
             </figcaption>
+            <ol class="tile-gallery">
+              <li data-src="https://tlab.hongo.wide.ad.jp/wp-content/uploads/2025/11/IMG_5020-1200x565.jpeg">At the VRST 2025 venue in Montréal</li>
+              <li data-src="https://tlab.hongo.wide.ad.jp/wp-content/uploads/2025/11/IMG_6448-scaled-1024x768.jpg">Presenting "A Silent Negotiator?", a cross-cultural VR evaluation of SPIU</li>
+            </ol>
           </figure>
-          <figure class="moment-tile">
-            <div class="moment-photo">
-              <img src="https://tlab.hongo.wide.ad.jp/wp-content/uploads/2025/11/IMG_6448-scaled-1024x768.jpg"
-                   alt="Presenting A Silent Negotiator? at VRST 2025, Montréal"
-                   loading="lazy" />
-            </div>
-            <figcaption>
-              <strong>VRST 2025 — paper presentation</strong>
-              <span>Montréal · November 2025</span>
-            </figcaption>
-          </figure>
-          <figure class="moment-tile">
-            <div class="moment-photo">
-              <img src="https://tlab.hongo.wide.ad.jp/wp-content/uploads/2024/12/IMG_2325-1200x565.jpg"
-                   alt="OzCHI 2024 Student Design Challenge — Finalist Award, Brisbane"
-                   loading="lazy" />
-            </div>
-            <figcaption>
-              <strong>OzCHI 2024 — Finalist</strong>
-              <span>Brisbane, Australia · December 2024</span>
-            </figcaption>
-          </figure>
-          <figure class="moment-tile">
-            <div class="moment-photo">
-              <img src="https://tlab.hongo.wide.ad.jp/wp-content/uploads/2024/12/IMG_2675.HEIC-scaled-768x1024.jpg"
-                   alt="OzCHI 2024 Student Design Challenge presentation"
-                   loading="lazy" />
-            </div>
-            <figcaption>
-              <strong>OzCHI 2024 — presenting</strong>
-              <span>Brisbane · December 2024</span>
-            </figcaption>
-          </figure>
-          <figure class="moment-tile">
-            <div class="moment-photo">
-              <img src="assets/images/chi2026-barcelona.jpg"
-                   alt="ACM CHI 2026 in Barcelona — presenting two Honourable Mention papers"
-                   loading="lazy" />
-            </div>
-            <figcaption>
-              <strong>ACM CHI 2026 · 2× HM 🏆</strong>
-              <span>Barcelona, Spain · April 2026</span>
-            </figcaption>
-          </figure>
+
+          <!-- CIV Summer School 2025 · Blonay -->
           <figure class="moment-tile">
             <div class="moment-photo">
               <img src="assets/images/civ-blonay.jpg"
@@ -219,6 +226,25 @@
               <span>Blonay, Switzerland · September 2025</span>
             </figcaption>
           </figure>
+
+          <!-- OzCHI 2024 · Brisbane -->
+          <figure class="moment-tile">
+            <div class="moment-photo">
+              <img src="https://tlab.hongo.wide.ad.jp/wp-content/uploads/2024/12/IMG_2325-1200x565.jpg"
+                   alt="OzCHI 2024 Student Design Challenge Finalist Award, Brisbane"
+                   loading="lazy" />
+            </div>
+            <figcaption>
+              <strong>OzCHI 2024 · Student Design Challenge Finalist</strong>
+              <span>Brisbane, Australia · December 2024</span>
+            </figcaption>
+            <ol class="tile-gallery">
+              <li data-src="https://tlab.hongo.wide.ad.jp/wp-content/uploads/2024/12/IMG_2325-1200x565.jpg">Finalist Award ceremony</li>
+              <li data-src="https://tlab.hongo.wide.ad.jp/wp-content/uploads/2024/12/IMG_2675.HEIC-scaled-768x1024.jpg">Presenting "Reimagining Smart Poles"</li>
+            </ol>
+          </figure>
+
+          <!-- ACM AutoUI 2024 · Stanford -->
           <figure class="moment-tile">
             <div class="moment-photo">
               <img src="assets/images/autoui-stanford.jpg"
@@ -230,6 +256,8 @@
               <span>Stanford · September 2024</span>
             </figcaption>
           </figure>
+
+          <!-- Tsukada Lab -->
           <figure class="moment-tile">
             <div class="moment-photo">
               <img src="assets/images/tsukada-lab.jpg"
@@ -241,6 +269,7 @@
               <span>Tokyo · ongoing</span>
             </figcaption>
           </figure>
+
         </div>
       </div>
     </section>
@@ -258,6 +287,110 @@
         var current = document.documentElement.getAttribute('data-theme') || 'light';
         var next = current === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
+      });
+    })();
+  </script>
+  <!-- ===== Lightbox (photo viewer) markup + script. No library needed. ===== -->
+  <div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" data-single="false">
+    <div class="lb-top">
+      <span class="lb-title" id="lbTitle"></span>
+      <span class="lb-counter" id="lbCounter"></span>
+      <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="lb-stage" id="lbStage">
+      <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <img id="lbImg" src="" alt="" />
+      <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="Next photo">
+        <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <p class="lb-cap" id="lbCap"></p>
+  </div>
+  <script>
+    (function () {
+      var lb = document.getElementById('lightbox');
+      if (!lb) return;
+      var img = document.getElementById('lbImg'), cap = document.getElementById('lbCap'),
+          title = document.getElementById('lbTitle'), counter = document.getElementById('lbCounter'),
+          stage = document.getElementById('lbStage');
+      var items = [], idx = 0, lastFocus = null;
+
+      // Build the photo list for every tile and add the "N photos" badge.
+      document.querySelectorAll('.moment-tile').forEach(function (tile) {
+        var photo = tile.querySelector('.moment-photo');
+        var cover = photo && photo.querySelector('img');
+        if (!photo || !cover) return;
+        var list = [];
+        tile.querySelectorAll('.tile-gallery li').forEach(function (li) {
+          list.push({ src: li.getAttribute('data-src'), cap: li.textContent.trim() });
+        });
+        if (!list.length) list.push({ src: cover.getAttribute('src'), cap: cover.getAttribute('alt') || '' });
+        tile._photos = list;
+        var strong = tile.querySelector('figcaption strong');
+        tile._title = strong ? strong.textContent : '';
+        if (list.length > 1) {
+          var b = document.createElement('span');
+          b.className = 'tile-count';
+          b.innerHTML = '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>' + list.length + ' photos';
+          photo.appendChild(b);
+        }
+        photo.addEventListener('click', function () { open(tile, 0); });
+        tile.setAttribute('tabindex', '0');
+        tile.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(tile, 0); }
+        });
+      });
+
+      function show(i) {
+        idx = (i + items.length) % items.length;
+        img.classList.remove('is-ready');
+        img.onload = function () { img.classList.add('is-ready'); };
+        img.src = items[idx].src;
+        img.alt = items[idx].cap;
+        cap.textContent = items[idx].cap;
+        counter.textContent = (idx + 1) + ' / ' + items.length;
+        if (items.length > 1) {
+          [idx + 1, idx - 1].forEach(function (n) {
+            var p = new Image(); p.src = items[(n + items.length) % items.length].src;
+          });
+        }
+      }
+      function open(tile, i) {
+        items = tile._photos; if (!items || !items.length) return;
+        title.textContent = tile._title;
+        lb.dataset.single = items.length === 1 ? 'true' : 'false';
+        lastFocus = document.activeElement;
+        lb.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        show(i);
+        document.getElementById('lbClose').focus();
+      }
+      function close() {
+        lb.classList.remove('is-open');
+        document.body.style.overflow = '';
+        img.removeAttribute('src');
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      document.getElementById('lbClose').addEventListener('click', close);
+      document.getElementById('lbPrev').addEventListener('click', function () { show(idx - 1); });
+      document.getElementById('lbNext').addEventListener('click', function () { show(idx + 1); });
+      stage.addEventListener('click', function (e) { if (e.target === stage) close(); });
+      document.addEventListener('keydown', function (e) {
+        if (!lb.classList.contains('is-open')) return;
+        if (e.key === 'Escape') close();
+        else if (e.key === 'ArrowRight') show(idx + 1);
+        else if (e.key === 'ArrowLeft') show(idx - 1);
+      });
+      var x0 = null;
+      lb.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener('touchend', function (e) {
+        if (x0 === null) return;
+        var dx = e.changedTouches[0].clientX - x0; x0 = null;
+        if (Math.abs(dx) > 40 && items.length > 1) show(dx < 0 ? idx + 1 : idx - 1);
       });
     })();
   </script>
