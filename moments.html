@@ -98,8 +98,49 @@
             </li>
           </ul>
         </div>
-        <!-- ============ PHOTO GRID ============ -->
+        <!-- ============ PHOTO GRID ============
+             HOW TO ADD A NEW PHOTO (newest goes first):
+             1. Upload the photo to assets/images/  (resize to ~1400px wide first)
+             2. Copy one <figure>...</figure> block below and paste it right under
+                <div class="moments-grid">
+             3. Change: src="assets/images/FILENAME.jpg", the alt text,
+                the <strong> title and the <span> place · date.
+             Filenames with spaces must be written with %20, e.g. "CIV%201.jpg".
+             ============================================= -->
         <div class="moments-grid">
+          <figure class="moment-tile">
+            <div class="moment-photo">
+              <img src="assets/images/CIV%203.jpg"
+                   alt="Giving the talk Who Goes First? at CIV Summer School 2026 in Miyazaki"
+                   loading="lazy" />
+            </div>
+            <figcaption>
+              <strong>CIV Summer School 2026 — talk</strong>
+              <span>"Who Goes First?" · Miyazaki, Japan · September 2026</span>
+            </figcaption>
+          </figure>
+          <figure class="moment-tile">
+            <div class="moment-photo">
+              <img src="assets/images/CIV%201.jpg"
+                   alt="Receiving the CIV Summer School 2026 Certificate of Appointment as Lecturer from Prof. Manabu Tsukada"
+                   loading="lazy" />
+            </div>
+            <figcaption>
+              <strong>CIV 2026 — appointed Lecturer</strong>
+              <span>Certificate from Prof. Tsukada · Miyazaki · September 2026</span>
+            </figcaption>
+          </figure>
+          <figure class="moment-tile">
+            <div class="moment-photo">
+              <img src="assets/images/CIV%202.jpg"
+                   alt="Group photo of CIV Summer School 2026 participants and lecturers, Miyazaki"
+                   loading="lazy" />
+            </div>
+            <figcaption>
+              <strong>CIV Summer School 2026 — group</strong>
+              <span>Participants &amp; lecturers · Miyazaki · September 2026</span>
+            </figcaption>
+          </figure>
           <figure class="moment-tile">
             <div class="moment-photo" style="background:var(--paper);">
               <img src="assets/images/IMG_7886.jpeg"
